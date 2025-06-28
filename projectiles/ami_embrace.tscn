@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvs8fno0b05kx"]
+
+[ext_resource type="Texture2D" uid="uid://cmln7hhnfa1vr" path="res://Assets/Projectiles/projectiles2.png" id="1_nl7ef"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0nbtr"]
+radius = 46.0
+
+[node name="AmiEmbrace" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nl7ef")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 62, 256, 67)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0nbtr")

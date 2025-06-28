@@ -1,0 +1,774 @@
+[gd_scene load_steps=14 format=3 uid="uid://ytpgyjew63kw"]
+
+[ext_resource type="Script" uid="uid://c6aymtsomb76x" path="res://scenes/u_i/button_manager.gd" id="1_5k6ug"]
+[ext_resource type="Texture2D" uid="uid://bljiidfrdecaq" path="res://Assets/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="2_5k6ug"]
+[ext_resource type="FontFile" uid="uid://1irehopmg3ru" path="res://Assets/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_8fjyf"]
+[ext_resource type="Texture2D" uid="uid://dk0sow1clvupr" path="res://Assets/UI/wep_exchu.png" id="4_66wc5"]
+[ext_resource type="Texture2D" uid="uid://cklouo2gpvemd" path="res://Assets/UI/wep_hanger.png" id="5_24epb"]
+[ext_resource type="Texture2D" uid="uid://bf8h3y1nd4n46" path="res://Assets/UI/wep_embrace.png" id="6_redrl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2oclh"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(436, 82, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vnqu8"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(420, 82, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o1l77"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(437, 66, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d8ywy"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(421, 66, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_divl7"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5k6ug"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fjyf"]
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(275, 178, 90, 27)
+
+[node name="InGameUIwepSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_5k6ug")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Title" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 100.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Control" type="Control" parent="CanvasLayer/Title"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Title"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Title/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Title/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(275, 212, 90, 25)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Title/HBoxContainer/VBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Title/HBoxContainer/VBoxContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.511232, 0.386817, 0.295163, 1)
+theme_override_fonts/font = ExtResource("2_8fjyf")
+theme_override_font_sizes/font_size = 14
+text = "Choose Yer Weapon"
+
+[node name="Control" type="Control" parent="CanvasLayer/Title/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MainConWep" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("first_img", "sec_img", "sel_but_one", "sel_but_two", "sel_but_three")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5k6ug")
+first_img = NodePath("ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer")
+sec_img = NodePath("ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2")
+sel_but_one = NodePath("ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer/button_one")
+sel_but_two = NodePath("../MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer/button_two")
+sel_but_three = NodePath("../MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer/button_three")
+
+[node name="ExchuWepContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BaseContainer" type="MarginContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BGcontainer" type="NinePatchRect" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer"]
+custom_minimum_size = Vector2(170, 210)
+layout_mode = 2
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(107, 59, 26, 26)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="ContentContainer" type="MarginContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer"]
+layout_mode = 2
+offset_right = 170.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TopContentCont" type="VBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="ImageCont" type="HBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="BGImage" type="NinePatchRect" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont"]
+custom_minimum_size = Vector2(150, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(293, 5, 38, 38)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="FlipWepImgFrontContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Separator" type="Control" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="WepImage" type="NinePatchRect" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(130, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_66wc5")
+
+[node name="Label" type="Label" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_8fjyf")
+text = "Exchulibladder"
+
+[node name="Separator2" type="Control" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="FlipWepImgBackContainer2" type="VBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Separator" type="Control" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="WepImage" type="NinePatchRect" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(837, 4, 22, 24)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="DescriptContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage"]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage/DescriptContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage/DescriptContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage/DescriptContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.565216, 0.430617, 0.334962, 1)
+theme_override_font_sizes/font_size = 8
+text = "An ancient equipment made by the Spidor. Specifically engineered to produce unlimited CHUs for buckos in her absence. Warning: Highly addictive. Misplacing could lead to war.
+"
+autowrap_mode = 3
+
+[node name="Separator2" type="Control" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="FlipButton2" type="Button" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2oclh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2oclh")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vnqu8")
+
+[node name="FlipButton" type="Button" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_o1l77")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o1l77")
+theme_override_styles/normal = SubResource("StyleBoxTexture_d8ywy")
+
+[node name="SelectWepContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ButtonContainer" type="HBoxContainer" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer"]
+layout_mode = 2
+
+[node name="button_one" type="Button" parent="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.564706, 0.431373, 0.333333, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_divl7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5k6ug")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8fjyf")
+text = "Select"
+
+[node name="separator" type="Control" parent="CanvasLayer/MainConWep/ExchuWepContainer"]
+layout_mode = 2
+
+[node name="MainConWep2" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("first_img", "sec_img")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -107.0
+offset_right = 170.0
+offset_bottom = 107.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 25
+script = ExtResource("1_5k6ug")
+first_img = NodePath("HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer")
+sec_img = NodePath("HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2")
+metadata/_edit_lock_ = true
+
+[node name="HangerContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BaseContainer" type="MarginContainer" parent="CanvasLayer/MainConWep2/HangerContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BGcontainer" type="NinePatchRect" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer"]
+custom_minimum_size = Vector2(170, 210)
+layout_mode = 2
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(107, 59, 26, 26)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="ContentContainer" type="MarginContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer"]
+layout_mode = 2
+offset_right = 170.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TopContentCont" type="VBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="ImageCont" type="HBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="BGImage" type="NinePatchRect" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont"]
+custom_minimum_size = Vector2(150, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(293, 5, 38, 38)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="FlipWepImgFrontContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Separator" type="Control" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="WepImage" type="NinePatchRect" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(130, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_24epb")
+
+[node name="Label" type="Label" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_8fjyf")
+text = " SSS hanger "
+
+[node name="Separator2" type="Control" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="FlipWepImgBackContainer2" type="VBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Separator" type="Control" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="WepImage2" type="NinePatchRect" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(837, 4, 22, 24)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="DescriptContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2"]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2/DescriptContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2/DescriptContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2/DescriptContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.565216, 0.430617, 0.334962, 1)
+theme_override_font_sizes/font_size = 8
+text = "Said to have been passed down for generations by ancient moms from a continent called Asia. Highly lethal weapon. Discipline? Say no more."
+autowrap_mode = 3
+
+[node name="Separator2" type="Control" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="FlipButton2" type="Button" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2oclh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2oclh")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vnqu8")
+
+[node name="FlipButton" type="Button" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_o1l77")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o1l77")
+theme_override_styles/normal = SubResource("StyleBoxTexture_d8ywy")
+
+[node name="SelectWepContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ButtonContainer" type="HBoxContainer" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer"]
+layout_mode = 2
+
+[node name="button_two" type="Button" parent="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.564706, 0.431373, 0.333333, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_divl7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5k6ug")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8fjyf")
+text = "Select"
+
+[node name="separator" type="Control" parent="CanvasLayer/MainConWep2/HangerContainer"]
+layout_mode = 2
+
+[node name="MainConWep3" type="MarginContainer" parent="CanvasLayer" node_paths=PackedStringArray("first_img", "sec_img")]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -107.0
+offset_bottom = 107.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/margin_right = 25
+script = ExtResource("1_5k6ug")
+first_img = NodePath("EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer")
+sec_img = NodePath("EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2")
+metadata/_edit_lock_ = true
+
+[node name="EmbraceWepContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BaseContainer" type="MarginContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BGcontainer" type="NinePatchRect" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer"]
+custom_minimum_size = Vector2(170, 210)
+layout_mode = 2
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(107, 59, 26, 26)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="ContentContainer" type="MarginContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer"]
+layout_mode = 2
+offset_right = 170.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="TopContentCont" type="VBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="ImageCont" type="HBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont"]
+layout_mode = 2
+size_flags_horizontal = 0
+alignment = 1
+
+[node name="BGImage" type="NinePatchRect" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont"]
+custom_minimum_size = Vector2(150, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(293, 5, 38, 38)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="FlipWepImgFrontContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Separator" type="Control" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="WepImage" type="NinePatchRect" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(130, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_redrl")
+
+[node name="Label" type="Label" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_8fjyf")
+theme_override_font_sizes/font_size = 14
+text = "SPIDOR's EMbrace"
+
+[node name="Separator2" type="Control" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgFrontContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="FlipWepImgBackContainer2" type="VBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Separator" type="Control" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="WepImage2" type="NinePatchRect" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_5k6ug")
+region_rect = Rect2(837, 4, 22, 24)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="DescriptContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2"]
+custom_minimum_size = Vector2(130, 110)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2/DescriptContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2/DescriptContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2/WepImage2/DescriptContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 110)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.565216, 0.430617, 0.334962, 1)
+theme_override_font_sizes/font_size = 8
+text = "Get comfy with the spidor's web. Be aware of how tight the grip is... Comfy levels may vary per individual buckos. "
+autowrap_mode = 3
+
+[node name="Separator2" type="Control" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/FlipWepImgBackContainer2"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="FlipButton2" type="Button" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2oclh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2oclh")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vnqu8")
+
+[node name="FlipButton" type="Button" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons"]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_o1l77")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o1l77")
+theme_override_styles/normal = SubResource("StyleBoxTexture_d8ywy")
+
+[node name="SelectWepContainer" type="VBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ButtonContainer" type="HBoxContainer" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer"]
+layout_mode = 2
+
+[node name="button_three" type="Button" parent="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.564706, 0.431373, 0.333333, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_divl7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5k6ug")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8fjyf")
+text = "Select"
+
+[node name="separator" type="Control" parent="CanvasLayer/MainConWep3/EmbraceWepContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons/FlipButton2" to="CanvasLayer/MainConWep" method="_on_flip_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons/FlipButton" to="CanvasLayer/MainConWep" method="_on_flip_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep/ExchuWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer/button_one" to="CanvasLayer/MainConWep" method="_on_button_one_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons/FlipButton2" to="CanvasLayer/MainConWep2" method="_on_flip_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons/FlipButton" to="CanvasLayer/MainConWep2" method="_on_flip_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep2/HangerContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer/button_two" to="CanvasLayer/MainConWep2" method="_on_button_two_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons/FlipButton2" to="CanvasLayer/MainConWep3" method="_on_flip_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/TopContentCont/ImageCont/BGImage/Buttons/FlipButton" to="CanvasLayer/MainConWep3" method="_on_flip_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainConWep3/EmbraceWepContainer/BaseContainer/BGcontainer/ContentContainer/SelectWepContainer/ButtonContainer/button_three" to="CanvasLayer/MainConWep3" method="_on_button_three_pressed"]

@@ -1,0 +1,198 @@
+[gd_scene load_steps=10 format=3 uid="uid://qwyggs83jx8h"]
+
+[ext_resource type="Script" uid="uid://ygjuxnxnst0a" path="res://scenes/Scenes/ami.gd" id="1_jwuy1"]
+[ext_resource type="Texture2D" uid="uid://bp328ii4t211v" path="res://Assets/Player/ami_sprites.png" id="3_bnwk6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwuy1"]
+radius = 15.2971
+
+[sub_resource type="Animation" id="Animation_srnwn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AmiBase:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../AmiEmbrace:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../AmiExchu:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jwuy1"]
+resource_name = "ami_base"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AmiBase:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_bnwk6"]
+resource_name = "ami_embrace"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AmiEmbrace:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.133333, 0.233333, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 3, 2]
+}
+
+[sub_resource type="Animation" id="Animation_nprb0"]
+resource_name = "ami_exchu"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AmiExchu:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ra1yi"]
+resource_name = "ami_hanger"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nprb0"]
+_data = {
+&"RESET": SubResource("Animation_srnwn"),
+&"ami_base": SubResource("Animation_jwuy1"),
+&"ami_embrace": SubResource("Animation_bnwk6"),
+&"ami_exchu": SubResource("Animation_nprb0"),
+&"ami_hanger": SubResource("Animation_ra1yi")
+}
+
+[node name="Ami" type="CharacterBody2D"]
+collision_mask = 15
+script = ExtResource("1_jwuy1")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jwuy1")
+
+[node name="AmiBase" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("3_bnwk6")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 200, 256, 48)
+metadata/_edit_lock_ = true
+
+[node name="Marker2D" type="Marker2D" parent="AmiBase"]
+
+[node name="AmiHanger" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-2, 7)
+rotation = 1.5708
+texture = ExtResource("3_bnwk6")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 136, 256, 64)
+metadata/_edit_lock_ = true
+
+[node name="AmiEmbrace" type="Sprite2D" parent="."]
+visible = false
+rotation = 1.5708
+texture = ExtResource("3_bnwk6")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 8, 256, 48)
+
+[node name="AmiExchu" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1, 7)
+rotation = 1.5708
+texture = ExtResource("3_bnwk6")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 72, 256, 56)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AmiHanger")
+libraries = {
+&"": SubResource("AnimationLibrary_nprb0")
+}
+autoplay = "ami_exchu"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(20, 0)
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+
+[node name="RageTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="RageTimer2" type="Timer" parent="."]
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

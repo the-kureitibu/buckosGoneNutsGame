@@ -1,0 +1,145 @@
+[gd_scene load_steps=9 format=3 uid="uid://1ecb8vkkd3rg"]
+
+[ext_resource type="Texture2D" uid="uid://chmduejlpo42k" path="res://Assets/UI/hp2.png" id="1_7xr63"]
+[ext_resource type="Texture2D" uid="uid://cyg0v85ujhn6" path="res://Assets/UI/hp1.png" id="2_rhdab"]
+[ext_resource type="Script" uid="uid://bnstikv1djlqm" path="res://scenes/u_i/stats_bar.gd" id="3_8vu4p"]
+[ext_resource type="Texture2D" uid="uid://x6kaqg5riitx" path="res://Assets/UI/progress_bar.png" id="3_ogmmq"]
+[ext_resource type="Texture2D" uid="uid://dac5feq2alm6l" path="res://Assets/UI/progress_fill.png" id="4_w2vet"]
+[ext_resource type="Texture2D" uid="uid://bowtjwafs1bc6" path="res://Assets/UI/wave2prog_bar.png" id="5_comeu"]
+[ext_resource type="Texture2D" uid="uid://cawemxpu2hhga" path="res://Assets/UI/waveprog_bar.png" id="6_8vu4p"]
+[ext_resource type="FontFile" uid="uid://1irehopmg3ru" path="res://Assets/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="7_ainkc"]
+
+[node name="InGameUI" type="Control" node_paths=PackedStringArray("rage_prog", "health_bar", "wave_progress", "wave_count")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_8vu4p")
+rage_prog = NodePath("CanvasLayer/RageContainer/VBoxContainer/HBoxContainer/VBoxContainer/TextureProgressBar")
+health_bar = NodePath("CanvasLayer/HealthContainer/VBoxContainer/HBoxContainer/TextureProgressBar")
+wave_progress = NodePath("CanvasLayer/WaveContainer/VBoxContainer/HBoxContainer/TextureProgressBar")
+wave_count = NodePath("CanvasLayer/WaveContainer/VBoxContainer/Label")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="HealthContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HealthContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HealthContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+texture_over = ExtResource("1_7xr63")
+texture_progress = ExtResource("2_rhdab")
+
+[node name="SeparatorH" type="Control" parent="CanvasLayer/HealthContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SeparatV" type="Control" parent="CanvasLayer/HealthContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="RageContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/RageContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/RageContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/RageContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/RageContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/RageContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+max_value = 15.0
+texture_over = ExtResource("3_ogmmq")
+texture_progress = ExtResource("4_w2vet")
+
+[node name="WaveContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WaveContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/separation = 3
+
+[node name="Control" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 215)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WaveContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -25
+
+[node name="Control" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/WaveContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(112, 2)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 50.0
+texture_over = ExtResource("5_comeu")
+texture_progress = ExtResource("6_8vu4p")
+
+[node name="Control2" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/WaveContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_ainkc")
+theme_override_font_sizes/font_size = 10
+text = "Wave: "
+
+[node name="Control2" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
