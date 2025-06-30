@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://8j44qxvxmtgy"]
+
+[ext_resource type="Texture2D" uid="uid://i0opbi3tfwtr" path="res://Assets/Enemies/bucko_base.png" id="1_bs8vt"]
+[ext_resource type="Script" uid="uid://c8xsk2cowyilq" path="res://scenes/Scenes/bucko.gd" id="1_p48ci"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p48ci"]
+radius = 5.0
+
+[node name="Bucko" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 31
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_p48ci")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-4.76837e-07, -2.38419e-07)
+scale = Vector2(0.316406, 0.328125)
+texture = ExtResource("1_bs8vt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_p48ci")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 20.5
+path_postprocessing = 1
+debug_enabled = true
+
+[node name="LocateTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="LocateTimer" to="." method="_on_locate_timer_timeout"]

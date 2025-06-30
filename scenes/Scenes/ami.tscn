@@ -128,7 +128,7 @@ _data = {
 }
 
 [node name="Ami" type="CharacterBody2D"]
-collision_mask = 15
+collision_mask = 31
 script = ExtResource("1_jwuy1")
 metadata/_edit_lock_ = true
 
@@ -193,6 +193,5 @@ offset_bottom = 23.0
 [node name="RageTimer2" type="Timer" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.0
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

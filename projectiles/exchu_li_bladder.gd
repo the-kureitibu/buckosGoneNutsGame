@@ -10,6 +10,7 @@ func _ready():
 	$AnimationPlayer.play("exchu_proj")
 	var tween = create_tween()
 	tween.tween_property($Sprite2D,"scale", Vector2(1.5,1.5), 0.5)
+	$QFreeTimer.start()
 
 func rage_stat_increase():
 	pass
@@ -46,5 +47,7 @@ func _on_body_entered(body: Node2D) -> void:
 #func _exit_tree():
 	#print_debug("Node is being removed from the scene!")
 
-func _on_timer_timeout():
-	pass
+
+
+func _on_q_free_timer_timeout() -> void:
+	queue_free() # Replace with function body.

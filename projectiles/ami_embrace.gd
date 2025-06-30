@@ -23,6 +23,7 @@ func _process(_delta: float) -> void:
 func rage_stat_increase():
 	pass
 	# stats dies down after 2 seconds during the 10 second cooling window 
+	# increase tween size, remove queue free 
 
 func _on_body_entered(body: Node2D) -> void:
 	if 'hit' in body:
