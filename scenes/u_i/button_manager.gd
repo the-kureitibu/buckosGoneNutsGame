@@ -6,7 +6,7 @@ extends Control
 @export var sel_but_one: Button
 @export var sel_but_two: Button
 @export var sel_but_three: Button
-signal weapon_selected
+
 
 
 #func _ready() -> void:
@@ -34,20 +34,20 @@ func _on_flip_button_pressed():
 func _on_button_one_pressed() -> void:
 	Globals.wep_exchu = true 
 	$"..".visible = false
-	weapon_selected.emit()
+	Globals.weapon_selected = true
 	print(Globals.wep_exchu)
 	print("exchu") # exchu
 
 func _on_button_two_pressed() -> void:
 	Globals.wep_hanger = true
 	$"..".visible = false
-	weapon_selected.emit()
+	Globals.weapon_selected = true
 	print(Globals.wep_hanger) # hanger
 	print("hanger")
 
 func _on_button_three_pressed() -> void:
 	Globals.wep_embrace = true
 	$"..".visible = false
-	weapon_selected.emit()
+	Globals.weapon_selected = true
 	print(Globals.wep_embrace) # embrace
 	print("embrace")

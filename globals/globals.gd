@@ -6,7 +6,60 @@ signal stat_change
 signal change_wave
 
 var game_ready: bool = false
+var game_end: bool = false
+var weapon_selected: bool = false
 
+#Weapons Dictionaries 
+var hanger_wep = {
+	"Damage": 25,
+	"Max_damage": 50
+}
+
+var exchu_wep = {
+	"Damage": 20,
+	"Max_damage": 60
+	#Add slow effect
+	#Add max slow effect 
+}
+
+var embrace_wep = {
+	"Damage": 25,
+	"Max_damage": 35
+	#Implement Stops per seconds 
+	#Implement max stop per seconds 
+}
+
+#Enemy Dictionaries
+var bucko = {
+	"Health": 70,
+	"Damage": 10
+	#max damage if applicable
+	#skill cd if applicable 
+}
+
+var elder_bucko1 = {
+	"Health": 500,
+	"Damage": 20
+	#max damage if applicable
+	#skill cd if applicable 
+}
+
+var elder_bucko2 = {
+	"Health": 600,
+	"Damage": 20
+	#max damage if applicable
+	#skill cd if applicable 
+}
+
+var elder_bucko3 = {
+	"Health": 600,
+	"Damage": 20
+	#max damage if applicable
+	#skill cd if applicable 
+}
+
+
+#Player States 
 enum RageState {
 	IDLE,
 	RAGING,
@@ -48,6 +101,8 @@ var wep_exchu: bool = false
 var outside_range: bool = false
 
 # Waves
+var moving_to_next_wave: bool = false
+var current_wave
 var wave_1: bool = true:
 	set(value):
 		wave_1 = value

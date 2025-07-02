@@ -6,31 +6,28 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_p48ci"]
 radius = 5.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_i3jya"]
-radius = 95.0474
-
-[sub_resource type="Animation" id="Animation_i3jya"]
+[sub_resource type="Animation" id="Animation_p48ci"]
 resource_name = "bucko_walk"
 length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
+tracks/0/path = NodePath("../BuckoN:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333, 0.25, 0.5, 0.75),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [1, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_uwvkr"]
+[sub_resource type="Animation" id="Animation_i3jya"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
+tracks/0/path = NodePath("../BuckoN:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -42,7 +39,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../BuckoDash:frame")
+tracks/1/path = NodePath(".:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -52,13 +49,13 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_yyfdn"]
+[sub_resource type="Animation" id="Animation_uwvkr"]
 resource_name = "bucko_dash"
 length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../BuckoDash:frame")
+tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,12 +65,15 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_g05l4"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yyfdn"]
 _data = {
-&"RESET": SubResource("Animation_uwvkr"),
-&"bucko_dash": SubResource("Animation_yyfdn"),
-&"bucko_walk": SubResource("Animation_i3jya")
+&"RESET": SubResource("Animation_i3jya"),
+&"bucko_dash": SubResource("Animation_uwvkr"),
+&"bucko_walk": SubResource("Animation_p48ci")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i3jya"]
+radius = 95.0474
 
 [node name="Bucko" type="CharacterBody2D" node_paths=PackedStringArray("buckoN", "buckoD")]
 collision_layer = 2
@@ -81,27 +81,27 @@ collision_mask = 31
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_p48ci")
-buckoN = NodePath("BuckoNorm")
-buckoD = NodePath("BuckoDash")
+buckoN = NodePath("BuckoN")
+buckoD = NodePath("BuckoD")
 
-[node name="BuckoNorm" type="Sprite2D" parent="."]
-position = Vector2(-4.76837e-07, -2.38419e-07)
+[node name="BuckoN" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, -1.90735e-06)
 rotation = -1.5708
-scale = Vector2(0.316406, 0.328125)
+scale = Vector2(0.330639, 0.333194)
 texture = ExtResource("2_p48ci")
 hframes = 4
 region_enabled = true
-region_rect = Rect2(0, 191, 256, 62)
+region_rect = Rect2(0, 191, 256, 65)
 
-[node name="BuckoDash" type="Sprite2D" parent="."]
+[node name="BuckoD" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-4.76837e-07, -2.38419e-07)
+position = Vector2(-1.90735e-06, -1.90735e-06)
 rotation = -1.5708
-scale = Vector2(0.316406, 0.328125)
+scale = Vector2(0.330639, 0.333194)
 texture = ExtResource("2_p48ci")
 hframes = 4
 region_enabled = true
-region_rect = Rect2(0, 134, 256, 51)
+region_rect = Rect2(0, 132, 256, 58)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_p48ci")
@@ -109,10 +109,8 @@ shape = SubResource("CircleShape2D_p48ci")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 20.5
 path_postprocessing = 1
-debug_enabled = true
 
 [node name="LocateTimer" type="Timer" parent="."]
-wait_time = 0.1
 autostart = true
 
 [node name="DashDisableTimer" type="Timer" parent="."]
@@ -123,22 +121,22 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../BuckoD")
+libraries = {
+&"": SubResource("AnimationLibrary_yyfdn")
+}
+
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_i3jya")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../BuckoNorm")
-libraries = {
-&"": SubResource("AnimationLibrary_g05l4")
-}
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="LocateTimer" to="." method="_on_locate_timer_timeout"]
-[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
+[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashEnableTimer" to="." method="_on_dash_enable_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -18,6 +18,7 @@ agent_radius = 5.0
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_81xng")
+bucko_scene = ExtResource("8_uwuxc")
 
 [node name="BaseGround" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -53,6 +54,7 @@ metadata/_edit_lock_ = true
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(175, 395)
 navigation_polygon = SubResource("NavigationPolygon_uwuxc")
+metadata/_edit_lock_ = true
 
 [node name="Node2D" parent="." instance=ExtResource("3_ywq4x")]
 position = Vector2(417, 47)
@@ -64,15 +66,90 @@ scale = Vector2(0.502136, 0.596528)
 metadata/_edit_lock_ = true
 
 [node name="InGameUIwepSelect" parent="." instance=ExtResource("5_wqkje")]
+metadata/_edit_lock_ = true
 
 [node name="InGameUI" parent="." instance=ExtResource("7_3ulh3")]
 offset_left = 40.0
 offset_top = -51.0
 offset_right = 40.0
 offset_bottom = -51.0
+metadata/_edit_lock_ = true
 
-[node name="Bucko" parent="." node_paths=PackedStringArray("target_dir") instance=ExtResource("8_uwuxc")]
-position = Vector2(128, -77)
-target_dir = NodePath("../Ami")
+[node name="SpawnMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2078, -60)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2015, 72)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2144, 132)
+
+[node name="Marker2D12" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1179, -81)
+
+[node name="Marker2D13" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1368, -75)
+
+[node name="Marker2D14" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1389, 126)
+
+[node name="Marker2D15" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1088, 528)
+
+[node name="Marker2D16" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1590, 625)
+
+[node name="Marker2D17" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-765, 911)
+
+[node name="Marker2D18" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-624, 1011)
+
+[node name="Marker2D19" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(261, 1184)
+
+[node name="Marker2D20" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1359, 1128)
+
+[node name="Marker2D21" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-188, 1056)
+
+[node name="Marker2D22" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(553, 510)
+
+[node name="Marker2D23" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-122, 422)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1130, 266)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2115, 768)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1902, 951)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(804, 333)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(977, 396)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2075, 917)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1290, -235)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1368, -153)
+
+[node name="Boss Spawn" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(148, 593)
+
+[node name="SpawnTimer" type="Timer" parent="."]
 
 [connection signal="projectle" from="Ami" to="." method="_on_ami_projectle"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
