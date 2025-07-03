@@ -30,6 +30,7 @@ var wave_ended: bool
 var wave_spawn_ended: bool
 
 func _ready() -> void:
+	spawn_boss()
 	if Globals.wave_1:
 		Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
 	elif !Globals.wave_1 and !Globals.wave_3 and Globals.wave_2:
@@ -81,10 +82,6 @@ func enemy_spawn():
 	bucko.connect("died", enemy_died)
 	print('active enemies: ',active_enemies)
 	
-	
-	#connect to a death function here, 
-	#for enemy died reduce active enemies and resume timer if the number of active enemies is within threshold
-
 func enemy_died():
 	active_enemies -= 1
 	Globals.defeated_mobs -= 1
@@ -99,8 +96,6 @@ func enemy_died():
 		#has_spawn_started = false
 		
 		
-
-
 #func start_spawn(timer, amount: int, total_rounds: int):
 #
 	#var counter = 0
@@ -204,7 +199,17 @@ func enemy_died():
 	#wave_spawn_ended = false
 		#
 func spawn_boss():
-	pass
+	var player = get_node("Ami")
+	
+	var spawn_marker = $SpawnMarkers/Marker2D10
+	var elder1 = elder_bucko1.instantiate()
+	elder1.position = spawn_marker.global_position
+	if player:
+		elder1.target_dir = player
+	add_child(elder1)
+	active_enemies += 1
+	elder1.connect("died", enemy_died)
+	
 
 func get_weapon(weapon):
 	var get_wep = weapon.instantiate() as Area2D

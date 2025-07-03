@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgj02a4spk0b5"]
+
+[ext_resource type="Script" uid="uid://budwhxj6ehv3x" path="res://scenes/u_i/health_bar_parent.gd" id="1_tvksn"]
+
+[node name="HealthBarParent" type="ProgressBar"]
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("1_tvksn")

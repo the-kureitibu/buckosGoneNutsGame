@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cviy7isf10pg8"]
+
+[ext_resource type="Texture2D" uid="uid://pajwi1sgckso" path="res://Assets/UI/progress.png" id="1_6m3h7"]
+[ext_resource type="Script" uid="uid://bed0wfm1urv4" path="res://scenes/Scenes/elder_one_health.gd" id="2_k618y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k618y"]
+bg_color = Color(0.827451, 0.254902, 0.105882, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4o70s"]
+texture = ExtResource("1_6m3h7")
+
+[node name="ElderOneHealth" type="ProgressBar" node_paths=PackedStringArray("prog_bar")]
+offset_left = -75.0
+offset_top = 7.0
+offset_right = 76.0
+offset_bottom = 34.0
+theme_override_styles/background = SubResource("StyleBoxFlat_k618y")
+theme_override_styles/fill = SubResource("StyleBoxTexture_4o70s")
+max_value = 0.0
+show_percentage = false
+script = ExtResource("2_k618y")
+prog_bar = NodePath(".")

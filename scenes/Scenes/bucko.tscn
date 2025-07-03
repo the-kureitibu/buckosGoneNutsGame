@@ -107,10 +107,6 @@ region_rect = Rect2(0, 132, 256, 58)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_p48ci")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 20.5
-path_postprocessing = 1
-
 [node name="LocateTimer" type="Timer" parent="."]
 autostart = true
 
@@ -150,7 +146,7 @@ rotation = -1.5708
 
 [connection signal="current_health" from="." to="BuckohealthBar" method="_on_bucko_current_health"]
 [connection signal="timeout" from="LocateTimer" to="." method="_on_locate_timer_timeout"]
-[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
+[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashEnableTimer" to="." method="_on_dash_enable_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

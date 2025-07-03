@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtmmmmd1dpmvj"]
+
+[ext_resource type="Texture2D" uid="uid://bpu5h32y5tk2h" path="res://Assets/Enemies/buckos_animation_sprite.png" id="1_mjdbb"]
+[ext_resource type="Script" uid="uid://cw0prcd108y4" path="res://scenes/Scenes/elder_bucko_one.gd" id="1_t8wld"]
+[ext_resource type="PackedScene" uid="uid://cviy7isf10pg8" path="res://scenes/Scenes/elder_one_health.tscn" id="3_t8wld"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5hcqq"]
+radius = 43.2897
+
+[sub_resource type="Animation" id="Animation_t8wld"]
+resource_name = "elder_bucko_walk"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_fxfp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ayhn"]
+_data = {
+&"RESET": SubResource("Animation_fxfp3"),
+&"elder_bucko_walk": SubResource("Animation_t8wld")
+}
+
+[node name="ElderBuckoOne" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_t8wld")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.90735e-06, 1.90735e-06)
+rotation = -1.5708
+scale = Vector2(1.47878, 1.58397)
+texture = ExtResource("1_mjdbb")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 65, 256, 66)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5hcqq")
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2ayhn")
+}
+
+[node name="ElderOneHealth" parent="." instance=ExtResource("3_t8wld")]
+offset_left = 48.0
+offset_top = 40.0
+offset_right = 127.0
+offset_bottom = 51.0
+rotation = -1.5708
+
+[connection signal="current_health" from="." to="ElderOneHealth" method="_on_elder_bucko_one_current_health"]
