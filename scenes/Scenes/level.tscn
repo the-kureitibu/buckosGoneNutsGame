@@ -78,52 +78,52 @@ metadata/_edit_lock_ = true
 [node name="SpawnMarkers" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2078, -60)
+position = Vector2(455, -207)
 
 [node name="Marker2D2" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2015, 72)
+position = Vector2(627, -139)
 
 [node name="Marker2D3" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2144, 132)
+position = Vector2(691, -22)
 
 [node name="Marker2D12" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(-1179, -81)
 
 [node name="Marker2D13" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1368, -75)
+position = Vector2(-236, -109)
 
 [node name="Marker2D14" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1389, 126)
+position = Vector2(-291, 250)
 
 [node name="Marker2D15" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1088, 528)
+position = Vector2(-659, 179)
 
 [node name="Marker2D16" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(-1590, 625)
 
 [node name="Marker2D17" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-765, 911)
+position = Vector2(0, 677)
 
 [node name="Marker2D18" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-624, 1011)
+position = Vector2(434, 736)
 
 [node name="Marker2D19" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(261, 1184)
+position = Vector2(195, 718)
 
 [node name="Marker2D20" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(1359, 1128)
 
 [node name="Marker2D21" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-188, 1056)
+position = Vector2(-254, 631)
 
 [node name="Marker2D22" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(553, 510)
+position = Vector2(355, 361)
 
 [node name="Marker2D23" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(-122, 422)
 
 [node name="Marker2D7" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1130, 266)
+position = Vector2(246, -317)
 
 [node name="Marker2D8" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(2115, 768)
@@ -132,22 +132,22 @@ position = Vector2(2115, 768)
 position = Vector2(1902, 951)
 
 [node name="Marker2D4" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(804, 333)
+position = Vector2(488, 416)
 
 [node name="Marker2D5" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(977, 396)
+position = Vector2(-470, -29)
 
 [node name="Marker2D6" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(2075, 917)
 
 [node name="Marker2D10" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1290, -235)
+position = Vector2(301, -146)
 
 [node name="Marker2D11" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1368, -153)
+position = Vector2(449, -72)
 
 [node name="Boss Spawn" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(148, 593)
+position = Vector2(38, 451)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 

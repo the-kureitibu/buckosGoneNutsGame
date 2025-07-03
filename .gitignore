@@ -20,3 +20,4 @@ mono_crash.*.json
 #Personal
 \Assets\Sprout Lands - UI Pack - Basic pack\emojis-free
 \Assets\Sprout Lands - UI Pack - Basic pack\read_me.txt    
+*.tmp

@@ -4,6 +4,7 @@ extends Node
 signal rage_activated
 signal stat_change
 signal change_wave
+signal change_mobs_count
 
 var game_ready: bool = false
 var game_end: bool = false
@@ -89,8 +90,6 @@ var player_state =  PlayerState.IDLE
 var t: String = 'rage activated'
 var player_pos: Vector2
 var ami_health: float = 100.0
-var bucko_health: float = 150.0
-var elder_bucko_health: float = 400.0
 
 # Weapon choices 
 var wep_hanger: bool = false
@@ -98,9 +97,20 @@ var wep_embrace: bool = false
 var wep_exchu: bool = false
 
 # max range indication
-var outside_range: bool = false
+var outside_range: bool = false #to be implemented
 
 # Waves
+
+const W1_MAX_ENEMY_COUNT: int = 100
+const W2_MAX_ENEMY_COUNT: int = 130
+const W3_MAX_ENEMY_COUNT: int = 150
+
+var defeated_mobs: int:
+	set(value):
+		defeated_mobs = value
+		change_mobs_count.emit()
+
+
 var moving_to_next_wave: bool = false
 var current_wave
 var wave_1: bool = true:

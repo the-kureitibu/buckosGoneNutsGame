@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cawemxpu2hhga" path="res://Assets/UI/waveprog_bar.png" id="6_8vu4p"]
 [ext_resource type="FontFile" uid="uid://1irehopmg3ru" path="res://Assets/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="7_ainkc"]
 
-[node name="InGameUI" type="Control" node_paths=PackedStringArray("rage_prog", "health_bar", "wave_progress", "wave_count")]
+[node name="InGameUI" type="Control" node_paths=PackedStringArray("rage_prog", "health_bar", "wave_progress", "wave_count", "enemy_remaining")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ rage_prog = NodePath("CanvasLayer/RageContainer/VBoxContainer/HBoxContainer/VBox
 health_bar = NodePath("CanvasLayer/HealthContainer/VBoxContainer/HBoxContainer/TextureProgressBar")
 wave_progress = NodePath("CanvasLayer/WaveContainer/VBoxContainer/HBoxContainer/TextureProgressBar")
 wave_count = NodePath("CanvasLayer/WaveContainer/VBoxContainer/Label")
+enemy_remaining = NodePath("CanvasLayer/WaveRemainingContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label2")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 0
@@ -101,6 +102,9 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_group_ = true
 
+[node name="Control" type="Control" parent="CanvasLayer/WaveContainer"]
+layout_mode = 2
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WaveContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -109,6 +113,15 @@ theme_override_constants/separation = 3
 
 [node name="Control" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 215)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/WaveContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Control" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WaveContainer/VBoxContainer"]
@@ -127,7 +140,6 @@ custom_minimum_size = Vector2(112, 2)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-max_value = 50.0
 texture_over = ExtResource("5_comeu")
 texture_progress = ExtResource("6_8vu4p")
 
@@ -142,4 +154,50 @@ text = "Wave: "
 
 [node name="Control2" type="Control" parent="CanvasLayer/WaveContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="WaveRemainingContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WaveRemainingContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = -8
+
+[node name="Control" type="Control" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(5, 3)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("7_ainkc")
+theme_override_font_sizes/font_size = 13
+
+[node name="Control2" type="Control" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/WaveRemainingContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2

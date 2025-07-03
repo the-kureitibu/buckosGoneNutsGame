@@ -26,8 +26,14 @@ func rage_stat_increase():
 	# increase tween size, remove queue free 
 
 func _on_body_entered(body: Node2D) -> void:
+	var damage = 0
+	damage = Globals.embrace_wep.Damage
+	
 	if 'hit' in body:
-		body.hit()
+		body.hit(damage)
+	if 'snared' in body:
+		body.snared(1.0)
+		print('snared')
 				
 	if Globals.rage < Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE:
 		Globals.rage += 1

@@ -25,9 +25,18 @@ func _process(delta: float) -> void:
 		
 
 func _on_body_entered(body: Node2D) -> void:
+	var damage = 0
+	damage = Globals.exchu_wep.Damage
+	
 	if 'hit' in body:
-		body.hit()
-				
+		body.hit(damage)
+	if 'slowed' in body:
+		body.slowed(0.1, 2.0)
+		print('slowed')
+	#if 'snared' in body:
+		#body.snared(1.5)
+		#print('snared')
+	
 	if Globals.rage < Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE:
 		Globals.rage += 1
 		print(Globals.rage, 'global rage')
@@ -35,6 +44,9 @@ func _on_body_entered(body: Node2D) -> void:
 		Globals.rage_on = true
 		print_debug(Globals.rage_on, ' raging?')
 		print_debug('rage ongoing, cant gain rage')
+	
+	
+
 		
 
 	#if !$Timer.is_stopped():

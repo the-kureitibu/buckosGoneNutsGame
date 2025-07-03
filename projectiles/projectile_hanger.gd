@@ -23,8 +23,11 @@ func rage_stat_increase():
 	# stats dies down after 2 seconds during the 10 second cooling window 
 
 func _on_body_entered(body: Node2D) -> void:
+	var damage = 0
+	damage = Globals.hanger_wep.Damage
+	
 	if 'hit' in body:
-		body.hit()
+		body.hit(damage)
 				
 	if Globals.rage < Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE:
 		Globals.rage += 1

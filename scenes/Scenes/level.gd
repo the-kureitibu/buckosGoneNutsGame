@@ -6,9 +6,6 @@ var get_exchu_proj: PackedScene = preload("res://projectiles/exchu_li_bladder.ts
 var get_embrace_proj: PackedScene = preload("res://projectiles/ami_embrace.tscn")
 
 # Wave States
-var W1_MAX_ENEMY_COUNT: int = 100
-var W2_MAX_ENEMY_COUNT: int = 130
-var W3_MAX_ENEMY_COUNT: int = 150
 var ROUND_COUNT = 5
 var resume_spawn_treshold = 20
 var active_enemies = 0
@@ -27,10 +24,18 @@ var has_spawn_started: bool = false
 @export var elder_bucko2: PackedScene
 @onready var spawn_timer = $SpawnTimer
 
+
+
 var wave_ended: bool
 var wave_spawn_ended: bool
 
-#func _ready() -> void:
+func _ready() -> void:
+	if Globals.wave_1:
+		Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
+	elif !Globals.wave_1 and !Globals.wave_3 and Globals.wave_2:
+		Globals.defeated_mobs = Globals.W2_MAX_ENEMY_COUNT
+	elif Globals.wave_3:
+		Globals.defeated_mobs = Globals.W3_MAX_ENEMY_COUNT
 
 func _process(_delta: float) -> void:
 	if Globals.weapon_selected and !Globals.game_ready:
@@ -46,12 +51,12 @@ func game_start():
 		print('Time Started?', !spawn_timer.is_stopped())
 	
 func _on_spawn_timer_timeout() -> void:
-	if current_wave == 1 and enemy_deaths == W1_MAX_ENEMY_COUNT:
+	if current_wave == 1 and enemy_deaths == Globals.W1_MAX_ENEMY_COUNT:
 		#spawn_timer.stop()
 		#proceed to wave 2
 		pass
 	
-	if enemies_spawn >= W1_MAX_ENEMY_COUNT:
+	if enemies_spawn >= Globals.W1_MAX_ENEMY_COUNT:
 		spawn_timer.stop()
 		return
 		
@@ -82,6 +87,7 @@ func enemy_spawn():
 
 func enemy_died():
 	active_enemies -= 1
+	Globals.defeated_mobs -= 1
 
 #func proceed_to_next_wave():
 	#
