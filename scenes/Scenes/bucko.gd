@@ -7,18 +7,19 @@ var can_dash: bool = true
 var is_dashing: bool = false
 var dash_speed_multiplier = 5.0
 var health = Globals.bucko.Health
-var avoid_radius := 32.0
+var avoid_radius := 70.0
 
 #Statuses
 var is_snared: bool = false
 var is_slowed: bool = false
 
-#temp
+#Status Durations
 var snare_time_left := 0.0
 var slow_time_left := 0.0
 var slow_multiplier := 1.0
 
 signal died
+signal current_health(health_value)
 
 @export var buckoN: Sprite2D
 @export var buckoD: Sprite2D
@@ -29,6 +30,7 @@ func hit(damage: int):
 
 	health -= damage
 	health = clamp(health, 0, 70)
+	current_health.emit(health)
 	#Globals.bucko.Health = 
 	if health <= 0:
 		die()
@@ -61,7 +63,7 @@ func slowed(multiplier: float, duration: float):
 
 func _ready() -> void:
 	set_physics_process(true)
-	make_path()
+	#make_path()
 
 func die():
 	set_physics_process(false)
@@ -136,37 +138,37 @@ func _physics_process(delta: float) -> void:
 
 
 
-	#var next_path_position = nav_agent.get_next_path_position()
+	##var next_path_position = nav_agent.get_next_path_position()
+	##
+	##var direction = (next_path_position - global_position).normalized()
+	##if nav_agent.is_navigation_finished():
+		##velocity = Vector2.ZERO
+##
+	##if is_dashing:
+		##velocity = direction * $NavigationAgent2D.max_speed * dash_speed_multiplier
+	##else:
+		##velocity = direction * $NavigationAgent2D.max_speed
+	##
+	###var current_animation = $AnimatedSprite2D.animation
+	##
+	##if direction != Vector2.ZERO:
+		##if is_dashing and $AnimationPlayer.current_animation != "bucko_dash":
+			##$AnimationPlayer.play("bucko_dash")
+		##elif !is_dashing and $AnimationPlayer.current_animation != "bucko_walk":
+			##$AnimationPlayer.play("bucko_walk")
+	##
+	##move_and_slide()
+	###if direction.length() > 0.1:
+	##look_at(next_path_position)
 	#
-	#var direction = (next_path_position - global_position).normalized()
-	#if nav_agent.is_navigation_finished():
-		#velocity = Vector2.ZERO
-#
-	#if is_dashing:
-		#velocity = direction * $NavigationAgent2D.max_speed * dash_speed_multiplier
+#func make_path():
+	#if target_dir and target_dir.is_inside_tree():
+		#nav_agent.target_position = target_dir.global_position
 	#else:
-		#velocity = direction * $NavigationAgent2D.max_speed
-	#
-	##var current_animation = $AnimatedSprite2D.animation
-	#
-	#if direction != Vector2.ZERO:
-		#if is_dashing and $AnimationPlayer.current_animation != "bucko_dash":
-			#$AnimationPlayer.play("bucko_dash")
-		#elif !is_dashing and $AnimationPlayer.current_animation != "bucko_walk":
-			#$AnimationPlayer.play("bucko_walk")
-	#
-	#move_and_slide()
-	##if direction.length() > 0.1:
-	#look_at(next_path_position)
-	
-func make_path():
-	if target_dir and target_dir.is_inside_tree():
-		nav_agent.target_position = target_dir.global_position
-	else:
-		print("Warning: target_dir is not valid or not in the scene tree.")
-
-func _on_locate_timer_timeout() -> void:
-	make_path()
+		#print("Warning: target_dir is not valid or not in the scene tree.")
+#
+#func _on_locate_timer_timeout() -> void:
+	#make_path()
 
 
 func _on_area_2d_body_entered(_body: Node2D) -> void:

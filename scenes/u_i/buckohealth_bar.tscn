@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cio2o7ajjo0k4"]
+
+[ext_resource type="Script" uid="uid://u5sbye1i0kl7" path="res://scenes/u_i/buckohealth_bar.gd" id="1_cy5ti"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wur87"]
+bg_color = Color(0.827451, 0.254902, 0.105882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cy5ti"]
+bg_color = Color(0.176471, 0.631373, 0.227451, 1)
+
+[node name="BuckohealthBar" type="ProgressBar" node_paths=PackedStringArray("prog_bar")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = 3.0
+offset_right = -581.0
+offset_bottom = -330.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_wur87")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cy5ti")
+max_value = 0.0
+show_percentage = false
+script = ExtResource("1_cy5ti")
+prog_bar = NodePath(".")

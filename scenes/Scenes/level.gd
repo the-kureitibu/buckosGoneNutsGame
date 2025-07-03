@@ -157,52 +157,52 @@ func enemy_died():
 		#Globals.game_end = true
 
 
-func mobs_spawn(type, multiplier, mob_spawns):
-	if wave_spawn_ended:
-		return
-	wave_spawn_ended = true
-	
-	if current_wave == 1:
-		var mob_amount = int(multiplier * mob_spawns) #20 * 5 = 100 mob_spawn 20
-		var wait_time: float = 2.0
-		var spawn_rounds = int(ceil(mob_amount / mob_spawns))
-		spawn_mob(type, mob_spawns, spawn_rounds, wait_time)
-		
-	if current_wave == 2:
-		var mob_amount = int(multiplier * mob_spawns) #26 * 5 = 130 mob_spawn 26
-		var wait_time: float = 2.0
-		var spawn_rounds = int(ceil(mob_amount / mob_spawns))
-		spawn_mob(type, mob_spawns, spawn_rounds, wait_time)
-		
-	if current_wave == 3:
-		var mob_amount = int(multiplier * mob_spawns) #30 * 5 = 150 mob_spawn 30
-		var wait_time: float = 2.0
-		var spawn_rounds = int(ceil(mob_amount / mob_spawns))
-		spawn_mob(type, mob_spawns, spawn_rounds, wait_time)
-		
-	
-func spawn_mob(type, enemy_count, spawn_rounds, wait_time):
-	var player = get_node("Ami")
-	
-	if type == "bucko":
-		var rand_marker = $SpawnMarkers.get_children()
-		var spawn_loc = rand_marker[randi() % rand_marker.size()]
-		var counter = 0
-		
-		# manual debugg - if reached enemy count stop spawning or 
-		for r in range(spawn_rounds):
-			for i in range(enemy_count):
-				counter += 1
-				print('one bucko spawned: ', counter)
-				var buckos = bucko_scene.instantiate()
-				buckos.global_position = spawn_loc.global_position
-				if player:
-					buckos.target_dir = player
-				add_child(buckos)
-				await get_tree().create_timer(wait_time).timeout
-	wave_spawn_ended = true
-	wave_spawn_ended = false
-		
+#func mobs_spawn(type, multiplier, mob_spawns):
+	#if wave_spawn_ended:
+		#return
+	#wave_spawn_ended = true
+	#
+	#if current_wave == 1:
+		#var mob_amount = int(multiplier * mob_spawns) #20 * 5 = 100 mob_spawn 20
+		#var wait_time: float = 2.0
+		#var spawn_rounds = int(ceil(mob_amount / mob_spawns))
+		#spawn_mob(type, mob_spawns, spawn_rounds, wait_time)
+		#
+	#if current_wave == 2:
+		#var mob_amount = int(multiplier * mob_spawns) #26 * 5 = 130 mob_spawn 26
+		#var wait_time: float = 2.0
+		#var spawn_rounds = int(ceil(mob_amount / mob_spawns))
+		#spawn_mob(type, mob_spawns, spawn_rounds, wait_time)
+		#
+	#if current_wave == 3:
+		#var mob_amount = int(multiplier * mob_spawns) #30 * 5 = 150 mob_spawn 30
+		#var wait_time: float = 2.0
+		#var spawn_rounds = int(ceil(mob_amount / mob_spawns))
+		#spawn_mob(type, mob_spawns, spawn_rounds, wait_time)
+		#
+	#
+#func spawn_mob(type, enemy_count, spawn_rounds, wait_time):
+	#var player = get_node("Ami")
+	#
+	#if type == "bucko":
+		#var rand_marker = $SpawnMarkers.get_children()
+		#var spawn_loc = rand_marker[randi() % rand_marker.size()]
+		#var counter = 0
+		#
+		## manual debugg - if reached enemy count stop spawning or 
+		#for r in range(spawn_rounds):
+			#for i in range(enemy_count):
+				#counter += 1
+				#print('one bucko spawned: ', counter)
+				#var buckos = bucko_scene.instantiate()
+				#buckos.global_position = spawn_loc.global_position
+				#if player:
+					#buckos.target_dir = player
+				#add_child(buckos)
+				#await get_tree().create_timer(wait_time).timeout
+	#wave_spawn_ended = true
+	#wave_spawn_ended = false
+		#
 func spawn_boss():
 	pass
 

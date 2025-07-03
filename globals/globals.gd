@@ -5,6 +5,7 @@ signal rage_activated
 signal stat_change
 signal change_wave
 signal change_mobs_count
+signal health_change
 
 var game_ready: bool = false
 var game_end: bool = false
@@ -140,8 +141,9 @@ var rage_on: bool = false:
 		rage_on = value 
 		rage_activated.emit()
 		print(t)
-#
-#var raging: bool = true:
-	#set(value):
-		#raging = value
-		#rage_ongoing.emit()
+
+# Stats Update 
+var health_damaged: int:
+	set(value):
+		health_damaged = value
+		health_change.emit()
