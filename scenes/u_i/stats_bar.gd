@@ -9,10 +9,8 @@ extends Control
 #update when signal received, run current count 
 
 func _ready() -> void:
-	Globals.change_wave.connect(update_stat)
+	Globals.stat_change.connect(update_stat)
 	Globals.change_mobs_count.connect(update_remaining_mobs)
-	print(Globals.defeated_mobs)
-	print(enemy_remaining.text)
 	update_health()
 	update_ragebar()
 	update_wave_count()

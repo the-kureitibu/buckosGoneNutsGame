@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 #Basic Info
-var speed = 50
-var current_speed = speed
+var speed := 50.0
+var original_speed := speed
 var can_dash: bool = true
 var is_dashing: bool = false
 var dash_speed_multiplier = 5.0
@@ -42,8 +42,8 @@ func snared(duration: float):
 	
 	#await get_tree().create_timer(duration).timeout
 
-	set_physics_process(true) 
-	is_snared = false
+	#set_physics_process(true) 
+	#is_snared = false
 
 func slowed(multiplier: float, duration: float):
 	if is_slowed:
@@ -51,12 +51,13 @@ func slowed(multiplier: float, duration: float):
 	is_slowed = true
 	slow_time_left = duration
 	slow_multiplier = multiplier
+	speed = original_speed * multiplier
 	#$NavigationAgent2D.max_speed *= multiplier
 	#
 	#await get_tree().create_timer(duration).timeout
 #
 	#$NavigationAgent2D.max_speed = speed
-	is_slowed = false
+	#is_slowed = false
 
 func _ready() -> void:
 	set_physics_process(true)
@@ -98,9 +99,11 @@ func _physics_process(delta: float) -> void:
 		slow_time_left -= delta
 		if slow_time_left <= 0.0:
 			is_slowed = false
-			nav_agent.max_speed = speed
+			speed = original_speed
 
 	#Temp steering 
+
+	
 	if target_dir:
 		var target_dir = (target_dir.global_position - global_position).normalized()
 		var avoid = Vector2.ZERO
@@ -114,8 +117,23 @@ func _physics_process(delta: float) -> void:
 
 		var final_dir = (target_dir + avoid).normalized()
 		velocity = final_dir * speed
+		
+		
+		if is_dashing:
+			velocity = final_dir * speed * dash_speed_multiplier
+		else:
+			velocity = final_dir * speed
+		
 		move_and_slide()
-		look_at(target_dir)
+		
+		if final_dir.length() > 0.1:
+			rotation = final_dir.angle()
+			
+			if is_dashing and $AnimationPlayer.current_animation != "bucko_dash":
+				$AnimationPlayer.play("bucko_dash")
+			elif !is_dashing and $AnimationPlayer.current_animation != "bucko_walk":
+				$AnimationPlayer.play("bucko_walk")
+
 
 
 	#var next_path_position = nav_agent.get_next_path_position()
