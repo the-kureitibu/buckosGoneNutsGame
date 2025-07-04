@@ -7,6 +7,21 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5hcqq"]
 radius = 43.2897
 
+[sub_resource type="Animation" id="Animation_fxfp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_t8wld"]
 resource_name = "elder_bucko_walk"
 length = 1.2
@@ -21,21 +36,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_fxfp3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ayhn"]
@@ -74,4 +74,9 @@ offset_right = 127.0
 offset_bottom = 51.0
 rotation = -1.5708
 
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="current_health" from="." to="ElderOneHealth" method="_on_elder_bucko_one_current_health"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

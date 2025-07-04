@@ -200,6 +200,7 @@ func enemy_died():
 		#
 func spawn_boss():
 	var player = get_node("Ami")
+
 	
 	var spawn_marker = $SpawnMarkers/Marker2D10
 	var elder1 = elder_bucko1.instantiate()

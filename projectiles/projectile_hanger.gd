@@ -11,7 +11,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	position += direction * speed * delta
-
+	print(position)
+	
 # Get better code for range, mainly setting a travelled distance from character 
 	if Globals.outside_range == true:
 		queue_free()

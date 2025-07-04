@@ -127,7 +127,7 @@ _data = {
 &"ami_hanger": SubResource("Animation_ra1yi")
 }
 
-[node name="Ami" type="CharacterBody2D"]
+[node name="Ami" type="CharacterBody2D" groups=["player"]]
 collision_mask = 31
 script = ExtResource("1_jwuy1")
 metadata/_edit_lock_ = true

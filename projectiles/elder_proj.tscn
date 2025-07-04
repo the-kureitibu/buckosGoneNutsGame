@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwqrftvtac0v5"]
+
+[ext_resource type="Texture2D" uid="uid://bxl58i6assrus" path="res://Assets/Projectiles/elder wep.png" id="1_d6uef"]
+[ext_resource type="Script" uid="uid://7bkq7n7a0rdv" path="res://projectiles/elder_proj.gd" id="1_lolsr"]
+[ext_resource type="Texture2D" uid="uid://dex82l4wie58i" path="res://Assets/Projectiles/elder wep2.png" id="2_i0mrk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0mrk"]
+radius = 18.0
+height = 64.0
+
+[sub_resource type="Animation" id="Animation_i0mrk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_d6uef"]
+resource_name = "elder_proj1"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.533333, 0.843333, 1.13333, 1.42333, 1.46333, 1.59333, 1.63, 1.66333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lolsr"]
+_data = {
+&"RESET": SubResource("Animation_i0mrk"),
+&"elder_proj1": SubResource("Animation_d6uef")
+}
+
+[node name="ElderProjectile" type="Area2D" node_paths=PackedStringArray("proj_image1", "proj_image2")]
+rotation = 1.5708
+collision_layer = 4
+script = ExtResource("1_lolsr")
+proj_image1 = NodePath("FinalAttackR")
+proj_image2 = NodePath("FinalAttackL")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_d6uef")
+hframes = 8
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_i0mrk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_lolsr")
+}
+
+[node name="FinalAttackR" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-13, 0)
+texture = ExtResource("2_i0mrk")
+hframes = 4
+
+[node name="FinalAttackL" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-13, 0)
+texture = ExtResource("2_i0mrk")
+hframes = 4
+
+[node name="MarkerRight" type="Marker2D" parent="."]
+visible = false
+position = Vector2(219, -19)
+
+[node name="MarkerLeft" type="Marker2D" parent="."]
+visible = false
+position = Vector2(219, 23)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-13, 0)

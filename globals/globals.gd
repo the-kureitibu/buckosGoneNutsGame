@@ -6,6 +6,7 @@ signal stat_change
 signal change_wave
 signal change_mobs_count
 signal health_change
+signal attack
 
 var game_ready: bool = false
 var game_end: bool = false
@@ -88,6 +89,11 @@ enum PlayerState {
 var player_state =  PlayerState.IDLE
 
 #Player and enemies stuff
+var can_attack: bool = false:
+	set(value):
+		can_attack = value
+		attack.emit()
+
 var t: String = 'rage activated'
 var player_pos: Vector2
 var ami_health: float = 100.0
