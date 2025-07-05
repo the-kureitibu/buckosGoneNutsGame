@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://8j44qxvxmtgy"]
+[gd_scene load_steps=11 format=3 uid="uid://8j44qxvxmtgy"]
 
 [ext_resource type="Script" uid="uid://c8xsk2cowyilq" path="res://scenes/Scenes/bucko.gd" id="1_p48ci"]
 [ext_resource type="Texture2D" uid="uid://bpu5h32y5tk2h" path="res://Assets/Enemies/buckos_animation_sprite.png" id="2_p48ci"]
@@ -73,6 +73,9 @@ _data = {
 &"bucko_walk": SubResource("Animation_p48ci")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_uwvkr"]
+radius = 8.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3jya"]
 radius = 95.0474
 
@@ -124,6 +127,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_yyfdn")
 }
 
+[node name="DmgRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DmgRange"]
+shape = SubResource("CircleShape2D_uwvkr")
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
 monitorable = false
@@ -146,7 +154,8 @@ rotation = -1.5708
 
 [connection signal="current_health" from="." to="BuckohealthBar" method="_on_bucko_current_health"]
 [connection signal="timeout" from="LocateTimer" to="." method="_on_locate_timer_timeout"]
-[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
 [connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
 [connection signal="timeout" from="DashEnableTimer" to="." method="_on_dash_enable_timer_timeout"]
+[connection signal="body_entered" from="DmgRange" to="." method="_on_dmg_range_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

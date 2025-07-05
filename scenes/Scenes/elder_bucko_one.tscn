@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dtmmmmd1dpmvj"]
+[gd_scene load_steps=10 format=3 uid="uid://dtmmmmd1dpmvj"]
 
 [ext_resource type="Texture2D" uid="uid://bpu5h32y5tk2h" path="res://Assets/Enemies/buckos_animation_sprite.png" id="1_mjdbb"]
 [ext_resource type="Script" uid="uid://cw0prcd108y4" path="res://scenes/Scenes/elder_bucko_one.gd" id="1_t8wld"]
+[ext_resource type="PackedScene" uid="uid://cwqrftvtac0v5" path="res://projectiles/elder_proj.tscn" id="2_fxfp3"]
 [ext_resource type="PackedScene" uid="uid://cviy7isf10pg8" path="res://scenes/Scenes/elder_one_health.tscn" id="3_t8wld"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5hcqq"]
@@ -22,6 +23,10 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_2ayhn"]
+resource_name = "charge"
+length = 1.5
+
 [sub_resource type="Animation" id="Animation_t8wld"]
 resource_name = "elder_bucko_walk"
 length = 1.2
@@ -41,6 +46,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ayhn"]
 _data = {
 &"RESET": SubResource("Animation_fxfp3"),
+&"charge": SubResource("Animation_2ayhn"),
 &"elder_bucko_walk": SubResource("Animation_t8wld")
 }
 
@@ -48,6 +54,14 @@ _data = {
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_t8wld")
+proj_scene = ExtResource("2_fxfp3")
+
+[node name="ElderOneHealth" parent="." instance=ExtResource("3_t8wld")]
+offset_left = 48.0
+offset_top = 40.0
+offset_right = 127.0
+offset_bottom = 51.0
+rotation = -1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.90735e-06, 1.90735e-06)
@@ -57,6 +71,7 @@ texture = ExtResource("1_mjdbb")
 hframes = 4
 region_enabled = true
 region_rect = Rect2(0, 65, 256, 66)
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5hcqq")
@@ -66,13 +81,6 @@ metadata/_edit_lock_ = true
 libraries = {
 &"": SubResource("AnimationLibrary_2ayhn")
 }
-
-[node name="ElderOneHealth" parent="." instance=ExtResource("3_t8wld")]
-offset_left = 48.0
-offset_top = 40.0
-offset_right = 127.0
-offset_bottom = 51.0
-rotation = -1.5708
 
 [node name="Marker2D" type="Marker2D" parent="."]
 

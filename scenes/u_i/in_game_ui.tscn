@@ -49,6 +49,7 @@ theme_override_constants/separation = 10
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/HealthContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(130, 40)
 layout_mode = 2
+max_value = 0.0
 texture_over = ExtResource("1_7xr63")
 texture_progress = ExtResource("2_rhdab")
 

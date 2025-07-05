@@ -10,15 +10,15 @@ extends Control
 
 func _ready() -> void:
 	Globals.stat_change.connect(update_stat)
+	#Globals.health_change.connect(update_health)
 	Globals.change_mobs_count.connect(update_remaining_mobs)
-	update_health()
+	update_base_health()
 	update_ragebar()
 	update_wave_count()
 	update_total_mobs()
 	update_remaining_mobs()
 	
 func update_stat():
-	update_health()
 	update_ragebar()
 	update_wave_count()
 	update_total_mobs()
@@ -44,9 +44,10 @@ func update_remaining_mobs():
 		enemy_remaining.text = str(Globals.defeated_mobs, '    ')
 	
 
-func update_health():
+func update_base_health():
+	health_bar.max_value = float(Globals.ami_health)
 	health_bar.value = float(Globals.ami_health)
-
+	
 
 func update_ragebar():
 	rage_prog.value = int(Globals.rage)
@@ -62,3 +63,10 @@ func update_wave_count():
 
 func change_stats_color():
 	pass
+
+func _update_health(health_v):
+	health_bar.value = health_v
+
+
+func _on_ami_current_health(health_value: Variant) -> void:
+	_update_health(health_value)

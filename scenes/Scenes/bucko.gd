@@ -94,3 +94,10 @@ func _on_dash_disable_timer_timeout() -> void:
 
 func _on_dash_enable_timer_timeout() -> void:
 	can_dash = true
+
+
+func _on_dmg_range_body_entered(body: Node2D) -> void:
+	var damage = Globals.bucko.Damage
+	print(damage)
+	if 'got_hit' in body:
+		body.got_hit(damage)

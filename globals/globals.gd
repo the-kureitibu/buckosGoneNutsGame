@@ -5,7 +5,7 @@ signal rage_activated
 signal stat_change
 signal change_wave
 signal change_mobs_count
-signal health_change
+#signal health_change
 signal attack
 
 var game_ready: bool = false
@@ -35,14 +35,14 @@ var embrace_wep = {
 #Enemy Dictionaries
 var bucko = {
 	"Health": 70,
-	"Damage": 10
+	"Damage": 5
 	#max damage if applicable
 	#skill cd if applicable 
 }
 
 var elder_bucko1 = {
 	"Health": 500,
-	"Damage": 20
+	"Damage": 25
 	#max damage if applicable
 	#skill cd if applicable 
 }
@@ -96,7 +96,10 @@ var can_attack: bool = false:
 
 var t: String = 'rage activated'
 var player_pos: Vector2
-var ami_health: float = 100.0
+var ami_health: float = 250.0
+	#set(value):
+		#ami_health = value
+		#health_change.emit()
 
 # Weapon choices 
 var wep_hanger: bool = false
@@ -149,7 +152,7 @@ var rage_on: bool = false:
 		print(t)
 
 # Stats Update 
-var health_damaged: int:
-	set(value):
-		health_damaged = value
-		health_change.emit()
+#var health_damaged: int:
+	#set(value):
+		#health_damaged = value
+		#health_change.emit()

@@ -152,5 +152,6 @@ position = Vector2(38, 451)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
+[connection signal="current_health" from="Ami" to="InGameUI" method="_on_ami_current_health"]
 [connection signal="projectle" from="Ami" to="." method="_on_ami_projectle"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -5,13 +5,23 @@ extends CharacterBody2D
 
 
 #General movement related
-const max_speed: int = 200
-const acceleration = 350
-const friction = 400
-var input = Vector2.ZERO
+var max_speed: int = 200
+var base_speed = max_speed
+const acceleration := 350
+const friction := 400
+var input: Vector2 = Vector2.ZERO
+
+
+#Status Debuffed
+var can_be_debuffed: bool = true 
+var is_slowed: bool = false 
+var slow_multiplier: float = 0.0
+var slow_timer: float = 0.0
+var invulnerable_timer := 0.5
+var is_invulnerable: bool = false
 
 signal projectle(pos, direction)
-
+signal current_health(health_value)
 
 #Rage stuff 
 @onready var rage_timer = $RageTimer
@@ -69,9 +79,39 @@ func on_timer_timeout():
 		rage_timer.disconnect("timeout", on_timer_timeout)
 		print_debug(Globals.rage_on)
 
+func got_hit(damage):
+	#var health = Globals.ami_health
+	if !is_invulnerable:
+		is_invulnerable = true
+		Globals.ami_health -= damage
+		Globals.ami_health = clamp(Globals.ami_health, 0, 250)
+		current_health.emit(Globals.ami_health)
+		if Globals.ami_health <= 0:
+			pass #death/game over 
+
+func slowed(multiplier, duration):
+	print(Globals.ami_health)
+	if is_slowed:
+		return
+	is_slowed = true
+	if is_slowed and can_be_debuffed:
+		slow_timer = duration
+		max_speed = base_speed * multiplier
+		
 
 
 func _physics_process(delta):
+	
+	if is_invulnerable: 
+		invulnerable_timer -= delta
+		if invulnerable_timer <= 0:
+			is_invulnerable = false
+	
+	if is_slowed:
+		slow_timer -= delta
+		if slow_timer <= 0: 
+			is_slowed = false
+			max_speed = base_speed
 	
 	if $AmiBase.visible == true:
 		$AnimationPlayer.play("ami_base")
