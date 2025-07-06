@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://qvrvabg5af1g"]
+
+[ext_resource type="Script" uid="uid://csy4g8nuqmdq4" path="res://scenes/u_i/damage_popup.gd" id="1_wdr2j"]
+
+[node name="DamagePopup" type="Node2D"]
+script = ExtResource("1_wdr2j")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "553]]55"

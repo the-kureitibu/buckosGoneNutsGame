@@ -4,6 +4,7 @@ extends Node2D
 var get_hanger_proj: PackedScene = preload("res://projectiles/projectile_hanger.tscn")
 var get_exchu_proj: PackedScene = preload("res://projectiles/exchu_li_bladder.tscn")
 var get_embrace_proj: PackedScene = preload("res://projectiles/ami_embrace.tscn")
+@onready var dmg_popup = preload("res://scenes/u_i/damage_popup.tscn")
 
 # Wave States
 var ROUND_COUNT = 5
@@ -31,6 +32,7 @@ var wave_spawn_ended: bool
 
 func _ready() -> void:
 	spawn_boss()
+	spawn_final_boss()
 	if Globals.wave_1:
 		Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
 	elif !Globals.wave_1 and !Globals.wave_3 and Globals.wave_2:
@@ -210,7 +212,19 @@ func spawn_boss():
 	add_child(elder1)
 	active_enemies += 1
 	elder1.connect("died", enemy_died)
+
+func spawn_final_boss():
+	var player = get_node("Ami")
+
 	
+	var spawn_marker = $SpawnMarkers/Marker2D13
+	var elder2 = elder_bucko2.instantiate()
+	elder2.position = spawn_marker.global_position
+	if player:
+		elder2.target_dir = player
+	add_child(elder2)
+	active_enemies += 1
+	elder2.connect("died", enemy_died)
 
 func get_weapon(weapon):
 	var get_wep = weapon.instantiate() as Area2D
@@ -243,3 +257,18 @@ func _on_ami_projectle(pos, direction):
 
 #func _on_ui_weapon_selected() -> void:
 	#Globals.game_ready = true
+	
+func _spawn_dmg_text(damage):
+	var popup = dmg_popup.instantiate() 
+
+	#var popup_start_pos = $InGameUI.get_global_position()
+	popup.global_position = $Ami.get_global_position()
+	print(popup.global_position, 'popup')
+	
+	$InGameUI.add_child(popup)
+	popup.show_damage(damage)
+	
+
+
+func _on_ami_damage_received(damage: Variant) -> void:
+	_spawn_dmg_text(damage)

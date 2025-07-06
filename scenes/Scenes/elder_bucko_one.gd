@@ -19,9 +19,7 @@ func _ready() -> void:
 
 
 func _perform_attack_logic(delta: float, direct: Vector2):
-	#charged.visible = true 
-	
-	#charged.visible = false
+
 
 	handle_attack_logic(delta, direct)
 	

@@ -6,6 +6,7 @@ extends Control
 @export var wave_count: Label
 @export var enemy_remaining: Label
 
+
 #update when signal received, run current count 
 
 func _ready() -> void:
@@ -66,7 +67,7 @@ func change_stats_color():
 
 func _update_health(health_v):
 	health_bar.value = health_v
-
+	
 
 func _on_ami_current_health(health_value: Variant) -> void:
 	_update_health(health_value)

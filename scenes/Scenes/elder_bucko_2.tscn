@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbjg2qp0sqv6f"]
+
+[ext_resource type="Script" uid="uid://mdc5nth6asj2" path="res://scenes/Scenes/elder_bucko_2.gd" id="1_i80e0"]
+[ext_resource type="Texture2D" uid="uid://bpu5h32y5tk2h" path="res://Assets/Enemies/buckos_animation_sprite.png" id="1_mnywd"]
+[ext_resource type="PackedScene" uid="uid://wmwikh2hrwcl" path="res://scenes/Scenes/elder_two_health.tscn" id="2_smkt4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i80e0"]
+radius = 35.0
+
+[sub_resource type="Animation" id="Animation_smkt4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_i80e0"]
+resource_name = "bucko_walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6wegk"]
+_data = {
+&"RESET": SubResource("Animation_smkt4"),
+&"bucko_walk": SubResource("Animation_i80e0")
+}
+
+[node name="ElderBucko2" type="CharacterBody2D"]
+script = ExtResource("1_i80e0")
+
+[node name="ElderBucko2health" parent="." instance=ExtResource("2_smkt4")]
+offset_left = -17.0
+offset_top = 40.0
+offset_right = 17.0
+offset_bottom = 45.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.34375, 1.33824)
+texture = ExtResource("1_mnywd")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 68)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_i80e0")
+metadata/_edit_lock_ = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 5)
+metadata/_edit_lock_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CollisionShape2D")
+libraries = {
+&"": SubResource("AnimationLibrary_6wegk")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-17, 40)
+
+[connection signal="current_health" from="." to="ElderBucko2health" method="_on_elder_bucko_2_current_health"]

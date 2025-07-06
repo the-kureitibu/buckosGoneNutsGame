@@ -22,6 +22,7 @@ var is_invulnerable: bool = false
 
 signal projectle(pos, direction)
 signal current_health(health_value)
+signal damage_received(damage)
 
 #Rage stuff 
 @onready var rage_timer = $RageTimer
@@ -86,6 +87,7 @@ func got_hit(damage):
 		Globals.ami_health -= damage
 		Globals.ami_health = clamp(Globals.ami_health, 0, 250)
 		current_health.emit(Globals.ami_health)
+		damage_received.emit(damage)
 		if Globals.ami_health <= 0:
 			pass #death/game over 
 

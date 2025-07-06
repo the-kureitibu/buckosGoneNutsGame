@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://c2n3j825nqtsr"]
+[gd_scene load_steps=12 format=4 uid="uid://c2n3j825nqtsr"]
 
 [ext_resource type="Script" uid="uid://b8a3tnn8g65ux" path="res://scenes/Scenes/level.gd" id="1_81xng"]
 [ext_resource type="Texture2D" uid="uid://cgoirwa0k46dy" path="res://Assets/Ground/soil and grass.png" id="1_tumq0"]
 [ext_resource type="TileSet" uid="uid://s6yvxwqgvw33" path="res://scenes/tileset1/level.tres" id="2_k5f4k"]
 [ext_resource type="PackedScene" uid="uid://qwyggs83jx8h" path="res://scenes/Scenes/ami.tscn" id="3_6phgx"]
 [ext_resource type="PackedScene" uid="uid://bqe2onchvxw2f" path="res://scenes/Scenes/stone.tscn" id="3_ywq4x"]
+[ext_resource type="PackedScene" uid="uid://dbjg2qp0sqv6f" path="res://scenes/Scenes/elder_bucko_2.tscn" id="4_t3dqv"]
 [ext_resource type="PackedScene" uid="uid://ytpgyjew63kw" path="res://scenes/u_i/ui.tscn" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://1ecb8vkkd3rg" path="res://scenes/u_i/in_game_ui.tscn" id="7_3ulh3"]
 [ext_resource type="PackedScene" uid="uid://8j44qxvxmtgy" path="res://scenes/Scenes/bucko.tscn" id="8_uwuxc"]
@@ -21,6 +22,7 @@ agent_radius = 5.0
 script = ExtResource("1_81xng")
 bucko_scene = ExtResource("8_uwuxc")
 elder_bucko1 = ExtResource("9_rbqwl")
+elder_bucko2 = ExtResource("4_t3dqv")
 
 [node name="BaseGround" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -153,5 +155,6 @@ position = Vector2(38, 451)
 [node name="SpawnTimer" type="Timer" parent="."]
 
 [connection signal="current_health" from="Ami" to="InGameUI" method="_on_ami_current_health"]
+[connection signal="damage_received" from="Ami" to="." method="_on_ami_damage_received"]
 [connection signal="projectle" from="Ami" to="." method="_on_ami_projectle"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
