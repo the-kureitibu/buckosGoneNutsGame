@@ -44,6 +44,8 @@ _data = {
 }
 
 [node name="ElderBucko2" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_i80e0")
 
 [node name="ElderBucko2health" parent="." instance=ExtResource("2_smkt4")]
@@ -77,5 +79,7 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-17, 40)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="current_health" from="." to="ElderBucko2health" method="_on_elder_bucko_2_current_health"]

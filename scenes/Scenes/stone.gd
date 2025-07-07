@@ -1,4 +1,4 @@
 extends StaticBody2D
 
-func hit():
+func hit(damage):
 	pass

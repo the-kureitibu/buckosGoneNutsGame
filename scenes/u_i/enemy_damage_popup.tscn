@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkvnplbrtjl0u"]
+
+[ext_resource type="Script" uid="uid://dsg8m6myy5xbp" path="res://scenes/u_i/enemy_damage_popup.gd" id="1_l63vy"]
+
+[node name="EnemyDamagePopup" type="Node2D"]
+script = ExtResource("1_l63vy")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.878431, 0.203922, 0, 1)
+theme_override_font_sizes/font_size = 10

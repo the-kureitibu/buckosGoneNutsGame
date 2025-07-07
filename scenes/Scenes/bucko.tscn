@@ -152,10 +152,20 @@ grow_horizontal = 1
 grow_vertical = 1
 rotation = -1.5708
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 44.0
+offset_bottom = 23.0
+text = "rwasr"
+
 [connection signal="current_health" from="." to="BuckohealthBar" method="_on_bucko_current_health"]
 [connection signal="timeout" from="LocateTimer" to="." method="_on_locate_timer_timeout"]
-[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
+[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="DashEnableTimer" to="." method="_on_dash_enable_timer_timeout"]
 [connection signal="body_entered" from="DmgRange" to="." method="_on_dmg_range_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

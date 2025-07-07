@@ -11,8 +11,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	position += direction * speed * delta
-	print(position)
-	
+
 # Get better code for range, mainly setting a travelled distance from character 
 	if Globals.outside_range == true:
 		queue_free()
@@ -32,12 +31,9 @@ func _on_body_entered(body: Node2D) -> void:
 				
 	if Globals.rage < Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE:
 		Globals.rage += 1
-		print(Globals.rage, 'global rage')
 	if Globals.rage == Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE and Globals.rage_state != Globals.RageState.RAGEDONE:
 		Globals.rage_on = true
-		print_debug(Globals.rage_on, ' raging?')
-		print_debug('rage ongoing, cant gain rage')
-		
+
 	#if !$Timer.is_stopped():
 		#print('timer on')
 	#elif $Timer.is_stopped() and Globals.rage_on == false:

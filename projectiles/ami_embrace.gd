@@ -48,7 +48,7 @@ func _on_body_entered(body: Node2D) -> void:
 	#elif $Timer.is_stopped() and Globals.rage_on == false:
 		#queue_free()
 	#else:
-	queue_free()
+
 
 
 func _on_q_free_timer_timeout() -> void:

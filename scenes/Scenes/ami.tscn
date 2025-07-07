@@ -193,5 +193,6 @@ offset_bottom = 23.0
 [node name="RageTimer2" type="Timer" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

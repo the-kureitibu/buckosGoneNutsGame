@@ -57,10 +57,10 @@ script = ExtResource("1_t8wld")
 proj_scene = ExtResource("2_fxfp3")
 
 [node name="ElderOneHealth" parent="." instance=ExtResource("3_t8wld")]
-offset_left = 48.0
-offset_top = 40.0
-offset_right = 127.0
-offset_bottom = 51.0
+offset_left = 46.0
+offset_top = 21.0
+offset_right = 88.0
+offset_bottom = 26.0
 rotation = -1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -85,6 +85,8 @@ libraries = {
 [node name="Marker2D" type="Marker2D" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [connection signal="current_health" from="." to="ElderOneHealth" method="_on_elder_bucko_one_current_health"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

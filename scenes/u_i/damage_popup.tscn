@@ -8,4 +8,5 @@ script = ExtResource("1_wdr2j")
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
-text = "553]]55"
+theme_override_colors/font_color = Color(0.878431, 0.203922, 0, 1)
+theme_override_font_sizes/font_size = 10

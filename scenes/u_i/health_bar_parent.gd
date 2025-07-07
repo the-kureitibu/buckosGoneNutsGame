@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func _update_health(health_v):
 	prog_bar.value = health_v
-	print(health_v)
+
 
 func _update_max_health():
 	prog_bar.max_value = Globals.bucko.Health

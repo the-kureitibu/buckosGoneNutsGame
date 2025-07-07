@@ -32,6 +32,8 @@ var time_elapsed = 0
 
 
 func _ready():
+	
+	
 	Globals.rage_activated.connect(start_rage_timer)
 	Globals.player_state = Globals.PlayerState.CAN_ATTACK
 	
@@ -51,30 +53,24 @@ func second_rage_timer():
 	
 func second_timer_timeout():
 	Globals.rage -= 3 
-	print_debug(Globals.rage, 'last stage - 3')
 	if Globals.rage == 0:
 		rage_timer2.stop()
 		Globals.rage_state = Globals.RageState.IDLE
 		rage_timer2.disconnect("timeout", second_timer_timeout)
-		print_debug('rage back to idle ')
 	
 func on_timer_timeout():
 	time_elapsed += 1
 	label.text = "Time: " + str(time_elapsed)
-	print(label.text,'on first phase')
 	
 	if time_elapsed == 5:
 		Globals.rage_state = Globals.RageState.COOLDOWN
 		Globals.rage_stats = Globals.RageStat.COOLING_DOWN
-		print_debug('rage cooling down')
 	elif time_elapsed == 8:
 		Globals.rage_stats = Globals.RageStat.RAGE_OFF
 	elif time_elapsed == 15: 
-		print_debug('rage done')
 		rage_timer.stop()
 		time_elapsed = 0
 		second_rage_timer()
-		print_debug(time_elapsed, 'elapsed time ')
 		Globals.rage_on = false
 		Globals.rage_state = Globals.RageState.RAGEDONE
 		rage_timer.disconnect("timeout", on_timer_timeout)
@@ -92,7 +88,6 @@ func got_hit(damage):
 			pass #death/game over 
 
 func slowed(multiplier, duration):
-	print(Globals.ami_health)
 	if is_slowed:
 		return
 	is_slowed = true

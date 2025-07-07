@@ -1,5 +1,8 @@
 extends Node2D
 
+@export var camera: Camera2D
+
+
 # Weapon Projectiles Scenes
 var get_hanger_proj: PackedScene = preload("res://projectiles/projectile_hanger.tscn")
 var get_exchu_proj: PackedScene = preload("res://projectiles/exchu_li_bladder.tscn")
@@ -11,13 +14,17 @@ var ROUND_COUNT = 5
 var resume_spawn_treshold = 20
 var active_enemies = 0
 var enemies_spawn = 0
-var enemy_deaths: int
+var enemy_deaths = 0
 var MAX_SPAWN_SIZE: int = 30
 var current_wave = 0
-
+var boss_is_summoned: bool = false
 var has_spawn_ended: bool = false
 var has_spawn_started: bool = false
 
+#Wave Spawn Stuff
+const MAX_DISTANCE = 300
+const MIN_DISTANCE = 200
+@onready var markers = $SpawnMarkers.get_children()
 
 #Enemy Related Variables
 @export var bucko_scene: PackedScene
@@ -26,13 +33,19 @@ var has_spawn_started: bool = false
 @onready var spawn_timer = $SpawnTimer
 
 
-
 var wave_ended: bool
 var wave_spawn_ended: bool
 
+func _on_VisibilityNotifier2D_screen_exited():
+	set_physics_process(false)
+
+func _on_VisibilityNotifier2D_screen_entered():
+	set_physics_process(true)
+	
+
 func _ready() -> void:
-	spawn_boss()
-	spawn_final_boss()
+
+	
 	if Globals.wave_1:
 		Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
 	elif !Globals.wave_1 and !Globals.wave_3 and Globals.wave_2:
@@ -55,9 +68,11 @@ func game_start():
 	
 func _on_spawn_timer_timeout() -> void:
 	if current_wave == 1 and enemy_deaths == Globals.W1_MAX_ENEMY_COUNT:
-		#spawn_timer.stop()
+		spawn_timer.stop()
 		#proceed to wave 2
-		pass
+		current_wave = 2
+		#some cut scene 
+	
 	
 	if enemies_spawn >= Globals.W1_MAX_ENEMY_COUNT:
 		spawn_timer.stop()
@@ -69,17 +84,50 @@ func _on_spawn_timer_timeout() -> void:
 	enemy_spawn()
 	enemies_spawn += 1
 	
+func spawn_near_target():
+
+	var valid_points = []
+	for marker in markers:
+		var distance = marker.global_position.distance_to($Ami.global_position)
+		if distance >= MIN_DISTANCE and distance <= MAX_DISTANCE:
+			valid_points.append(marker)
+	return valid_points
+
+#func get_random_spawn_point_around_viewport(margin = 100) -> Vector2:
+	#var screen_size = get_viewport().get_visible_rect().size
+	#var rand_side = randi() % 4
+	#
+	#match rand_side:
+		#0:
+			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(randi_range(0, screen_size.x), -margin)) # Top
+		#1:
+			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(screen_size.x + margin, randi_range(0, screen_size.y))) # Right
+		#2:
+			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(randi_range(0, screen_size.x), screen_size.y + margin)) # Bottom
+		#3:
+			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(-margin, randi_range(0, screen_size.y))) # Left
+		#_: 
+			#return Vector2.ZERO
 
 func enemy_spawn():
-	var player = get_node("Ami")
+	#var test_spawn = get_random_spawn_point_around_viewport()
 	
-	var spawn_marker = $SpawnMarkers.get_children()
-	var spawn_location = spawn_marker[randi() % spawn_marker.size()]
+	var player = get_node("Ami")
+	print(markers.size())
+	var valid_spoints = spawn_near_target()
+	if valid_spoints.size() == 0: 
+		print('no valid points')
+		return
+	else: 
+		print(valid_spoints.size())
+	
+	#var spawn_marker = $SpawnMarkers.get_children() 
+	var spawn_location = valid_spoints[randi() % valid_spoints.size()]
 	var bucko = bucko_scene.instantiate()
 	bucko.position = spawn_location.global_position
 	if player:
 		bucko.target_dir = player
-	add_child(bucko)
+	$EnemySpawner.add_child(bucko)
 	active_enemies += 1
 	bucko.connect("died", enemy_died)
 	print('active enemies: ',active_enemies)
@@ -87,7 +135,15 @@ func enemy_spawn():
 func enemy_died():
 	active_enemies -= 1
 	Globals.defeated_mobs -= 1
-
+	enemy_deaths += 1
+	print(enemy_deaths, 'enemy death')
+	
+		#Boss Summons
+	if current_wave == 1 and enemy_deaths >= Globals.W1_MAX_ENEMY_COUNT / 2 and !boss_is_summoned:
+		spawn_boss()
+		print('first boss summoned')
+		boss_is_summoned = true
+		
 #func proceed_to_next_wave():
 	#
 	#if Globals.current_wave == 0:
@@ -203,7 +259,6 @@ func enemy_died():
 func spawn_boss():
 	var player = get_node("Ami")
 
-	
 	var spawn_marker = $SpawnMarkers/Marker2D10
 	var elder1 = elder_bucko1.instantiate()
 	elder1.position = spawn_marker.global_position
@@ -257,13 +312,12 @@ func _on_ami_projectle(pos, direction):
 
 #func _on_ui_weapon_selected() -> void:
 	#Globals.game_ready = true
-	
+
+
 func _spawn_dmg_text(damage):
 	var popup = dmg_popup.instantiate() 
 
-	#var popup_start_pos = $InGameUI.get_global_position()
 	popup.global_position = $Ami.get_global_position()
-	print(popup.global_position, 'popup')
 	
 	$InGameUI.add_child(popup)
 	popup.show_damage(damage)
