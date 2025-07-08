@@ -33,7 +33,6 @@ var time_elapsed = 0
 
 func _ready():
 	
-	
 	Globals.rage_activated.connect(start_rage_timer)
 	Globals.player_state = Globals.PlayerState.CAN_ATTACK
 	
@@ -103,6 +102,7 @@ func _physics_process(delta):
 		invulnerable_timer -= delta
 		if invulnerable_timer <= 0:
 			is_invulnerable = false
+
 	
 	if is_slowed:
 		slow_timer -= delta
@@ -145,16 +145,20 @@ func get_input():
 
 func player_movement(delta):
 	input = get_input()
-	#velocity = input * max_speed
 	
-	if input == Vector2.ZERO: #when not moving but previously moving
-		if velocity.length() > (friction * delta): # when not moving but previously moving, and there is a remaining velocity (greater than the value of friction )
-			velocity -= velocity.normalized() * (friction * delta) # then slowly reduce by the normalized value of velocity (1) * delta
-		else:
-			velocity = Vector2.ZERO #else, stop moving
-	else:
-		velocity += (input * acceleration * delta) #if there is a movement, move based on accelaration and input * delta
-		velocity = velocity.limit_length(max_speed) #limits max accelaration
+	#Accelerated movement code
+	#velocity = input * max_speed
+	#
+	#if input == Vector2.ZERO: #when not moving but previously moving
+		#if velocity.length() > (friction * delta): # when not moving but previously moving, and there is a remaining velocity (greater than the value of friction )
+			#velocity -= velocity.normalized() * (friction * delta) # then slowly reduce by the normalized value of velocity (1) * delta
+		#else:
+			#velocity = Vector2.ZERO #else, stop moving
+	#else:
+	
+	#Base movement 
+	velocity = input * max_speed  #if there is a movement, move based on accelaration and input * delta
+	#velocity = velocity.limit_length(max_speed) #limits max accelaration
 		
 	move_and_slide()
 

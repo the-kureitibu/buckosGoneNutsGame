@@ -45,7 +45,7 @@ _data = {
 
 [node name="ElderBucko2" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 29
 script = ExtResource("1_i80e0")
 
 [node name="ElderBucko2health" parent="." instance=ExtResource("2_smkt4")]

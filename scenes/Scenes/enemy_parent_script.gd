@@ -9,6 +9,7 @@ var original_speed := speed
 var snare_speed := 0.0
 var health: int
 var avoid_radius := 70.0
+const PLAYER_AVOID_RADIUS := 10
 var movement_stopper: Vector2 = Vector2.ZERO
 var speed_reduc_multiplier := 0.1
 
@@ -37,7 +38,7 @@ var slow_time_left := 0.0
 var slow_multiplier := 1.0
 
 #Steering and Pathfinding states/behaviors
-var pathf_timer := 1.0
+var pathf_timer := 0.2
 var use_pathfinding: bool = true
 var is_wall_stuck: bool = true
 const PATH_MAX_DISTANCE = 700
@@ -63,18 +64,14 @@ func handle_attack_logic(delta, direct):
 			projectile(delta)
 			current_attack_timer = attack_cooldown
 			is_in_cooldown = true
-			print_debug('cd', is_in_cooldown)
 			is_in_startup = false
-			print_debug('sup', is_in_startup)
 			#is_in_startup = false
 			
 	elif is_in_cooldown: 
 		current_attack_timer -= delta
 		if current_attack_timer <= 0:
 			is_in_cooldown = false
-			print_debug(is_in_cooldown, 'cd')
 			can_attack = true
-			print_debug(can_attack)
 
 	elif can_attack:
 		current_attack_timer = attack_startup

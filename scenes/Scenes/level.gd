@@ -17,9 +17,17 @@ var enemies_spawn = 0
 var enemy_deaths = 0
 var MAX_SPAWN_SIZE: int = 30
 var current_wave = 0
-var boss_is_summoned: bool = false
 var has_spawn_ended: bool = false
 var has_spawn_started: bool = false
+
+#Boss stuff
+var boss_is_summoned: bool = false
+var boss2_is_summoned: bool = false
+var boss3_is_summoned: bool = false
+var boss_one_is_dead: bool = false
+var boss_two_is_dead: bool = false
+var boss_three_is_dead: bool = false
+
 
 #Wave Spawn Stuff
 const MAX_DISTANCE = 300
@@ -31,6 +39,8 @@ const MIN_DISTANCE = 200
 @export var elder_bucko1: PackedScene
 @export var elder_bucko2: PackedScene
 @onready var spawn_timer = $SpawnTimer
+@onready var wave2_timer = $Wave2Spawner
+@onready var wave3_timer = $Wave3Spawner
 
 
 var wave_ended: bool
@@ -41,14 +51,12 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_VisibilityNotifier2D_screen_entered():
 	set_physics_process(true)
-	
 
 func _ready() -> void:
 
-	
 	if Globals.wave_1:
 		Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
-	elif !Globals.wave_1 and !Globals.wave_3 and Globals.wave_2:
+	elif !Globals.wave_1 and !Globals.wave_3: #and Globals.wave_2
 		Globals.defeated_mobs = Globals.W2_MAX_ENEMY_COUNT
 	elif Globals.wave_3:
 		Globals.defeated_mobs = Globals.W3_MAX_ENEMY_COUNT
@@ -56,23 +64,50 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Globals.weapon_selected and !Globals.game_ready:
 		game_start()
-		
+	elif current_wave == 1 and enemy_deaths == Globals.W1_MAX_ENEMY_COUNT and boss_one_is_dead:
+		wave2_start()
+	elif current_wave == 2 and enemy_deaths == Globals.W2_MAX_ENEMY_COUNT and boss_two_is_dead:
+		wave3_start()
+
+#Wave Starters 
 func game_start():
-		Globals.game_ready = true
-		Globals.wave_1 = true
-		current_wave += 1
-		Globals.current_wave = current_wave
+	Globals.game_ready = true
+	Globals.wave_1 = true
+	current_wave += 1
+	Globals.current_wave = current_wave
 		
-		spawn_timer.start()
-		print('Time Started?', !spawn_timer.is_stopped())
+	spawn_timer.start()
+
+func wave2_start():
+	enemy_deaths = 0
+	enemies_spawn = 0
+	Globals.wave_1 = false
+	Globals.wave_2 = true
+	Globals.defeated_mobs = Globals.W2_MAX_ENEMY_COUNT
+	current_wave += 1
+	Globals.current_wave = current_wave
 	
+	wave2_timer.start()
+
+	
+func wave3_start():
+	enemy_deaths = 0
+	enemies_spawn = 0
+	Globals.wave_2 = false
+	Globals.wave_3 = true
+	Globals.defeated_mobs = Globals.W3_MAX_ENEMY_COUNT
+	current_wave += 1
+	Globals.current_wave = current_wave
+	
+	wave3_timer.start()
+
+#Wave Timers
 func _on_spawn_timer_timeout() -> void:
-	if current_wave == 1 and enemy_deaths == Globals.W1_MAX_ENEMY_COUNT:
+	if current_wave == 1 and enemy_deaths == Globals.W1_MAX_ENEMY_COUNT and boss_one_is_dead:
 		spawn_timer.stop()
+
 		#proceed to wave 2
-		current_wave = 2
 		#some cut scene 
-	
 	
 	if enemies_spawn >= Globals.W1_MAX_ENEMY_COUNT:
 		spawn_timer.stop()
@@ -84,6 +119,40 @@ func _on_spawn_timer_timeout() -> void:
 	enemy_spawn()
 	enemies_spawn += 1
 	
+
+func _on_wave_2_spawner_timeout() -> void:
+	print_debug('running?')
+	
+	if current_wave == 2 and enemy_deaths == Globals.W2_MAX_ENEMY_COUNT and boss_two_is_dead:
+		wave2_timer.stop()
+		#some cut scene 
+	elif enemies_spawn >= Globals.W2_MAX_ENEMY_COUNT:
+		wave2_timer.stop()
+		return	
+	elif active_enemies >= MAX_SPAWN_SIZE:
+		return
+	else:
+		enemy_spawn()
+		enemies_spawn += 1
+		
+func _on_wave_3_spawner_timeout() -> void:
+	if current_wave == 3 and enemy_deaths == Globals.W3_MAX_ENEMY_COUNT and boss_three_is_dead:
+		print_debug('game done')
+		wave3_timer.stop()
+		#proceed to wave 2
+		#some cut scene 
+	
+	if enemies_spawn >= Globals.W3_MAX_ENEMY_COUNT:
+		spawn_timer.stop()
+		return
+		
+	if active_enemies >= MAX_SPAWN_SIZE:
+		return
+
+	enemy_spawn()
+	enemies_spawn += 1
+
+#Spawners And Bosses
 func spawn_near_target():
 
 	var valid_points = []
@@ -93,33 +162,14 @@ func spawn_near_target():
 			valid_points.append(marker)
 	return valid_points
 
-#func get_random_spawn_point_around_viewport(margin = 100) -> Vector2:
-	#var screen_size = get_viewport().get_visible_rect().size
-	#var rand_side = randi() % 4
-	#
-	#match rand_side:
-		#0:
-			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(randi_range(0, screen_size.x), -margin)) # Top
-		#1:
-			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(screen_size.x + margin, randi_range(0, screen_size.y))) # Right
-		#2:
-			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(randi_range(0, screen_size.x), screen_size.y + margin)) # Bottom
-		#3:
-			#return $Ami/Camera2D.get_screen_to_world_position(Vector2(-margin, randi_range(0, screen_size.y))) # Left
-		#_: 
-			#return Vector2.ZERO
-
 func enemy_spawn():
 	#var test_spawn = get_random_spawn_point_around_viewport()
 	
 	var player = get_node("Ami")
-	print(markers.size())
 	var valid_spoints = spawn_near_target()
 	if valid_spoints.size() == 0: 
 		print('no valid points')
 		return
-	else: 
-		print(valid_spoints.size())
 	
 	#var spawn_marker = $SpawnMarkers.get_children() 
 	var spawn_location = valid_spoints[randi() % valid_spoints.size()]
@@ -143,7 +193,14 @@ func enemy_died():
 		spawn_boss()
 		print('first boss summoned')
 		boss_is_summoned = true
-		
+	if current_wave == 2 and enemy_deaths >= Globals.W2_MAX_ENEMY_COUNT / 2 and !boss2_is_summoned:
+		spawn_final_boss()
+		print('first boss summoned')
+		boss2_is_summoned = true
+	if current_wave == 3 and enemy_deaths >= Globals.W3_MAX_ENEMY_COUNT / 2 and !boss3_is_summoned:
+		spawn_final_boss()
+		print('first boss summoned')
+		boss3_is_summoned = true
 #func proceed_to_next_wave():
 	#
 	#if Globals.current_wave == 0:
@@ -267,6 +324,14 @@ func spawn_boss():
 	add_child(elder1)
 	active_enemies += 1
 	elder1.connect("died", enemy_died)
+	elder1.connect("boss_one_died", boss_death)
+
+func boss_death():
+	boss_one_is_dead = true
+	print('boss 1 is dead?', boss_one_is_dead)
+	
+func boss_two_death():
+	boss_two_is_dead = true 
 
 func spawn_final_boss():
 	var player = get_node("Ami")
@@ -280,7 +345,10 @@ func spawn_final_boss():
 	add_child(elder2)
 	active_enemies += 1
 	elder2.connect("died", enemy_died)
+	elder2.connect("boss_two_died", boss_two_death)
 
+
+#Player mechanics
 func get_weapon(weapon):
 	var get_wep = weapon.instantiate() as Area2D
 	return get_wep
@@ -310,10 +378,6 @@ func _on_ami_projectle(pos, direction):
 		Globals.weapon_selected = true
 
 
-#func _on_ui_weapon_selected() -> void:
-	#Globals.game_ready = true
-
-
 func _spawn_dmg_text(damage):
 	var popup = dmg_popup.instantiate() 
 
@@ -322,7 +386,6 @@ func _spawn_dmg_text(damage):
 	$InGameUI.add_child(popup)
 	popup.show_damage(damage)
 	
-
 
 func _on_ami_damage_received(damage: Variant) -> void:
 	_spawn_dmg_text(damage)

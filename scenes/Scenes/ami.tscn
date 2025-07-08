@@ -128,7 +128,7 @@ _data = {
 }
 
 [node name="Ami" type="CharacterBody2D" groups=["player"]]
-collision_mask = 31
+collision_mask = 30
 script = ExtResource("1_jwuy1")
 metadata/_edit_lock_ = true
 

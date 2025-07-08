@@ -111,9 +111,9 @@ var outside_range: bool = false #to be implemented
 
 # Waves
 
-const W1_MAX_ENEMY_COUNT: int = 100
-const W2_MAX_ENEMY_COUNT: int = 130
-const W3_MAX_ENEMY_COUNT: int = 150
+const W1_MAX_ENEMY_COUNT: int = 10 # 100
+const W2_MAX_ENEMY_COUNT: int = 8 # 130
+const W3_MAX_ENEMY_COUNT: int = 16 # 150
 
 var defeated_mobs: int:
 	set(value):

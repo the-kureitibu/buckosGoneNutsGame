@@ -4,6 +4,8 @@ var base_speed := speed
 @onready var e1_proj: PackedScene = preload("res://projectiles/elder_proj.tscn")
 #@onready var damage_pop_up = preload("res://scenes/u_i/enemy_damage_popup.tscn")
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
+signal boss_one_died
+
 
 func _ready() -> void:
 	#nav_agent = $NavigationAgent2D
@@ -18,7 +20,15 @@ func _ready() -> void:
 	health = Globals.elder_bucko1.Health
 	avoid_radius = 75.0
 
+func die():
+	set_physics_process(false)
+	await get_tree().create_timer(0.1).timeout
+	boss_one_died.emit()
+	queue_free()
+	
 func _physics_process(delta: float) -> void:
+	
+	
 	if nav_agent == null:
 		print("⚠️ nav_agent is NULL!")
 	
@@ -59,27 +69,23 @@ func _physics_process(delta: float) -> void:
 		else:
 			_perform_attack_logic(delta, final_dir)
 		# Manually handle velocity here 
-			if is_dashing:
-				velocity = final_dir * speed * dash_speed_multiplier
-			else:
-				velocity = final_dir * speed
-			
-		
 		if distance_to_target > PATH_MAX_DISTANCE:
 			nav_agent.target_position = target_dir.global_position
 			pathf_timer -= delta
 			if pathf_timer <= 0: 
 				pathf_timer = 0.2
-
-		if nav_agent.is_navigation_finished():
+			if nav_agent.is_navigation_finished():
+				velocity = final_dir * speed
+			else:
+				var next_path_position = (nav_agent.get_next_path_position() - global_position).normalized()
+				velocity = next_path_position * speed
+		else: 
 			velocity = final_dir * speed
-		else:
-			var next_path_position = nav_agent.get_next_path_position().normalized()
-			velocity = next_path_position * speed
 			
 		move_and_slide()
 		
 		look_at_target(final_dir)
+
 
 func _perform_attack_logic(delta: float, direct: Vector2):
 

@@ -3,7 +3,7 @@ extends EnemyParent
 @onready var e2_proj: PackedScene = preload("res://projectiles/elder2_proj.tscn")
 #@onready var dmgpop_up = preload("res://scenes/u_i/enemy_damage_popup.tscn")
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-
+signal boss_two_died
 
 func _ready() -> void:
 	#nav_agent = $NavigationAgent2D
@@ -56,28 +56,32 @@ func _physics_process(delta: float) -> void:
 		else:
 			_perform_attack_logic(delta, final_dir)
 		# Manually handle velocity here 
-			if is_dashing:
-				velocity = final_dir * speed * dash_speed_multiplier
-			else:
-				velocity = final_dir * speed
-			
 		
+		if is_snared and can_debuffed:
+			velocity = Vector2.ZERO
+		else:
+			_perform_attack_logic(delta, final_dir)
+		# Manually handle velocity here 
 		if distance_to_target > PATH_MAX_DISTANCE:
 			nav_agent.target_position = target_dir.global_position
 			pathf_timer -= delta
 			if pathf_timer <= 0: 
 				pathf_timer = 0.2
-
-		if nav_agent.is_navigation_finished():
-			velocity = final_dir * speed
-		else:
-			var next_path_position = nav_agent.get_next_path_position().normalized()
-			velocity = next_path_position * speed
+			if nav_agent.is_navigation_finished():
+				velocity = final_dir * speed
+			else:
+				var next_path_position = (nav_agent.get_next_path_position() - global_position).normalized()
+				velocity = next_path_position * speed
 			
 		move_and_slide()
 		
 		look_at_target(final_dir)
 
+func die():
+	set_physics_process(false)
+	await get_tree().create_timer(0.1).timeout
+	boss_two_died.emit()
+	queue_free()
 
 func projectile(delta):
 	#var follow_target = self

@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Globals="*res://globals/globals.gd"
 
+[debug]
+
+shapes/navigation/geometry_edge_color=Color(0.293676, 0.382809, 0.78048, 1)
+shapes/navigation/geometry_face_color=Color(0.4, 0.513726, 0.717647, 0.588235)
+
 [display]
 
 window/size/viewport_width=640
@@ -80,6 +85,10 @@ secondary(mouse)={
 2d_physics/layer_4="Objects"
 2d_physics/layer_5="Zones and Items"
 2d_physics/layer_6="Map Edges"
+
+[navigation]
+
+2d/default_edge_connection_margin=5.0
 
 [rendering]
 

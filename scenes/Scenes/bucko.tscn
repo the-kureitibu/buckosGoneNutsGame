@@ -81,7 +81,7 @@ radius = 95.0474
 
 [node name="Bucko" type="CharacterBody2D" node_paths=PackedStringArray("buckoN", "buckoD") groups=["enemies"]]
 collision_layer = 2
-collision_mask = 31
+collision_mask = 28
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_p48ci")
@@ -164,8 +164,8 @@ text = "rwasr"
 
 [connection signal="current_health" from="." to="BuckohealthBar" method="_on_bucko_current_health"]
 [connection signal="timeout" from="LocateTimer" to="." method="_on_locate_timer_timeout"]
-[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
 [connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashDisableTimer" to="." method="_on_dash_disable_timer_timeout"]
 [connection signal="timeout" from="DashEnableTimer" to="." method="_on_dash_enable_timer_timeout"]
 [connection signal="body_entered" from="DmgRange" to="." method="_on_dmg_range_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
