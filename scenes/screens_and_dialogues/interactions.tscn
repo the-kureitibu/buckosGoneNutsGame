@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://jluo1bterg0c"]
+
+[ext_resource type="PackedScene" uid="uid://dyp5tp64rmnkb" path="res://scenes/screens_and_dialogues/elder_1_dialogue.tscn" id="1_bdm2h"]
+[ext_resource type="Script" uid="uid://b0mfg4rr48ygo" path="res://scenes/screens_and_dialogues/interactions.gd" id="1_nsxau"]
+[ext_resource type="PackedScene" uid="uid://w673fd01jv6x" path="res://scenes/screens_and_dialogues/elder_2_dialogue.tscn" id="2_nsxau"]
+[ext_resource type="PackedScene" uid="uid://hnmcvdv5sau" path="res://scenes/screens_and_dialogues/elder_3_dialogue.tscn" id="3_s7aeo"]
+[ext_resource type="PackedScene" uid="uid://cyqhybbwo3lqc" path="res://scenes/screens_and_dialogues/ami_dialogue.tscn" id="4_536d3"]
+
+[node name="Interactions" type="Node2D"]
+script = ExtResource("1_nsxau")
+
+[node name="Elder1Dialogue" parent="." instance=ExtResource("1_bdm2h")]
+
+[node name="Elder2Dialogue" parent="." instance=ExtResource("2_nsxau")]
+
+[node name="Elder3Dialogue" parent="." instance=ExtResource("3_s7aeo")]
+
+[node name="AmiDialogue" parent="." instance=ExtResource("4_536d3")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 25.0
+offset_top = 241.0
+offset_right = 138.0
+offset_bottom = 266.0
+size_flags_vertical = 0
+text = "testt"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -95.0
+offset_right = 320.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_top = 262.0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "test"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4

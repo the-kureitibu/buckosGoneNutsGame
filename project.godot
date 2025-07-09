@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Buckos Gone Nuts"
-run/main_scene="uid://c2n3j825nqtsr"
+run/main_scene="uid://dwinu0uhimi1"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
@@ -94,3 +94,4 @@ secondary(mouse)={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+viewport/transparent_background=true

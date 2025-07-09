@@ -1,6 +1,8 @@
 extends Node2D
 
-@export var camera: Camera2D
+#Misc
+@onready var transition = $CanvasLayer/Transition/ColorRect/AnimationPlayer
+@onready var color_rect = $CanvasLayer/Transition/ColorRect
 
 
 # Weapon Projectiles Scenes
@@ -52,8 +54,24 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_VisibilityNotifier2D_screen_entered():
 	set_physics_process(true)
 
+func play_transition():
+	$WaveTileMapLayer.visible = false
+	color_rect.color = Color(0, 0, 0, 1)
+	color_rect.visible = true
+	await get_tree().process_frame
+	await get_tree().process_frame
+	transition.play("fade_out")
+	await transition.animation_finished
+	$CanvasLayer.layer = 0
+	color_rect.visible = false
+	$WaveTileMapLayer.visible = true
+
+
 func _ready() -> void:
 
+	
+	await play_transition()
+	
 	if Globals.wave_1:
 		Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
 	elif !Globals.wave_1 and !Globals.wave_3: #and Globals.wave_2

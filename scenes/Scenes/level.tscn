@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://c2n3j825nqtsr"]
+[gd_scene load_steps=19 format=4 uid="uid://c2n3j825nqtsr"]
 
 [ext_resource type="Script" uid="uid://b8a3tnn8g65ux" path="res://scenes/Scenes/level.gd" id="1_81xng"]
 [ext_resource type="Texture2D" uid="uid://cgoirwa0k46dy" path="res://Assets/Ground/soil and grass.png" id="1_tumq0"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://1ecb8vkkd3rg" path="res://scenes/u_i/in_game_ui.tscn" id="7_3ulh3"]
 [ext_resource type="PackedScene" uid="uid://8j44qxvxmtgy" path="res://scenes/Scenes/bucko.tscn" id="8_uwuxc"]
 [ext_resource type="PackedScene" uid="uid://dtmmmmd1dpmvj" path="res://scenes/Scenes/elder_bucko_one.tscn" id="9_rbqwl"]
+[ext_resource type="PackedScene" uid="uid://j5g0s6en0o12" path="res://scenes/screens_and_dialogues/new_transition.tscn" id="11_ehjq8"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_uwuxc"]
 vertices = PackedVector2Array(-371.969, -550, -370.023, -63.9922, -1596.97, -62, -1595.01, -551.992)
@@ -1114,6 +1115,11 @@ wait_time = 0.5
 wait_time = 0.5
 
 [node name="EnemySpawner" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Transition" parent="CanvasLayer" instance=ExtResource("11_ehjq8")]
 
 [connection signal="current_health" from="Ami" to="InGameUI" method="_on_ami_current_health"]
 [connection signal="damage_received" from="Ami" to="." method="_on_ami_damage_received"]
