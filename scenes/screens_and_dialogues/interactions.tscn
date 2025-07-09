@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://hnmcvdv5sau" path="res://scenes/screens_and_dialogues/elder_3_dialogue.tscn" id="3_s7aeo"]
 [ext_resource type="PackedScene" uid="uid://cyqhybbwo3lqc" path="res://scenes/screens_and_dialogues/ami_dialogue.tscn" id="4_536d3"]
 
-[node name="Interactions" type="Node2D"]
+[node name="Interactions" type="Node2D" node_paths=PackedStringArray("dialogue_label", "name_label")]
 script = ExtResource("1_nsxau")
+dialogue_label = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/Label")
+name_label = NodePath("CanvasLayer/Label")
 
 [node name="Elder1Dialogue" parent="." instance=ExtResource("1_bdm2h")]
 
@@ -25,7 +27,6 @@ offset_top = 241.0
 offset_right = 138.0
 offset_bottom = 266.0
 size_flags_vertical = 0
-text = "testt"
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 7
@@ -58,7 +59,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "test"
 
 [node name="Control" type="Control" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
