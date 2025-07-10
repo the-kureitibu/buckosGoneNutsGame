@@ -1,15 +1,16 @@
-[gd_scene load_steps=19 format=4 uid="uid://c2n3j825nqtsr"]
+[gd_scene load_steps=20 format=4 uid="uid://c2n3j825nqtsr"]
 
 [ext_resource type="Script" uid="uid://b8a3tnn8g65ux" path="res://scenes/Scenes/level.gd" id="1_81xng"]
 [ext_resource type="Texture2D" uid="uid://cgoirwa0k46dy" path="res://Assets/Ground/soil and grass.png" id="1_tumq0"]
 [ext_resource type="TileSet" uid="uid://s6yvxwqgvw33" path="res://scenes/tileset1/level.tres" id="2_k5f4k"]
 [ext_resource type="PackedScene" uid="uid://qwyggs83jx8h" path="res://scenes/Scenes/ami.tscn" id="3_6phgx"]
-[ext_resource type="PackedScene" uid="uid://bqe2onchvxw2f" path="res://scenes/Scenes/stone.tscn" id="3_ywq4x"]
 [ext_resource type="PackedScene" uid="uid://dbjg2qp0sqv6f" path="res://scenes/Scenes/elder_bucko_2.tscn" id="4_t3dqv"]
+[ext_resource type="PackedScene" uid="uid://1cq3lppcg6b0" path="res://scenes/u_i/elder_bucko_3.tscn" id="5_b1tub"]
 [ext_resource type="PackedScene" uid="uid://ytpgyjew63kw" path="res://scenes/u_i/ui.tscn" id="5_wqkje"]
 [ext_resource type="PackedScene" uid="uid://1ecb8vkkd3rg" path="res://scenes/u_i/in_game_ui.tscn" id="7_3ulh3"]
 [ext_resource type="PackedScene" uid="uid://8j44qxvxmtgy" path="res://scenes/Scenes/bucko.tscn" id="8_uwuxc"]
 [ext_resource type="PackedScene" uid="uid://dtmmmmd1dpmvj" path="res://scenes/Scenes/elder_bucko_one.tscn" id="9_rbqwl"]
+[ext_resource type="PackedScene" uid="uid://r2etpy5hr57p" path="res://scenes/u_i/game_messages.tscn" id="11_b1tub"]
 [ext_resource type="PackedScene" uid="uid://j5g0s6en0o12" path="res://scenes/screens_and_dialogues/new_transition.tscn" id="11_ehjq8"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_uwuxc"]
@@ -54,6 +55,7 @@ script = ExtResource("1_81xng")
 bucko_scene = ExtResource("8_uwuxc")
 elder_bucko1 = ExtResource("9_rbqwl")
 elder_bucko2 = ExtResource("4_t3dqv")
+elder_bucko3 = ExtResource("5_b1tub")
 
 [node name="BaseGround" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -88,6 +90,8 @@ metadata/_edit_lock_ = true
 
 [node name="Nav Regions" type="Node2D" parent="."]
 position = Vector2(175, 395)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Nav Regions"]
 navigation_polygon = SubResource("NavigationPolygon_uwuxc")
@@ -96,6 +100,7 @@ metadata/_edit_lock_ = true
 [node name="NavigationRegion2D2" type="NavigationRegion2D" parent="Nav Regions"]
 position = Vector2(10, 4)
 navigation_polygon = SubResource("NavigationPolygon_t3dqv")
+metadata/_edit_group_ = true
 
 [node name="NavigationRegion2D3" type="NavigationRegion2D" parent="Nav Regions"]
 position = Vector2(12, 6)
@@ -127,10 +132,6 @@ end_position = Vector2(246, -201)
 start_position = Vector2(53, -81)
 end_position = Vector2(74, -13)
 
-[node name="Node2D" parent="." instance=ExtResource("3_ywq4x")]
-position = Vector2(417, 47)
-scale = Vector2(0.502136, 0.596528)
-
 [node name="Ami" parent="." instance=ExtResource("3_6phgx")]
 
 [node name="Projectiles" type="Node2D" parent="."]
@@ -146,965 +147,6 @@ offset_right = 40.0
 offset_bottom = -51.0
 metadata/_edit_lock_ = true
 
-[node name="SpawnMarkers" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(139, -283)
-
-[node name="Marker2D2" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(345, -256)
-
-[node name="Marker2D3" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(159, -201)
-
-[node name="Marker2D12" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1310, -127)
-
-[node name="Marker2D30" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1213, -108)
-
-[node name="Marker2D13" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-585, 163)
-
-[node name="Marker2D14" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-716, 207)
-
-[node name="Marker2D24" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1354, -211)
-
-[node name="Marker2D25" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1100, 71)
-
-[node name="Marker2D26" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1227, -79)
-
-[node name="Marker2D27" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(424, 238)
-
-[node name="Marker2D28" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(768, 305)
-
-[node name="Marker2D29" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(499, 514)
-
-[node name="Marker2D15" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1353, 124)
-
-[node name="Marker2D16" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1590, 625)
-
-[node name="Marker2D17" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-88, 625)
-
-[node name="Marker2D18" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(380, 857)
-
-[node name="Marker2D19" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(195, 718)
-
-[node name="Marker2D20" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1276, 1064)
-
-[node name="Marker2D21" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-225, 610)
-
-[node name="Marker2D22" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(208, 51)
-
-[node name="Marker2D23" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-122, 422)
-
-[node name="Marker2D7" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(246, -317)
-
-[node name="Marker2D8" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2117, 163)
-
-[node name="Marker2D9" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2045, 832)
-
-[node name="Marker2D4" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(545, 372)
-
-[node name="Marker2D5" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1322, -10)
-
-[node name="Marker2D31" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1204, -2)
-
-[node name="Marker2D32" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1086, -95)
-
-[node name="Marker2D33" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1375, 293)
-
-[node name="Marker2D34" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1216, 115)
-
-[node name="Marker2D35" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1147, 203)
-
-[node name="Marker2D36" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1264, 205)
-
-[node name="Marker2D37" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1119, 75)
-
-[node name="Marker2D38" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1228, 283)
-
-[node name="Marker2D39" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-942, -104)
-
-[node name="Marker2D40" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-909, 55)
-
-[node name="Marker2D41" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1004, 11)
-
-[node name="Marker2D42" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-798, -120)
-
-[node name="Marker2D43" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-827, -5)
-
-[node name="Marker2D44" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-635, -118)
-
-[node name="Marker2D45" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1017, 162)
-
-[node name="Marker2D46" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-807, 277)
-
-[node name="Marker2D47" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-761, 109)
-
-[node name="Marker2D48" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1000, 285)
-
-[node name="Marker2D49" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-701, -33)
-
-[node name="Marker2D50" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-878, 179)
-
-[node name="Marker2D51" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-509, -118)
-
-[node name="Marker2D52" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-412, -99)
-
-[node name="Marker2D53" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(99, 313)
-
-[node name="Marker2D54" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(85, 216)
-
-[node name="Marker2D55" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-555, 4)
-
-[node name="Marker2D56" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-639, 44)
-
-[node name="Marker2D57" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-317, -43)
-
-[node name="Marker2D58" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-285, -117)
-
-[node name="Marker2D59" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-642, 302)
-
-[node name="Marker2D60" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-494, 100)
-
-[node name="Marker2D61" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-331, 236)
-
-[node name="Marker2D62" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-463, 214)
-
-[node name="Marker2D63" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-416, 14)
-
-[node name="Marker2D77" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-339, 119)
-
-[node name="Marker2D64" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-427, 292)
-
-[node name="Marker2D65" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-141, -95)
-
-[node name="Marker2D66" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-108, 64)
-
-[node name="Marker2D67" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-203, 20)
-
-[node name="Marker2D68" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(3, -111)
-
-[node name="Marker2D69" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-26, 4)
-
-[node name="Marker2D70" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(166, -109)
-
-[node name="Marker2D71" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-216, 171)
-
-[node name="Marker2D72" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-6, 286)
-
-[node name="Marker2D73" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(40, 118)
-
-[node name="Marker2D74" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-199, 294)
-
-[node name="Marker2D75" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(100, -24)
-
-[node name="Marker2D76" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-77, 188)
-
-[node name="Marker2D78" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(102, 504)
-
-[node name="Marker2D79" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(224, 301)
-
-[node name="Marker2D80" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-24, 403)
-
-[node name="Marker2D81" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-95, 305)
-
-[node name="Marker2D82" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1225, 115)
-
-[node name="Marker2D83" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1273, 189)
-
-[node name="Marker2D84" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1830, 358)
-
-[node name="Marker2D85" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1774, 653)
-
-[node name="Marker2D86" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1154, 543)
-
-[node name="Marker2D87" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1109, 160)
-
-[node name="Marker2D88" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1127, 270)
-
-[node name="Marker2D89" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1228, 280)
-
-[node name="Marker2D90" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1363, 90)
-
-[node name="Marker2D91" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(754, 417)
-
-[node name="Marker2D92" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1195, 381)
-
-[node name="Marker2D93" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1499, 564)
-
-[node name="Marker2D94" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(385, 371)
-
-[node name="Marker2D95" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1334, 267)
-
-[node name="Marker2D96" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(382, 534)
-
-[node name="Marker2D97" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1478, 83)
-
-[node name="Marker2D98" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1506, 250)
-
-[node name="Marker2D99" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1411, 206)
-
-[node name="Marker2D100" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1671, 64)
-
-[node name="Marker2D101" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1588, 190)
-
-[node name="Marker2D102" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1830, 75)
-
-[node name="Marker2D103" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1398, 357)
-
-[node name="Marker2D104" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1683, 723)
-
-[node name="Marker2D105" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1654, 304)
-
-[node name="Marker2D106" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1626, 644)
-
-[node name="Marker2D107" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1714, 162)
-
-[node name="Marker2D108" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1537, 374)
-
-[node name="Marker2D109" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1921, 132)
-
-[node name="Marker2D110" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1680, -58)
-
-[node name="Marker2D111" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1891, 223)
-
-[node name="Marker2D112" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1776, 239)
-
-[node name="Marker2D113" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1939, -68)
-
-[node name="Marker2D114" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1254, -214)
-
-[node name="Marker2D115" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2122, 528)
-
-[node name="Marker2D136" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1878, 446)
-
-[node name="Marker2D137" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1504, 465)
-
-[node name="Marker2D138" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1844, 539)
-
-[node name="Marker2D139" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1651, 547)
-
-[node name="Marker2D141" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1735, 396)
-
-[node name="Marker2D142" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1997, 491)
-
-[node name="Marker2D143" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1974, 567)
-
-[node name="Marker2D144" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2162, 417)
-
-[node name="Marker2D145" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1745, 505)
-
-[node name="Marker2D147" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2003, 749)
-
-[node name="Marker2D148" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1999, 971)
-
-[node name="Marker2D149" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1943, 879)
-
-[node name="Marker2D150" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2048, 627)
-
-[node name="Marker2D151" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1917, 634)
-
-[node name="Marker2D152" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1779, 737)
-
-[node name="Marker2D155" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1849, 835)
-
-[node name="Marker2D156" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1618, 831)
-
-[node name="Marker2D157" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1752, 983)
-
-[node name="Marker2D158" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1639, 947)
-
-[node name="Marker2D159" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1731, 839)
-
-[node name="Marker2D161" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1524, 641)
-
-[node name="Marker2D162" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1419, 660)
-
-[node name="Marker2D163" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1392, 582)
-
-[node name="Marker2D164" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1568, 739)
-
-[node name="Marker2D165" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1368, 819)
-
-[node name="Marker2D166" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1502, 971)
-
-[node name="Marker2D167" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1389, 935)
-
-[node name="Marker2D168" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1481, 827)
-
-[node name="Marker2D175" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1472, 735)
-
-[node name="Marker2D173" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1283, 738)
-
-[node name="Marker2D174" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1396, 746)
-
-[node name="Marker2D169" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1116, 615)
-
-[node name="Marker2D170" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1319, 668)
-
-[node name="Marker2D171" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1217, 630)
-
-[node name="Marker2D172" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1270, 545)
-
-[node name="Marker2D160" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1850, 933)
-
-[node name="Marker2D153" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2132, 789)
-
-[node name="Marker2D154" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1900, 730)
-
-[node name="Marker2D146" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1621, 409)
-
-[node name="Marker2D140" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2034, 398)
-
-[node name="Marker2D131" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1290, 398)
-
-[node name="Marker2D132" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1199, 468)
-
-[node name="Marker2D134" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1084, 525)
-
-[node name="Marker2D176" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(804, 737)
-
-[node name="Marker2D177" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1132, 712)
-
-[node name="Marker2D178" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1191, 780)
-
-[node name="Marker2D179" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1033, 810)
-
-[node name="Marker2D180" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1013, 712)
-
-[node name="Marker2D181" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1274, 854)
-
-[node name="Marker2D182" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1077, 1012)
-
-[node name="Marker2D183" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1294, 980)
-
-[node name="Marker2D184" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1117, 812)
-
-[node name="Marker2D185" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(929, 880)
-
-[node name="Marker2D186" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1125, 908)
-
-[node name="Marker2D192" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1207, 879)
-
-[node name="Marker2D193" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1045, 931)
-
-[node name="Marker2D194" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1386, 1037)
-
-[node name="Marker2D195" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1143, 1154)
-
-[node name="Marker2D196" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1222, 1123)
-
-[node name="Marker2D199" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1308, 1157)
-
-[node name="Marker2D200" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1364, 1112)
-
-[node name="Marker2D201" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1231, 1197)
-
-[node name="Marker2D197" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1201, 958)
-
-[node name="Marker2D198" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1172, 1057)
-
-[node name="Marker2D202" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1056, 1110)
-
-[node name="Marker2D203" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(910, 1176)
-
-[node name="Marker2D204" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1056, 1188)
-
-[node name="Marker2D205" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(984, 1203)
-
-[node name="Marker2D206" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(967, 1061)
-
-[node name="Marker2D187" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(743, 805)
-
-[node name="Marker2D188" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(939, 785)
-
-[node name="Marker2D189" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(844, 820)
-
-[node name="Marker2D190" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(885, 707)
-
-[node name="Marker2D191" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(711, 715)
-
-[node name="Marker2D207" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(401, 703)
-
-[node name="Marker2D208" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(631, 836)
-
-[node name="Marker2D209" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(610, 705)
-
-[node name="Marker2D210" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(526, 846)
-
-[node name="Marker2D211" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(338, 742)
-
-[node name="Marker2D212" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(551, 763)
-
-[node name="Marker2D213" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(425, 782)
-
-[node name="Marker2D214" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(500, 689)
-
-[node name="Marker2D215" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(308, 681)
-
-[node name="Marker2D216" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(188, 1192)
-
-[node name="Marker2D217" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(0, 1018)
-
-[node name="Marker2D218" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(682, 1215)
-
-[node name="Marker2D219" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(774, 1175)
-
-[node name="Marker2D220" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(230, 1019)
-
-[node name="Marker2D221" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(609, 1167)
-
-[node name="Marker2D222" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(414, 1154)
-
-[node name="Marker2D223" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(539, 1218)
-
-[node name="Marker2D224" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(162, 1051)
-
-[node name="Marker2D225" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(482, 1177)
-
-[node name="Marker2D226" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(287, 1213)
-
-[node name="Marker2D227" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(400, 1229)
-
-[node name="Marker2D228" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(113, 981)
-
-[node name="Marker2D229" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(74, 1060)
-
-[node name="Marker2D230" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(313, 1146)
-
-[node name="Marker2D231" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(230, 1105)
-
-[node name="Marker2D232" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(336, 1045)
-
-[node name="Marker2D233" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-453, 1042)
-
-[node name="Marker2D234" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-134, 983)
-
-[node name="Marker2D235" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-206, 1059)
-
-[node name="Marker2D236" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-248, 982)
-
-[node name="Marker2D237" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-296, 1041)
-
-[node name="Marker2D238" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-74, 1050)
-
-[node name="Marker2D239" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-165, 659)
-
-[node name="Marker2D240" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-24, 621)
-
-[node name="Marker2D241" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-81, 680)
-
-[node name="Marker2D242" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-600, 615)
-
-[node name="Marker2D243" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-142, 584)
-
-[node name="Marker2D244" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-244, 671)
-
-[node name="Marker2D245" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-286, 594)
-
-[node name="Marker2D246" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-334, 653)
-
-[node name="Marker2D280" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1104, 660)
-
-[node name="Marker2D281" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-821, 678)
-
-[node name="Marker2D282" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1491, 613)
-
-[node name="Marker2D283" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-988, 657)
-
-[node name="Marker2D284" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1219, 620)
-
-[node name="Marker2D285" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1286, 670)
-
-[node name="Marker2D286" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1356, 622)
-
-[node name="Marker2D287" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-700, 653)
-
-[node name="Marker2D288" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-417, 671)
-
-[node name="Marker2D293" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-469, 624)
-
-[node name="Marker2D289" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-543, 665)
-
-[node name="Marker2D290" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-786, 604)
-
-[node name="Marker2D291" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-907, 656)
-
-[node name="Marker2D292" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-935, 603)
-
-[node name="Marker2D294" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-934, 529)
-
-[node name="Marker2D295" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1101, 519)
-
-[node name="Marker2D296" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-938, 348)
-
-[node name="Marker2D299" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1000, 285)
-
-[node name="Marker2D300" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-938, 348)
-
-[node name="Marker2D297" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1090, 424)
-
-[node name="Marker2D298" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-1087, 302)
-
-[node name="Marker2D247" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-199, 726)
-
-[node name="Marker2D248" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(222, 520)
-
-[node name="Marker2D249" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(86, 570)
-
-[node name="Marker2D250" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(194, 582)
-
-[node name="Marker2D251" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(305, 581)
-
-[node name="Marker2D252" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(227, 656)
-
-[node name="Marker2D253" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-80, 567)
-
-[node name="Marker2D254" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(159, 475)
-
-[node name="Marker2D255" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(64, 647)
-
-[node name="Marker2D256" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(29, 570)
-
-[node name="Marker2D257" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-19, 688)
-
-[node name="Marker2D259" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-567, 935)
-
-[node name="Marker2D260" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-705, 874)
-
-[node name="Marker2D261" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-656, 948)
-
-[node name="Marker2D262" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-527, 885)
-
-[node name="Marker2D263" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-545, 1032)
-
-[node name="Marker2D264" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-827, 876)
-
-[node name="Marker2D265" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-606, 1017)
-
-[node name="Marker2D266" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-736, 977)
-
-[node name="Marker2D267" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-761, 903)
-
-[node name="Marker2D268" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-819, 960)
-
-[node name="Marker2D269" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-689, 1048)
-
-[node name="Marker2D270" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-630, 877)
-
-[node name="Marker2D271" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-489, 978)
-
-[node name="Marker2D272" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-166, 921)
-
-[node name="Marker2D273" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-355, 952)
-
-[node name="Marker2D274" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-429, 914)
-
-[node name="Marker2D275" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-338, 864)
-
-[node name="Marker2D276" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-356, 1011)
-
-[node name="Marker2D277" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-417, 996)
-
-[node name="Marker2D278" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-441, 856)
-
-[node name="Marker2D279" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(-271, 884)
-
-[node name="Marker2D258" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(109, 702)
-
-[node name="Marker2D135" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1105, 432)
-
-[node name="Marker2D314" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(908, 319)
-
-[node name="Marker2D315" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(979, 325)
-
-[node name="Marker2D316" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(907, 411)
-
-[node name="Marker2D317" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1051, 367)
-
-[node name="Marker2D318" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(835, 361)
-
-[node name="Marker2D133" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1364, 493)
-
-[node name="Marker2D128" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2039, 223)
-
-[node name="Marker2D129" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1948, 293)
-
-[node name="Marker2D130" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2113, 318)
-
-[node name="Marker2D116" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1957, 11)
-
-[node name="Marker2D117" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2159, 95)
-
-[node name="Marker2D118" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2112, 35)
-
-[node name="Marker2D119" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1816, -43)
-
-[node name="Marker2D120" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2032, -30)
-
-[node name="Marker2D121" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2031, 93)
-
-[node name="Marker2D122" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(997, 426)
-
-[node name="Marker2D123" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1311, -111)
-
-[node name="Marker2D124" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1546, -60)
-
-[node name="Marker2D125" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1295, -2)
-
-[node name="Marker2D126" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1195, 30)
-
-[node name="Marker2D127" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1423, -49)
-
-[node name="Marker2D301" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(471, -56)
-
-[node name="Marker2D302" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(664, -75)
-
-[node name="Marker2D303" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(924, -107)
-
-[node name="Marker2D304" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(852, -33)
-
-[node name="Marker2D305" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(673, -197)
-
-[node name="Marker2D306" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(923, -228)
-
-[node name="Marker2D307" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1027, -139)
-
-[node name="Marker2D308" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1167, -151)
-
-[node name="Marker2D309" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(809, -182)
-
-[node name="Marker2D310" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1111, -231)
-
-[node name="Marker2D311" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(1084, -42)
-
-[node name="Marker2D312" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(539, -199)
-
-[node name="Marker2D313" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(416, -188)
-
-[node name="Marker2D6" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(2107, 924)
-
-[node name="Marker2D10" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(250, -150)
-
-[node name="Marker2D11" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(305, -42)
-
-[node name="Boss Spawn" type="Marker2D" parent="SpawnMarkers"]
-position = Vector2(38, 451)
-
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 0.5
 
@@ -1115,11 +157,171 @@ wait_time = 0.5
 wait_time = 0.5
 
 [node name="EnemySpawner" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="SpawnMarkers" type="Node2D" parent="."]
+
+[node name="Boss Spawn" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(38, 451)
+
+[node name="Marker2D" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(2018, 543)
+scale = Vector2(10, 10)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1881, 809)
+scale = Vector2(10, 10)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1506, 767)
+scale = Vector2(10, 10)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1218, 423)
+scale = Vector2(10, 10)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(2032, 47)
+scale = Vector2(10, 10)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1706, 239)
+scale = Vector2(10, 10)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1522, 473)
+scale = Vector2(10, 10)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1384, 168)
+scale = Vector2(10, 10)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1284, 1066)
+scale = Vector2(10, 10)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1171, 807)
+scale = Vector2(10, 10)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-1260, 5.00012)
+scale = Vector2(10, 10)
+
+[node name="Marker2D12" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-1085, 197)
+scale = Vector2(10, 10)
+
+[node name="Marker2D13" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-851, -7.99998)
+scale = Vector2(10, 10)
+
+[node name="Marker2D14" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-1482, 648)
+scale = Vector2(10, 10)
+
+[node name="Marker2D15" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-701, 214)
+scale = Vector2(10, 10)
+
+[node name="Marker2D16" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-546, -24)
+scale = Vector2(10, 10)
+
+[node name="Marker2D17" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-362, 160)
+scale = Vector2(10, 10)
+
+[node name="Marker2D18" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-161, -20)
+scale = Vector2(10, 10)
+
+[node name="Marker2D19" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(273, -170)
+scale = Vector2(10, 10)
+
+[node name="Marker2D20" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(616, -157)
+scale = Vector2(10, 10)
+
+[node name="Marker2D21" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(925, -119)
+scale = Vector2(10, 10)
+
+[node name="Marker2D22" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(1263, -157)
+scale = Vector2(10, 10)
+
+[node name="Marker2D23" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(879, 862)
+scale = Vector2(10, 10)
+
+[node name="Marker2D24" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(515, 820)
+scale = Vector2(10, 10)
+
+[node name="Marker2D25" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(640, 1075)
+scale = Vector2(10, 10)
+
+[node name="Marker2D26" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-680, 971)
+scale = Vector2(10, 10)
+
+[node name="Marker2D27" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(-175, 770)
+scale = Vector2(10, 10)
+
+[node name="Marker2D28" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(46, 958)
+scale = Vector2(10, 10)
+
+[node name="Marker2D29" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(109, 636)
+scale = Vector2(10, 10)
+
+[node name="Marker2D30" type="Marker2D" parent="SpawnMarkers"]
+modulate = Color(0.808137, 3.32102e-06, 4.81307e-07, 1)
+position = Vector2(355, 999)
+scale = Vector2(10, 10)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 100
 
 [node name="Transition" parent="CanvasLayer" instance=ExtResource("11_ehjq8")]
+position = Vector2(1886, 298)
+metadata/_edit_lock_ = true
+
+[node name="GameMessages" parent="." instance=ExtResource("11_b1tub")]
 
 [connection signal="current_health" from="Ami" to="InGameUI" method="_on_ami_current_health"]
 [connection signal="damage_received" from="Ami" to="." method="_on_ami_damage_received"]

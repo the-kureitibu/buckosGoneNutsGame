@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://jrrq6501clqd"]
+
+[ext_resource type="Texture2D" uid="uid://pajwi1sgckso" path="res://Assets/UI/progress.png" id="1_btj2j"]
+[ext_resource type="Script" uid="uid://uosdi1kngsn6" path="res://scenes/u_i/elder_bucko_3_health.gd" id="2_hx4ah"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hx4ah"]
+bg_color = Color(0.827451, 0.254902, 0.105882, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_546kv"]
+texture = ExtResource("1_btj2j")
+
+[node name="ElderBucko3Health" type="ProgressBar"]
+offset_right = 4.0
+offset_bottom = 27.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hx4ah")
+theme_override_styles/fill = SubResource("StyleBoxTexture_546kv")
+script = ExtResource("2_hx4ah")

@@ -1,17 +1,13 @@
 extends EnemyParent
 
-@onready var e2_proj: PackedScene = preload("res://projectiles/elder2_proj.tscn")
-#@onready var dmgpop_up = preload("res://scenes/u_i/enemy_damage_popup.tscn")
+
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
-signal boss_two_died
+signal boss_three_died
 
 func _ready() -> void:
-	#nav_agent = $NavigationAgent2D
-	proj_scene = e2_proj
-	
 	current_attack_timer = attack_startup
 	can_attack = true
-	health = Globals.elder_bucko2.Health
+	health = Globals.elder_bucko3.Health
 	avoid_radius = 75.0
 
 func _physics_process(delta: float) -> void:
@@ -75,48 +71,8 @@ func _physics_process(delta: float) -> void:
 func die():
 	set_physics_process(false)
 	await get_tree().create_timer(0.1).timeout
-	boss_two_died.emit()
+	boss_three_died.emit()
 	queue_free()
-
-func projectile(delta):
-	#var follow_target = self
-	
-	var wep = proj_scene.instantiate() as Area2D
-	wep.follow_target = self
-
-	get_parent().add_child(wep)
-
-func _perform_attack_logic(delta: float, direct: Vector2):
-	handle_attack_logic(delta, direct)
-
-	#I'm trying to figure out how to modify this code from the parent
-func handle_attack_logic(delta, direct):
-	
-	if is_in_startup:
-		current_attack_timer -= delta
-		if current_attack_timer <= 0:
-			projectile(delta)
-			current_attack_timer = attack_cooldown
-			is_in_cooldown = true
-			print_debug('cd', is_in_cooldown)
-			is_in_startup = false
-			print_debug('sup', is_in_startup)
-			#is_in_startup = false
-			
-	elif is_in_cooldown: 
-		current_attack_timer -= delta
-		if current_attack_timer <= 0:
-			is_in_cooldown = false
-			print_debug(is_in_cooldown, 'cd')
-			can_attack = true
-			print_debug(can_attack)
-
-	elif can_attack:
-		current_attack_timer = attack_startup
-		is_in_startup = true
-		can_attack = false
-		
-
 
 
 func hit(damage: int):
@@ -131,16 +87,13 @@ func hit(damage: int):
 
 func _spawn_dmg_text(damage):
 	var popup = dmgpop_up.instantiate() 
-
 	#var popup_start_pos = $InGameUI.get_global_position()
 	popup.global_position = self.get_global_position()
-
 	
 	get_tree().current_scene.add_child(popup)
 	popup.show_damage(damage)
 	
-	
-func look_at_target(dir):
-	if dir.length() > 0.1:
-		rotation = dir.angle()
-	$AnimationPlayer.play("bucko_walk")
+
+
+#func _on_current_health(health_value: Variant) -> void:
+	#pass # Replace with function body.

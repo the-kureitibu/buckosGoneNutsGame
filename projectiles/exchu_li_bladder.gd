@@ -32,22 +32,15 @@ func _on_body_entered(body: Node2D) -> void:
 		body.hit(damage)
 	if 'slowed' in body:
 		body.slowed(0.1, 2.0)
-		print('slowed')
 	#if 'snared' in body:
 		#body.snared(1.5)
 		#print('snared')
 	
 	if Globals.rage < Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE:
 		Globals.rage += 1
-		print(Globals.rage, 'global rage')
 	if Globals.rage == Globals.max_rage and Globals.rage_state == Globals.RageState.IDLE and Globals.rage_state != Globals.RageState.RAGEDONE:
 		Globals.rage_on = true
-		print_debug(Globals.rage_on, ' raging?')
-		print_debug('rage ongoing, cant gain rage')
-	
-	
 
-		
 
 	#if !$Timer.is_stopped():
 		#print('timer on')

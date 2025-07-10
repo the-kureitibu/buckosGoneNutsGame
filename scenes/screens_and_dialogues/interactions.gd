@@ -1,11 +1,17 @@
 extends Node2D
 
+class_name Interactions 
+@onready var transition = $CanvasLayer2/Transition/ColorRect/AnimationPlayer
+@onready var color_rect = $CanvasLayer2/Transition/ColorRect
+
+
 #States
 var is_pre_dia: bool = false
 var is_start_dia: bool = false
 var is_good_end: bool = false
 var is_true_end: bool = false
 var is_bad_end: bool = false
+var is_dialogue_running: bool = false
 
 #Character States
 var is_ami_talk: bool = false
@@ -15,7 +21,7 @@ var is_elder3_talk: bool = false
 
 #Dialogue Indexes 
 var current_index := 0
-
+var dialogue_a = []
 #Labels
 @export var dialogue_label: Label
 @export var name_label: Label
@@ -25,117 +31,7 @@ signal dialogue_done
 
 #Dialogues
 
- # In case for later usage:
-#var start_dialogues: Dictionary = {
-	#"Ami" = [
-		#"Bucko, Bucko, Bucko, Bucko, Bucko, Bucko, Buckoo- Are?!",
-		#"Nani kore?",
-		#"Neglected??!",
-		#"...",
-		#"You guys gone nuts?! Fine! Come get some!!"
-	#],
-	#"Elder1" = [
-		#"...",
-		#"..."
-	#],
-	#"Elder2" = [
-		#"...",
-		#"..."
-	#],
-	#"Elder3" = [
-		#"You’ve come. SpidorMama.",
-		#"We hast been neglected. As so it’s been decided we wage war.",
-		#"...",
-		#"Hah! Well quoth, Spidor. SOUND THE MARCH."
-	#]
-#}
-#var pre_dialogues: Dictionary = {
-	#"Narrating" = [
-		#"On an island somewhere on the Ami planet…",
-		#"Meanwhile…"
-	#],
-	#"Ami" = [],
-	#"Elder1" = [ 
-		#"Elder, the bros and gals are lacking chus; morale is low. What do we do?",
-		#"... ",
-		#"By thy shall."
-	#],
-	#"Elder2" = [
-		#"..."
-	#],
-	#"Elder3" = [
-		#"...",
-		#"We go to war. Muster all legions"
-	#]
-#}
-#var wave1_dialogues: Dictionary = {
-	#"Ami" = [],
-	#"Elder1" = [
-		#"I’ll it it up to you, my brothers…"
-	#],
-	#"Elder2" = [
-		#"Very well."
-	#],
-	#
-	##On Boss Spawn
-	#"Elder3" = [
-		#"Well done.  Allow us see how long thou keep up." 
-	#] 
-#}
-#var wave2_dialogues: Dictionary = {
-	##On boss summon
-	#"Ami" = [
-		#"You tryna kill me or something?!?"
-	#],
-	#"Elder2" = [
-		#"I’ve failed you, dearest brother."
-	#],
-	#
-	##[0] On boss summon
-	#"Elder3" = [
-		#"Well done surviving until now, Spidor.",
-		#"You’ve done well. I shall continue from hither on."
-	#]
-#}
-##var wave3_dialogues: Dictionary = {
-	##"Ami" = [],
-	##"Elder1" = [],
-	##"Elder2" = [],
-	##"Elder3" = []
-#}
-#var true_end_dialogues: Dictionary = {
-	#"Ami" = [
-		#"You spoiled brats all you want are chus!! You silly buckos!"
-	#],
-	#"Elder3" = [
-		#"It is not our fault 'tis gone from sight"
-	#]
-#}
-#var good_end_dialogues: Dictionary = {
-	#"Ami" = [
-		#"Hmmp!"
-	#],
-	#"Elder1" = [
-		#"This situation isn’t ill at all."
-	#],
-	#"Elder2" = [
-		#"This situation isn’t ill at all."
-	#],
-	#"Elder3" = [
-		#"This situation isn’t ill at all."
-	#]
-#}
-#var bad_end_dialogues: Dictionary = {
-	#"Ami" = [
-		#"No buckos… NOOOOOOOO!!!!"
-	#],
-	#"Elder1" = [],
-	#"Elder2" = [],
-	#"Elder3" = [
-		#"Thou've done it now, spidor mama. I might not but admit our methods are rough, 
-		#yet  it is for the sake of getting pampered. This is the end. We bid thou farewell"
-	#]
-#}
+ 
 
 var pre_dialogues: Array = [
 	{"speaker": "Narrator", "line": "On an island somewhere on the Ami planet…", "emotion": ""},
@@ -158,8 +54,6 @@ var start_dialogues: Array = [
 	{"speaker": "Elder2", "line": "...", "emotion": ""},
 	{"speaker": "Elder3", "line": "...", "emotion": ""},
 	{"speaker": "Ami", "line": "...", "emotion": ""},
-	{"speaker": "Elder1", "line": "...", "emotion": ""},
-	{"speaker": "Elder2", "line": "...", "emotion": ""},
 	{"speaker": "Ami", "line": "You guys gone nuts?! Fine! Come get some!!", "emotion": ""},
 	{"speaker": "Elder3", "line": "Hah! Well quoth, Spidor. SOUND THE MARCH.", "emotion": ""}
 ]
@@ -209,67 +103,105 @@ var bad_end_dialogues: Array = [
 ]
 
 
-func indexer(curent_index, wave):
+func indexer(wave):
+	
 	if current_index < wave.size():
 		dialogue_label.text = wave[current_index].line
-		print(dialogue_label.text, 'seq 1')
+		name_label.text = wave[current_index].speaker
 		current_index += 1
-		print('seq : ', current_index )
 	else:
 		current_index = 0
-		dialogue_done.emit()
-		queue_free()
+		if wave == pre_dialogues: #This is the one
+			dialogue_label.text = ""
+			name_label.text = ""
+			await play_transition_fi()
+			await play_transition_fo()
+			DialogueStates.current_dialogue_type = "pre_wave"
+			
+		elif wave == start_dialogues:
+			await play_transition_fi()
+			DialogueStates.current_dialogue_type = "wave_start"
+			get_tree().change_scene_to_file("res://scenes/Scenes/level.tscn")
+			queue_free()
+		else:
+			dialogue_done.emit()
+			queue_free()
+
+func pre_wave_dialogue(wave):
+	#var index = current_index
+	var str_captured = wave
+	var dial: Array
+	
+	if str_captured == "start_dialogues":
+		dial = start_dialogues
+		if Input.is_action_just_pressed("primary(mouse)"):
+			indexer(dial)
 
 func wave_dialogue(wave_number, part):
-	var index = current_index
-	var dialogue_a: Array
 	
+
 	if wave_number == 1 and part == 1: 
 		dialogue_a = pre_wave1_dialogues
-		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, dialogue_a)
 	elif wave_number == 1 and part == 2: 
 		dialogue_a = post_wave1_dialogues
-		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, dialogue_a)
-	
 	if wave_number == 2 and part == 1: 
 		dialogue_a = pre_wave2_dialogues
-		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, dialogue_a)
 	elif wave_number == 2 and part == 2: 
 		dialogue_a = post_wave2_dialogues
-		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, dialogue_a)
-
 	if wave_number == 3 and part == 1: 
 		dialogue_a = pre_wave3_dialogues
-		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, dialogue_a)
 	elif wave_number == 3 and part == 2: 
 		dialogue_a = post_wave3_dialogues
-		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, dialogue_a)
+		
+	current_index = 0
+	is_dialogue_running = true
+	indexer(dialogue_a)
+	await dialogue_done
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if is_dialogue_running and Input.is_action_just_pressed("primary(mouse)"):
+		indexer(dialogue_a)
 
 func starting_dialogue(wave):
-	var index = current_index
+	var str_captured = wave
+	var dial: Array
 	
-	if wave == pre_dialogues:
+	if str_captured == "pre_dialogues":
+		dial = pre_dialogues
 		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, wave)
+			indexer(dial)
 			
-	if wave == start_dialogues:
+	if str_captured == "start_dialogues":
+		dial = start_dialogues
 		if Input.is_action_just_pressed("primary(mouse)"):
-			indexer(index, wave)
+			indexer(dial)
 
+func play_transition_fo():
+	color_rect.color = Color(0, 0, 0, 1)
+	color_rect.visible = true
+	await get_tree().process_frame
+	await get_tree().process_frame
+	transition.play("fade_out")
+	await transition.animation_finished
+	color_rect.visible = false
+
+func play_transition_fi():
+	$CanvasLayer2.layer = 100
+	color_rect.color = Color(0, 0, 0, 1)
+	color_rect.visible = true
+	await get_tree().process_frame
+	transition.play("fade_in")
+	await transition.animation_finished
 
 
 
 func _ready() -> void:
-	is_ami_talk = true
-	
-#input on click - next in the Array 
+	play_transition_fo()
+
 
 func _process(_delta):
-	#starting_dialogue(pre_dialogues)
-	wave_dialogue(2, 1)
+	if DialogueStates.current_dialogue_type == "pre_start":
+		starting_dialogue("pre_dialogues")
+	if DialogueStates.current_dialogue_type == "pre_wave":
+		pre_wave_dialogue("start_dialogues")

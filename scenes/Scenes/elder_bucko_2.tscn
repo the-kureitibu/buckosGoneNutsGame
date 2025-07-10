@@ -49,36 +49,32 @@ collision_mask = 29
 script = ExtResource("1_i80e0")
 
 [node name="ElderBucko2health" parent="." instance=ExtResource("2_smkt4")]
-offset_left = -17.0
-offset_top = 40.0
-offset_right = 17.0
-offset_bottom = 45.0
+offset_left = 42.0
+offset_top = 17.0
+offset_right = 76.0
+offset_bottom = 22.0
+rotation = -1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.19209e-07, 0)
+rotation = -1.5708
 scale = Vector2(1.34375, 1.33824)
 texture = ExtResource("1_mnywd")
 hframes = 4
 region_enabled = true
 region_rect = Rect2(0, 0, 256, 68)
-metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_i80e0")
 metadata/_edit_lock_ = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, 5)
-metadata/_edit_lock_ = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../CollisionShape2D")
 libraries = {
 &"": SubResource("AnimationLibrary_6wegk")
 }
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-17, 40)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 

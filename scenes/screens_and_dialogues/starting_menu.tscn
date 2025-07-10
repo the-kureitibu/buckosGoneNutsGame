@@ -69,5 +69,7 @@ text = "Quit"
 
 [node name="Transition" parent="CanvasLayer" instance=ExtResource("5_uk7bj")]
 
+[node name="Transition" parent="." instance=ExtResource("5_uk7bj")]
+
 [connection signal="pressed" from="Button Holders/ButtonStart" to="." method="_on_button_start_pressed"]
 [connection signal="pressed" from="Button Holders/ButtonQuit" to="." method="_on_button_quit_pressed"]

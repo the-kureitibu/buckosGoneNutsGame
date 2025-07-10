@@ -5,12 +5,34 @@ signal rage_activated
 signal stat_change
 signal change_wave
 signal change_mobs_count
-#signal health_change
+
 signal attack
 
 var game_ready: bool = false
 var game_end: bool = false
 var weapon_selected: bool = false
+
+#Ending tags
+var true_end: bool = false
+var good_end: bool = false
+var bad_end: bool = false
+
+
+#Reset 
+func reset_all():
+	game_ready = false
+	game_end = false
+	weapon_selected = false
+	can_attack = false
+	ami_health = 1.0
+	wep_hanger = false
+	wep_embrace = false
+	wep_exchu = false
+	defeated_mobs = 0
+	current_wave = 0
+	wave_1 = true
+	wave_2 = false
+	wave_3 = false
 
 #Weapons Dictionaries 
 var hanger_wep = {
@@ -111,9 +133,9 @@ var outside_range: bool = false #to be implemented
 
 # Waves
 
-const W1_MAX_ENEMY_COUNT: int = 10 # 100
-const W2_MAX_ENEMY_COUNT: int = 8 # 130
-const W3_MAX_ENEMY_COUNT: int = 16 # 150
+const W1_MAX_ENEMY_COUNT: int = 4 # 100
+const W2_MAX_ENEMY_COUNT: int = 6# 130
+const W3_MAX_ENEMY_COUNT: int = 8 # 150
 
 var defeated_mobs: int:
 	set(value):
@@ -150,9 +172,3 @@ var rage_on: bool = false:
 		rage_on = value 
 		rage_activated.emit()
 		print(t)
-
-# Stats Update 
-#var health_damaged: int:
-	#set(value):
-		#health_damaged = value
-		#health_change.emit()

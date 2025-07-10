@@ -8,50 +8,38 @@ extends Control
 @export var sel_but_three: Button
 
 
-
-#func _ready() -> void:
-	#sel_button.pressed.connect(_on_flip_button_pressed.bind(sel_but))
-
 func toggle_visiblity(object):
 	if object.visible == true:
 		object.visible = false
 	else:
 		object.visible = true
 
-#func sel_but():
-	#print('nice')
-
 func _on_flip_button_pressed():
 	toggle_visiblity(first_img)
 	toggle_visiblity(sec_img)
 	
-
-#func _on_button_pressed() -> void:
-	#
-	#if sel_but_one:
-		#print("one")
-
-
-func _on_button_one_pressed() -> void:
-	Globals.wep_exchu = true 
+func set_wave():
 	$"..".visible = false
 	Globals.weapon_selected = true
 	Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
-	print(Globals.wep_exchu)
+
+func _on_button_one_pressed() -> void:
+	Globals.wep_exchu = true 
+	Globals.true_end = true
+	print(Globals.true_end, 'true')
+	set_wave()
 	print("exchu") # exchu
 
 func _on_button_two_pressed() -> void:
 	Globals.wep_hanger = true
-	$"..".visible = false
-	Globals.weapon_selected = true
-	Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
-	print(Globals.wep_hanger) # hanger
+	Globals.bad_end = true
+	print(Globals.bad_end, 'bad')
+	set_wave()
 	print("hanger")
 
 func _on_button_three_pressed() -> void:
 	Globals.wep_embrace = true
-	$"..".visible = false
-	Globals.weapon_selected = true
-	Globals.defeated_mobs = Globals.W1_MAX_ENEMY_COUNT
-	print(Globals.wep_embrace) # embrace
+	Globals.good_end = true
+	print(Globals.good_end, 'good')
+	set_wave()
 	print("embrace")

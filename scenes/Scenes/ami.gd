@@ -1,11 +1,9 @@
 extends CharacterBody2D
 
-#things to work on :
-# error when attacking during rage - timeout already connected 
-
+@onready var transition = $CanvasLayer/Transition/ColorRect/AnimationPlayer
 
 #General movement related
-var max_speed: int = 200
+var max_speed: int = 120
 var base_speed = max_speed
 const acceleration := 350
 const friction := 400
@@ -41,7 +39,6 @@ func start_rage_timer():
 		if not rage_timer.is_connected("timeout", on_timer_timeout):
 			rage_timer.timeout.connect(on_timer_timeout)
 			rage_timer.start()
-			print('time started on first stage, start_rage_timer')
 			Globals.rage_state = Globals.RageState.RAGING
 			Globals.rage_stats = Globals.RageStat.RAGE_ON
 
@@ -59,7 +56,6 @@ func second_timer_timeout():
 	
 func on_timer_timeout():
 	time_elapsed += 1
-	label.text = "Time: " + str(time_elapsed)
 	
 	if time_elapsed == 5:
 		Globals.rage_state = Globals.RageState.COOLDOWN
@@ -73,7 +69,7 @@ func on_timer_timeout():
 		Globals.rage_on = false
 		Globals.rage_state = Globals.RageState.RAGEDONE
 		rage_timer.disconnect("timeout", on_timer_timeout)
-		print_debug(Globals.rage_on)
+
 
 func got_hit(damage):
 	#var health = Globals.ami_health
@@ -84,7 +80,15 @@ func got_hit(damage):
 		current_health.emit(Globals.ami_health)
 		damage_received.emit(damage)
 		if Globals.ami_health <= 0:
-			pass #death/game over 
+			die()
+
+func die():
+	transition.play("fade_in")
+	# this produces bugs
+	#Globals.reset_all()
+	#DialogueStates.reset_all()
+	await transition.animation_finished
+	get_tree().change_scene_to_file("res://scenes/screens_and_dialogues/starting_menu.tscn")
 
 func slowed(multiplier, duration):
 	if is_slowed:
