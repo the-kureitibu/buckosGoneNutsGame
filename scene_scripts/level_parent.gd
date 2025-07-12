@@ -9,18 +9,22 @@ class_name LevelParent
 
 
 func projectile_handler(weapon, pos, dir):
+	
 	var weap = weapon.instantiate()
 	weap.position = pos
 	weap.rotation_degrees = rad_to_deg(dir.angle()) + 90
 	weap.direction = dir
+	weap.range_handler(pos)
 	$Projectiles.add_child(weap)
 
 func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
+	
+	
 	var hanger_projectile = embrace_attack.instantiate()
 	hanger_projectile.position = pos
 	#hanger_projectile.rotation_degrees = rad_to_deg(dir.angle()) + 90
 	#hanger_projectile.direction = dir
-	
+	#
 	$Projectiles.add_child(hanger_projectile)
 
 	#if WeaponsManager.exchulibladder: 

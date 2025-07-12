@@ -20,7 +20,6 @@ var exchu_projectile = {
 var embrace_projectile = {
 	"Damage" = 30,
 	"Attack_speed" = 0.25,
-	"Range" = 200.0,
 	"Snare_duration" = 1.0
 }
 
