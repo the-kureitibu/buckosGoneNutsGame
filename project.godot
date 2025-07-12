@@ -30,6 +30,10 @@ window/size/viewport_height=360
 window/size/window_width_override=960
 window/size/window_height_override=540
 
+[global_group]
+
+player_projectiles=""
+
 [input]
 
 top={

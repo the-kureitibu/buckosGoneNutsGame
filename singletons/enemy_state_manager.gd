@@ -1,11 +1,13 @@
 extends Node
 
 enum EnemyDebuffStates {
-	CAN_BE_STUNNED,
-	CAN_BE_SNARED,
-	CAN_BE_FREEZED,
-	CAN_BE_SLOWED,
-	CAN_BLEED
+	STUNNED,
+	SNARED,
+	FREEZED,
+	SLOWED,
+	BLEEDING, 
+	IMMUNE,
+	NO_BEBUFF
 }
 
 enum EnemyStates {

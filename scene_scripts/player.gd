@@ -60,7 +60,6 @@ func got_hit():
 	if !is_invulnerable:
 		is_invulnerable = true
 		invulnerable_timer = 0.5
-		print('current health: ', current_health)
 		
 		if current_health == 0:
 			die()
@@ -80,7 +79,7 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 		velocity = knockback_direction * repulsion_force
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-	print_debug('anyone got in?')
+
 	var damage = 0 
 
 	if area.is_in_group('enemy_hurtbox'):
@@ -89,20 +88,15 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		match source_name: 
 			'Enemy':
 				damage = EnemyManager.enemy_bucko.Damage
-				print('damage', damage)
 			'enemy_boss_one':
 				damage = EnemyManager.enemy_boss1.Damage
 			'enemy_boss_two':
 				damage = EnemyManager.enemy_boss2.Damage
 			'enemy_boss_three':
 				damage = EnemyManager.enemy_boss3.Damage
-		print(source_name)
-		print(EnemyManager.enemy_bucko.Damage)
 	elif area.is_in_group('enemy_projectiles'):
 		damage = area.damage
 
-	
-	print('expected damage: ', damage)
 	got_hit()
 	PlayerManager.apply_damage(damage)
 	

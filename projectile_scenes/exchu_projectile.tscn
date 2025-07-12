@@ -1,22 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbfr4k8phy71a"]
+[gd_scene load_steps=4 format=3 uid="uid://bbfr4k8phy71a"]
 
 [ext_resource type="Texture2D" uid="uid://cn2qv5sncl5et" path="res://graphics/Projectiles/projectiles2.png" id="1_2hrjn"]
+[ext_resource type="Script" uid="uid://beqdegpa7loh8" path="res://projectile_scenes_scripts/exchu_projectile.gd" id="1_qvrhg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qvrhg"]
-height = 34.0
+height = 36.0
 
-[node name="ExchuProjectile" type="Area2D"]
-rotation = 1.5708
+[node name="ExchuProjectile" type="Area2D" groups=["player_projectiles"]]
+rotation = -1.5708
 collision_layer = 4
 collision_mask = 170
+script = ExtResource("1_qvrhg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-2, -1)
+position = Vector2(-1, 2)
+rotation = -1.5708
 texture = ExtResource("1_2hrjn")
 hframes = 4
 region_enabled = true
 region_rect = Rect2(0, 133.06, 256, 51.0711)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qvrhg")
 metadata/_edit_lock_ = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

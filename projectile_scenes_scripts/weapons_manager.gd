@@ -4,7 +4,9 @@ extends Node
 var hanger_projectile = {
 	"Damage" = 25,
 	"Attack_speed" = 0.25,
-	"Range" = 200.0
+	"Range" = 200.0,
+	"Bleed_damage" = 2.5,
+	"Bleed_duration" = 1.0
 }
 
 var exchu_projectile = {
@@ -21,3 +23,7 @@ var embrace_projectile = {
 	"Range" = 200.0,
 	"Snare_duration" = 1.0
 }
+
+var exchulibladder: bool = false
+var hanger: bool = false
+var embrace: bool = false
