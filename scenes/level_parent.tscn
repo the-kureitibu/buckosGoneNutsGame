@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://bat3jm3uoc5f5"]
+[gd_scene load_steps=7 format=4 uid="uid://bat3jm3uoc5f5"]
 
 [ext_resource type="Script" uid="uid://drsner16ve8lq" path="res://scene_scripts/level_parent.gd" id="1_flq4q"]
 [ext_resource type="Texture2D" uid="uid://c8edy7ool4fkl" path="res://graphics/Ground/sprite v_2.png" id="2_1m8kj"]
-[ext_resource type="PackedScene" uid="uid://bt28emtj6uskf" path="res://scenes/ami.tscn" id="3_dghoi"]
+[ext_resource type="PackedScene" uid="uid://bt28emtj6uskf" path="res://scenes/player.tscn" id="3_dghoi"]
+[ext_resource type="PackedScene" uid="uid://c7au8fwjpgudm" path="res://scenes/enemy.tscn" id="3_md1pi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dghoi"]
 texture = ExtResource("2_1m8kj")
@@ -283,6 +284,8 @@ sources/0 = SubResource("TileSetAtlasSource_dghoi")
 script = ExtResource("1_flq4q")
 
 [node name="Maps" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Maps"]
 position = Vector2(-1, -7)
@@ -291,6 +294,17 @@ tile_set = SubResource("TileSet_md1pi")
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Enemy" parent="Enemies" instance=ExtResource("3_md1pi")]
+position = Vector2(109, 59)
 
-[node name="Ami" parent="Player" instance=ExtResource("3_dghoi")]
+[node name="Player" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="Player" instance=ExtResource("3_dghoi")]
+metadata/_edit_lock_ = true
+
+[node name="Projectiles" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[connection signal="launch_projectile" from="Player/Player" to="." method="_on_player_launch_projectile"]

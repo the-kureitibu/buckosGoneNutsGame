@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7au8fwjpgudm"]
+
+[ext_resource type="Texture2D" uid="uid://bw8vj6nqo1mgm" path="res://graphics/Enemies/bucko_base.png" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://b4e80cimpn7f6" path="res://scene_scripts/enemy.gd" id="1_md0e3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ra3w"]
+radius = 24.1868
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 51
+motion_mode = 1
+platform_floor_layers = 0
+script = ExtResource("1_md0e3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
+rotation = -1.5708
+texture = ExtResource("1_7p1mj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_md0e3")
+metadata/_edit_lock_ = true
+
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemies", "enemy_hurtbox"]]
+collision_layer = 128
+collision_mask = 68
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_4ra3w")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
