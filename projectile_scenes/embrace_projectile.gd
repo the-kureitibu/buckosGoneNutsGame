@@ -19,7 +19,7 @@ func trigger_debuff(area):
 		var source = area.get_parent()
 		
 		if source_getter:
-			source.call("apply_debuff", "snare", duration, multiplier, added_damage)
+			source.call("apply_debuf", "snare", duration, multiplier, added_damage)
 
 
 func _on_area_entered(area: Area2D) -> void:

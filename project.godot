@@ -13,6 +13,7 @@ config_version=5
 config/name="Buckos_Gone_Nuts_Game"
 run/main_scene="uid://bat3jm3uoc5f5"
 config/features=PackedStringArray("4.4", "Mobile")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
@@ -29,6 +30,7 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/window_width_override=960
 window/size/window_height_override=540
+window/stretch/mode="viewport"
 
 [global_group]
 
@@ -74,6 +76,7 @@ secondary(mouse)={
 [layer_names]
 
 2d_physics/layer_1="Player"
+2d_navigation/layer_1="Environment"
 2d_physics/layer_2="Enemies"
 2d_physics/layer_3="Projectiles"
 2d_physics/layer_4="Items"
@@ -81,6 +84,10 @@ secondary(mouse)={
 2d_physics/layer_6="Terrains"
 2d_physics/layer_7="Player_Hurtbox"
 2d_physics/layer_8="Enemy_Hurtbox"
+
+[navigation]
+
+2d/default_edge_connection_margin=5.0
 
 [rendering]
 

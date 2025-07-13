@@ -7,6 +7,10 @@ class_name LevelParent
 @onready var exchu_attack: PackedScene = preload("res://projectile_scenes/exchu_projectile.tscn")
 @onready var embrace_attack: PackedScene = preload("res://projectile_scenes/embrace_projectile.tscn")
 
+#func _on_VisibilityNotifier2D_screen_exited():
+	#if distance_to($Player/Player) >= 1000:
+		#set_physics_process(false)
+
 
 func projectile_handler(weapon, pos, dir):
 	

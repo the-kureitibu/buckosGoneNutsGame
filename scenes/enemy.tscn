@@ -32,5 +32,18 @@ collision_mask = 68
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_4ra3w")
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+target_desired_distance = 50.0
+debug_enabled = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -44.0
+offset_top = -110.0
+offset_right = 45.0
+offset_bottom = -35.0
+text = "asdasasdas
+asdasd
+asdadas"
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
