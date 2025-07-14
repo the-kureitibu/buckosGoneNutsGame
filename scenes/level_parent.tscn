@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c548ejyy12wud" path="res://graphics/Ground/all ground sprite.png" id="3_gqu6u"]
 [ext_resource type="Texture2D" uid="uid://dh228pcb8b668" path="res://graphics/Ground/soil and grass.png" id="4_mo326"]
 [ext_resource type="Texture2D" uid="uid://d16543ovt4bah" path="res://graphics/Ground/all ground sprite1.png" id="5_02nl5"]
-[ext_resource type="PackedScene" uid="uid://c7au8fwjpgudm" path="res://scenes/enemy.tscn" id="6_gqu6u"]
+[ext_resource type="PackedScene" uid="uid://cr60kehshcew6" path="res://ui_scenes/weapon_selection_ui.tscn" id="7_gqu6u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dghoi"]
 texture = ExtResource("2_1m8kj")
@@ -684,9 +684,6 @@ navigation_polygon = SubResource("NavigationPolygon_22r4n")
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(825, 247)
 
-[node name="Enemy" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("6_gqu6u")]
-nav_target = NodePath("../../Player/Player")
-
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(174, 339)
 
@@ -695,5 +692,7 @@ position = Vector2(1593, 572)
 
 [node name="Projectiles" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
+
+[node name="WeaponSelectionUI" parent="." instance=ExtResource("7_gqu6u")]
 
 [connection signal="launch_projectile" from="Player/Player" to="." method="_on_player_launch_projectile"]

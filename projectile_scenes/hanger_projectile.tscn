@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw2hx2jyl0wev"]
+[gd_scene load_steps=5 format=3 uid="uid://dw2hx2jyl0wev"]
 
 [ext_resource type="Script" uid="uid://cpjuhywcfhpdq" path="res://projectile_scenes_scripts/hanger_projectile.gd" id="1_mx04l"]
+[ext_resource type="Resource" uid="uid://b3mt4iw4vabad" path="res://resources/hanger_projectile.tres" id="2_llbko"]
 [ext_resource type="Texture2D" uid="uid://dtehp5musthbb" path="res://graphics/Projectiles/p1.png" id="2_u5ow7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_llbko"]
@@ -11,6 +12,7 @@ height = 52.0
 collision_layer = 4
 collision_mask = 170
 script = ExtResource("1_mx04l")
+weapon_stats = ExtResource("2_llbko")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = -1.5708

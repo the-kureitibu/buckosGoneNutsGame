@@ -1,43 +1,35 @@
 extends Node2D
 
-class_name LevelParent
 
 #Preloaded Scenes 
-@onready var hanger_attack: PackedScene = preload("res://projectile_scenes/hanger_projectile.tscn")
-@onready var exchu_attack: PackedScene = preload("res://projectile_scenes/exchu_projectile.tscn")
-@onready var embrace_attack: PackedScene = preload("res://projectile_scenes/embrace_projectile.tscn")
+@onready var player_stats = $Player/Player.stats
+
+@onready var hanger: PackedScene = preload("res://projectile_scenes/hanger_projectile.tscn")
+@onready var exchu: PackedScene = preload("res://projectile_scenes/exchu_projectile.tscn")
+@onready var embrace: PackedScene = preload("res://projectile_scenes/embrace_projectile.tscn")
 
 #func _on_VisibilityNotifier2D_screen_exited():
 	#if distance_to($Player/Player) >= 1000:
 		#set_physics_process(false)
-
-
-func projectile_handler(weapon, pos, dir):
+func _ready() -> void:
+	pass
 	
-	var weap = weapon.instantiate()
-	weap.position = pos
-	weap.rotation_degrees = rad_to_deg(dir.angle()) + 90
-	weap.direction = dir
-	weap.range_handler(pos)
-	$Projectiles.add_child(weap)
 
-func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
-	
-	
-	var hanger_projectile = embrace_attack.instantiate()
-	hanger_projectile.position = pos
-	#hanger_projectile.rotation_degrees = rad_to_deg(dir.angle()) + 90
-	#hanger_projectile.direction = dir
-	#
-	$Projectiles.add_child(hanger_projectile)
+func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:	
 
-	#if WeaponsManager.exchulibladder: 
-		#projectile_handler(exchu_attack, pos, dir)
-	#elif WeaponsManager.hanger: 
-		#projectile_handler(exchu_attack, pos, dir)
-	#elif WeaponsManager.embrace: 
-		#var exchu_weapon = exchu_attack.instantiate()
-		#hanger_projectile.position = pos
-		#hanger_projectile.rotation_degrees = rad_to_deg(dir.angle()) + 90
-		
-		#$Projectiles.add_child(exchu_weapon)
+	if WeaponsManager.weapon_selected == "exchu":
+		var exchu_projectile = exchu.instantiate()
+		exchu_projectile.position = pos
+		exchu_projectile.rotation_degrees = rad_to_deg(dir.angle()) + 90
+		exchu_projectile.direction = dir
+		$Projectiles.add_child(exchu_projectile)
+	elif WeaponsManager.weapon_selected == "hanger":
+		var hanger_projectile = hanger.instantiate()
+		hanger_projectile.position = pos
+		hanger_projectile.rotation_degrees = rad_to_deg(dir.angle()) + 90
+		hanger_projectile.direction = dir
+		$Projectiles.add_child(hanger_projectile)
+	elif WeaponsManager.weapon_selected == "embrace":
+		var embrace_projectile = embrace.instantiate()
+		embrace_projectile.position = pos
+		$Projectiles.add_child(embrace_projectile)

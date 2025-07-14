@@ -1,26 +1,17 @@
 extends PlayerProjectiles
 
-var damage = WeaponsManager.embrace_projectile.Damage 
-var life_span_timer := 2.0
 
+var damage: int
+var life_span_timer: float
+
+func _ready() -> void:
+	damage = weapon_stats.damage
+	life_span_timer = weapon_stats.life_span
 
 func _process(delta: float) -> void:
 	
 	await get_tree().create_timer(life_span_timer).timeout
 	queue_free()
-		
-func trigger_debuff(area):
-	var duration = WeaponsManager.embrace_projectile.Snare_duration
-	var multiplier = 0
-	var added_damage = 0
-	
-	if area.is_in_group('enemy_hurtbox') and 'can_debuff':
-		var source_getter = area.get_parent().has_method("apply_debuff")
-		var source = area.get_parent()
-		
-		if source_getter:
-			source.call("apply_debuf", "snare", duration, multiplier, added_damage)
-
 
 func _on_area_entered(area: Area2D) -> void:
-	trigger_debuff(area)
+	trigger_debuff(area, weapon_stats)

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=2 format=3 uid="uid://cxj6rwmswqa4i"]
+
+[ext_resource type="Script" uid="uid://dkpkj3qydao1w" path="res://resourced_scripts/weapon_stats.gd" id="1_1gj6i"]
+
+[resource]
+script = ExtResource("1_1gj6i")
+damage = 0
+attack_speed = 0.0
+range = 0.0
+bleed_damage = 0.0
+bleed_duration = 0.0
+slow_duration = 0.0
+Slow_multiplier = 0.0
+snare_duration = 0.0
+metadata/_custom_type_script = "uid://dkpkj3qydao1w"

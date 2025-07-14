@@ -1,0 +1,578 @@
+[gd_scene load_steps=14 format=3 uid="uid://cr60kehshcew6"]
+
+[ext_resource type="Script" uid="uid://4k1bj3bl2rei" path="res://ui_scripts/weapon_selection_ui.gd" id="1_3xf6f"]
+[ext_resource type="Resource" uid="uid://b0hsqpsbbcyhx" path="res://resources/player_stats_manager.tres" id="2_ffxgu"]
+[ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="2_mg2w6"]
+[ext_resource type="Texture2D" uid="uid://baok6r7w2uj7p" path="res://graphics/UI/wep_exchu.png" id="3_fypfw"]
+[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="4_ffxgu"]
+[ext_resource type="Texture2D" uid="uid://b768k0kts2jgh" path="res://graphics/UI/wep_embrace.png" id="5_fypfw"]
+[ext_resource type="Texture2D" uid="uid://cotb1dsq8hns2" path="res://graphics/UI/wep_hanger.png" id="6_ffxgu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txc48"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(436.062, 82.1378, 6.92407, 11.9496)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cjltj"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(419.981, 81.9448, 7.00528, 12.1831)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3xf6f"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(437, 66, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mg2w6"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(421, 66, 6.86273, 12.0841)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fypfw"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ffxgu"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(275, 178, 90, 27)
+
+[node name="WeaponSelectionUI" type="CanvasLayer" node_paths=PackedStringArray("wep1_info", "wep1_image", "wep2_info", "wep2_image", "wep3_info", "wep3_image")]
+layer = 0
+script = ExtResource("1_3xf6f")
+main_character = ExtResource("2_ffxgu")
+wep1_info = NodePath("ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
+wep1_image = NodePath("ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
+wep2_info = NodePath("EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
+wep2_image = NodePath("EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
+wep3_info = NodePath("HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
+wep3_image = NodePath("HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
+
+[node name="ExchuMarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+metadata/_edit_lock_ = true
+
+[node name="MainBoxContainer" type="VBoxContainer" parent="ExchuMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MainHBoxContainer" type="HBoxContainer" parent="ExchuMarginContainer/MainBoxContainer"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer"]
+custom_minimum_size = Vector2(180, 235)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(274.871, 177.817, 90.9142, 26.709)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ImageBackground" type="NinePatchRect" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(155, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(292.932, 4.69439, 38.2767, 38.3847)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="ManImageContainer" type="HBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer"]
+custom_minimum_size = Vector2(8.9, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+
+[node name="MainImage" type="NinePatchRect" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 90)
+layout_mode = 2
+texture = ExtResource("3_fypfw")
+
+[node name="Control2" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+
+[node name="WeapongTitle" type="Label" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.942527, 0.732125, 0.902893, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 20
+text = "Exchulibladder"
+
+[node name="InfoSwitcher" type="HBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Wep1InfoButton1" type="Button" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_txc48")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_txc48")
+theme_override_styles/normal = SubResource("StyleBoxTexture_cjltj")
+
+[node name="Control" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+layout_mode = 2
+
+[node name="Wep1InfoButton2" type="Button" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_3xf6f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3xf6f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_mg2w6")
+
+[node name="Control3" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Weapon1SelectButton" type="Button" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_colors/font_color = Color(0.911346, 0.581689, 0.856978, 1)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fypfw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fypfw")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ffxgu")
+text = "Select"
+
+[node name="InfoLabelMainContainer" type="VBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelMainContainer" type="VBoxContainer" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="WeaponInfo" type="Label" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.970332, 0.93184, 0.98799, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 9
+text = "An ancient item engineered
+by the spidor herself to
+produce unlimited 
+CHUs in her absence.
+Highly addictive.
+Misplacing will cause war."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="EmbraceMarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -117.5
+offset_bottom = 117.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = 20
+metadata/_edit_lock_ = true
+
+[node name="MainBoxContainer" type="VBoxContainer" parent="EmbraceMarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MainHBoxContainer" type="HBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer"]
+custom_minimum_size = Vector2(180, 235)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(274.871, 177.817, 90.9142, 26.709)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ImageBackground" type="NinePatchRect" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(155, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(292.932, 4.69439, 38.2767, 38.3847)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="ManImageContainer" type="HBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer"]
+custom_minimum_size = Vector2(8.9, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+
+[node name="MainImage" type="NinePatchRect" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 90)
+layout_mode = 2
+texture = ExtResource("5_fypfw")
+
+[node name="Control2" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+
+[node name="WeapongTitle" type="Label" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.942527, 0.732125, 0.902893, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 18
+text = "Spidor's embrace"
+
+[node name="InfoSwitcher" type="HBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Wep2InfoButton1" type="Button" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_txc48")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_txc48")
+theme_override_styles/normal = SubResource("StyleBoxTexture_cjltj")
+
+[node name="Control" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+layout_mode = 2
+
+[node name="Wep2InfoButton2" type="Button" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_3xf6f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3xf6f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_mg2w6")
+
+[node name="Control3" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Weapon2SelectButton" type="Button" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_colors/font_color = Color(0.911346, 0.581689, 0.856978, 1)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fypfw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fypfw")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ffxgu")
+text = "Select"
+
+[node name="InfoLabelMainContainer" type="VBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="LabelMainContainer" type="VBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="WeaponInfo" type="Label" parent="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.970332, 0.93184, 0.98799, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 9
+text = "Get comfy in the spidor's 
+web. Tightness will vary 
+per individual bucko.
+Choke hazard. Beware."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HangerMarginContainer3" type="MarginContainer" parent="."]
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -117.5
+offset_right = 90.0
+offset_bottom = 117.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+metadata/_edit_lock_ = true
+
+[node name="MainBoxContainer" type="VBoxContainer" parent="HangerMarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MainHBoxContainer" type="HBoxContainer" parent="HangerMarginContainer3/MainBoxContainer"]
+layout_mode = 2
+
+[node name="Background" type="NinePatchRect" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer"]
+custom_minimum_size = Vector2(180, 235)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(274.871, 177.817, 90.9142, 26.709)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ImageBackground" type="NinePatchRect" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(155, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(292.932, 4.69439, 38.2767, 38.3847)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="ManImageContainer" type="HBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer"]
+custom_minimum_size = Vector2(8.9, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+
+[node name="MainImage" type="NinePatchRect" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 90)
+layout_mode = 2
+texture = ExtResource("6_ffxgu")
+
+[node name="Control2" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+
+[node name="WeapongTitle" type="Label" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.942527, 0.732125, 0.902893, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 18
+text = "Sss+ hanger"
+
+[node name="InfoSwitcher" type="HBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Wep3InfoButton1" type="Button" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_txc48")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_txc48")
+theme_override_styles/normal = SubResource("StyleBoxTexture_cjltj")
+
+[node name="Control" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+layout_mode = 2
+
+[node name="Wep3InfoButton2" type="Button" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_3xf6f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3xf6f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_mg2w6")
+
+[node name="Control3" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Weapon3SelectButton" type="Button" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(80, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_colors/font_color = Color(0.911346, 0.581689, 0.856978, 1)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fypfw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_fypfw")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ffxgu")
+text = "Select"
+
+[node name="InfoLabelMainContainer" type="VBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelMainContainer" type="VBoxContainer" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="WeaponInfo" type="Label" parent="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.970332, 0.93184, 0.98799, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 9
+text = "An ancient artifact passed
+down to generations of
+asian moms. Highly lethal.
+Use with moderation."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep1InfoButton1" to="." method="_on_wep_1_info_button_1_pressed"]
+[connection signal="pressed" from="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep1InfoButton2" to="." method="_on_wep_1_info_button_2_pressed"]
+[connection signal="pressed" from="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/Weapon1SelectButton" to="." method="_on_weapon_1_select_button_pressed"]
+[connection signal="pressed" from="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep2InfoButton1" to="." method="_on_wep_2_info_button_1_pressed"]
+[connection signal="pressed" from="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep2InfoButton2" to="." method="_on_wep_2_info_button_2_pressed"]
+[connection signal="pressed" from="EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/Weapon2SelectButton" to="." method="_on_weapon_2_select_button_pressed"]
+[connection signal="pressed" from="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep3InfoButton1" to="." method="_on_wep_3_info_button_1_pressed"]
+[connection signal="pressed" from="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep3InfoButton2" to="." method="_on_wep_3_info_button_2_pressed"]
+[connection signal="pressed" from="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/Weapon3SelectButton" to="." method="_on_weapon_3_select_button_pressed"]

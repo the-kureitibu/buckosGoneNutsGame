@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=2 format=3 uid="uid://0yqajhqxdqky"]
+
+[ext_resource type="Script" uid="uid://dkpkj3qydao1w" path="res://resourced_scripts/weapon_stats.gd" id="1_diyvt"]
+
+[resource]
+script = ExtResource("1_diyvt")
+damage = 30
+attack_speed = 0.25
+range = 0.0
+debuff_type = "\"snare\""
+bleed_damage = 0.0
+bleed_duration = 0.0
+slow_duration = 0.0
+debuff_multiplier = 0.0
+snare_duration = 1.0
+life_span = 2.0
+projectile_speed = 0.0
+metadata/_custom_type_script = "uid://dkpkj3qydao1w"

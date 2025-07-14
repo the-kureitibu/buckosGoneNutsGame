@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyStats" load_steps=2 format=3 uid="uid://dd7qo3fnm185x"]
+
+[ext_resource type="Script" uid="uid://clat5ut5y7vmm" path="res://singletons/enemy_stats.gd" id="1_0roca"]
+
+[resource]
+script = ExtResource("1_0roca")
+base_health = 150.0
+damage = 7.0
+attack_range = 140.0
+base_speed = 60.0
+metadata/_custom_type_script = "uid://clat5ut5y7vmm"

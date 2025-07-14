@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7au8fwjpgudm"]
+[gd_scene load_steps=6 format=3 uid="uid://c7au8fwjpgudm"]
 
 [ext_resource type="Texture2D" uid="uid://bw8vj6nqo1mgm" path="res://graphics/Enemies/bucko_base.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://b4e80cimpn7f6" path="res://scene_scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Resource" uid="uid://dd7qo3fnm185x" path="res://resources/bucko.tres" id="2_4ra3w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 19.0
@@ -15,6 +16,7 @@ collision_mask = 51
 motion_mode = 1
 platform_floor_layers = 0
 script = ExtResource("1_md0e3")
+stats = ExtResource("2_4ra3w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, 0)

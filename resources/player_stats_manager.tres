@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=3 format=3 uid="uid://b0hsqpsbbcyhx"]
+
+[ext_resource type="Script" uid="uid://b8egt56wmliqm" path="res://singletons/player_stats.gd" id="1_465q6"]
+[ext_resource type="Resource" uid="uid://0sitcf7s80ln" path="res://resources/exchu_projectile.tres" id="2_sy883"]
+
+[resource]
+script = ExtResource("1_465q6")
+selected_weapon = ExtResource("2_sy883")
+base_attack_cd = 1.25
+base_health = 250.0
+base_attack_speed = 1.25
+base_speed = 150.0
+repulsion_force = 300.0
+metadata/_custom_type_script = "uid://b8egt56wmliqm"

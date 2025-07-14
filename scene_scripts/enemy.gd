@@ -2,17 +2,16 @@ extends CharacterBody2D
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @export var nav_target: Node2D
+@export var stats: EnemyStats
 
 #Health Stuff
-var max_health = 150.0
-var health = max_health
+var current_health = stats.base_health
 
 #Movement and Vectors
 var can_knockback: bool = false
 var knockback_timer := 1.0
 var repulsion_force := 300.0
-var speed := 50
-var base_speed = speed
+var current_speed = stats.base_speed
 var movement_stopper = Vector2.ZERO
 var nav_timer := 0.5
 
@@ -63,7 +62,7 @@ func _physics_process(delta: float) -> void:
 			dash_timer -= delta
 			if dash_timer <= 0:
 				is_dashing = false
-				velocity = dash_direction * speed
+				velocity = dash_direction * current_speed
 					
 			move_and_slide()
 			return
@@ -93,7 +92,7 @@ func _physics_process(delta: float) -> void:
 			nav_timer -= delta
 			if nav_timer == 0:
 				nav_timer = 0.5
-			velocity = next_dir * speed
+			velocity = next_dir * current_speed
 		elif nav_agent.is_navigation_finished():
 			nav_agent.max_speed = 0
 			await get_tree().create_timer(0.5).timeout
@@ -115,7 +114,7 @@ func apply_debuff(type, duration, multiplier, added_damage):
 				enemy_state = EnemyStateManager.EnemyDebuffStates.SLOWED
 				#print(enemy_state, 'enemy state ')
 				slow_timer = duration
-				speed = base_speed * multiplier
+				current_speed = stats.base_speed * multiplier
 			'bleed':
 				is_bleeding = true
 				print('is bleed? ', is_bleeding)
@@ -123,7 +122,7 @@ func apply_debuff(type, duration, multiplier, added_damage):
 				#print(enemy_state, 'enemy state ')
 				
 				bleed_timer = duration
-				health -= added_damage
+				current_health -= added_damage
 			'snare':
 				is_snared = true
 				print('is snared? ', is_snared)
@@ -131,7 +130,7 @@ func apply_debuff(type, duration, multiplier, added_damage):
 				#print(enemy_state, 'enemy state ')
 				
 				snare_timer = duration
-				base_speed = movement_stopper
+				current_speed = movement_stopper
 	
 func handle_debuff(delta):
 	
@@ -155,8 +154,8 @@ func handle_debuff(delta):
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_BEBUFF
 
 func apply_damage(damage):
-	health -= damage
-	health = clamp(health, 0, 150.0)
+	current_health -= damage
+	current_health = clamp(current_health, 0, 150.0)
 	health_change.emit()
 
 #Attacks 

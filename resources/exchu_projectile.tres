@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponStats" load_steps=2 format=3 uid="uid://0sitcf7s80ln"]
+
+[ext_resource type="Script" uid="uid://dkpkj3qydao1w" path="res://resourced_scripts/weapon_stats.gd" id="1_uvf6q"]
+
+[resource]
+script = ExtResource("1_uvf6q")
+damage = 20
+attack_speed = 0.15
+range = 180.0
+debuff_type = "\"slow\""
+bleed_damage = 0.0
+bleed_duration = 0.0
+slow_duration = 1.0
+debuff_multiplier = 0.2
+snare_duration = 0.0
+life_span = 0.0
+projectile_speed = 125.0
+metadata/_custom_type_script = "uid://dkpkj3qydao1w"

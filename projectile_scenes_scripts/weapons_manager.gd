@@ -1,26 +1,15 @@
 extends Node
 
-#Weapon Stats
-var hanger_projectile = {
-	"Damage" = 25,
-	"Attack_speed" = 0.25,
-	"Range" = 200.0,
-	"Bleed_damage" = 2.5,
-	"Bleed_duration" = 1.0
-}
+@export var hanger_projectile: WeaponStats
+@export var embrace_projectile: WeaponStats
+@export var exchu_projectile: WeaponStats
 
-var exchu_projectile = {
-	"Damage" = 20,
-	"Attack_speed" = 0.15,
-	"Range" = 180.0,
-	"Slow_duration" = 1.0,
-	"Slow_multiplier" = 0.2
-}
+var weapon_selected: String = ""
 
-var embrace_projectile = {
-	"Damage" = 30,
-	"Attack_speed" = 0.25,
-	"Snare_duration" = 1.0
+@export var weapon_list: Dictionary = {
+	"hanger" = preload("res://resources/hanger_projectile.tres"),
+	"embrace" = preload("res://resources/embrace_projectile.tres"),
+	"exchu" = preload("res://resources/exchu_projectile.tres")
 }
 
 var exchulibladder: bool = false

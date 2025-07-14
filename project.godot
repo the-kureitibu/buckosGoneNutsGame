@@ -18,11 +18,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EnemyManager="*res://singletons/enemy_manager.gd"
 EnemyStateManager="*res://singletons/enemy_state_manager.gd"
 PlayerManager="*res://singletons/player_manager.gd"
 PlayerStateManager="*res://singletons/player_state_manager.gd"
 WeaponsManager="*res://projectile_scenes_scripts/weapons_manager.gd"
+EnemyManager="*res://singletons/enemy_manager.gd"
+GameManager="*res://singletons/game_manager.gd"
 
 [display]
 

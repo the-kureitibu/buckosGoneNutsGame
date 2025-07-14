@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://mco08requ8na"]
+[gd_scene load_steps=5 format=3 uid="uid://mco08requ8na"]
 
 [ext_resource type="Texture2D" uid="uid://cn2qv5sncl5et" path="res://graphics/Projectiles/projectiles2.png" id="1_g5g5r"]
 [ext_resource type="Script" uid="uid://da01qcy2phkll" path="res://projectile_scenes/embrace_projectile.gd" id="1_oafkd"]
+[ext_resource type="Resource" uid="uid://0yqajhqxdqky" path="res://resources/embrace_projectile.tres" id="2_g3yue"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oafkd"]
 radius = 13.0
@@ -10,6 +11,7 @@ radius = 13.0
 collision_layer = 4
 collision_mask = 170
 script = ExtResource("1_oafkd")
+weapon_stats = ExtResource("2_g3yue")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 2)

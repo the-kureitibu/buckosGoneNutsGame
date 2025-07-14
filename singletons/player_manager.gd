@@ -4,10 +4,9 @@ extends Node
 signal health_change
 signal rage_change
 
-var player_health := 250.0
 var rage := 0
 
-func apply_damage(damage):
+func apply_damage(damage, player_health):
 	player_health -= damage
 	player_health = clamp(player_health, 0, 250.0)
 	health_change.emit()
