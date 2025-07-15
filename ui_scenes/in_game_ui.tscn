@@ -1,14 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://080vk2d28i2v"]
+[gd_scene load_steps=11 format=3 uid="uid://080vk2d28i2v"]
 
+[ext_resource type="Script" uid="uid://ds0tugax52jmx" path="res://ui_scripts/in_game_ui.gd" id="1_7xgcf"]
 [ext_resource type="Texture2D" uid="uid://bkjq2irgm0sun" path="res://graphics/UI/progress_bar.png" id="1_ne0n7"]
+[ext_resource type="Resource" uid="uid://d04rry1b0a6ob" path="res://resources/waves_manager.tres" id="2_2s2b3"]
 [ext_resource type="Texture2D" uid="uid://3rjtr4m3fdt4" path="res://graphics/UI/progress_fill.png" id="2_mju2t"]
+[ext_resource type="Resource" uid="uid://b0hsqpsbbcyhx" path="res://resources/player_stats_manager.tres" id="2_pn8xi"]
 [ext_resource type="Texture2D" uid="uid://bh02glrw110xl" path="res://graphics/UI/hp2.png" id="3_58vfa"]
 [ext_resource type="Texture2D" uid="uid://d1hy3016t1esb" path="res://graphics/UI/hp1.png" id="4_q2cov"]
 [ext_resource type="Texture2D" uid="uid://idyjeoactspi" path="res://graphics/UI/wave2prog_bar.png" id="5_q2cov"]
 [ext_resource type="Texture2D" uid="uid://bq1lxopudnvm5" path="res://graphics/UI/waveprog_bar.png" id="6_7xgcf"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="7_pn8xi"]
 
-[node name="InGameUI" type="CanvasLayer"]
+[node name="InGameUI" type="CanvasLayer" node_paths=PackedStringArray("health_bar", "wave_bar", "rage_bar", "wave_counter", "wave_remain_counter")]
+script = ExtResource("1_7xgcf")
+health_bar = NodePath("HeathBarContainer/HBoxContainer/VBoxContainer/HealthProgressBar")
+wave_bar = NodePath("WaveContainer/VBoxContainer/TextureProgressBar")
+rage_bar = NodePath("RageBarContainer/HBoxContainer/VBoxContainer/Rage ProgressBar")
+wave_counter = NodePath("WaveContainer/VBoxContainer2/WaveCount")
+wave_remain_counter = NodePath("WaveContainer/VBoxContainer2/VBoxContainer/WaveCounter")
+waves = ExtResource("2_2s2b3")
+player_stats = ExtResource("2_pn8xi")
 
 [node name="RageBarContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -16,6 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RageBarContainer"]
@@ -23,6 +35,7 @@ custom_minimum_size = Vector2(112, 31)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="RageBarContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
@@ -32,12 +45,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="Rage ProgressBar" type="TextureProgressBar" parent="RageBarContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-value = 30.0
+mouse_filter = 2
 texture_over = ExtResource("1_ne0n7")
 texture_progress = ExtResource("2_mju2t")
 
@@ -50,6 +64,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HeathBarContainer"]
@@ -57,15 +72,17 @@ custom_minimum_size = Vector2(130, 40)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HeathBarContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HealthProgressBar" type="TextureProgressBar" parent="HeathBarContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-value = 40.0
+mouse_filter = 2
 texture_over = ExtResource("3_58vfa")
 texture_progress = ExtResource("4_q2cov")
 metadata/_edit_lock_ = true
@@ -82,6 +99,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WaveContainer"]
@@ -89,10 +107,11 @@ custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="WaveContainer/VBoxContainer"]
 layout_mode = 2
-value = 40.0
+mouse_filter = 2
 texture_over = ExtResource("5_q2cov")
 texture_progress = ExtResource("6_7xgcf")
 
@@ -101,11 +120,13 @@ custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="WaveContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="Control" type="Control" parent="WaveContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8)
@@ -116,7 +137,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("7_pn8xi")
 theme_override_font_sizes/font_size = 12
-text = "100"
 
 [node name="Control" type="Control" parent="WaveContainer/VBoxContainer2"]
 visible = false
@@ -126,4 +146,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("7_pn8xi")
-text = "WAVE: 1"
+
+[node name="Debug" type="Label" parent="."]
+offset_left = 18.0
+offset_top = 19.0
+offset_right = 58.0
+offset_bottom = 42.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10

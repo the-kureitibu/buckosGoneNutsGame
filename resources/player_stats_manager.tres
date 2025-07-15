@@ -1,14 +1,19 @@
-[gd_resource type="Resource" script_class="PlayerStats" load_steps=3 format=3 uid="uid://b0hsqpsbbcyhx"]
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=6 format=3 uid="uid://b0hsqpsbbcyhx"]
 
 [ext_resource type="Script" uid="uid://b8egt56wmliqm" path="res://singletons/player_stats.gd" id="1_465q6"]
-[ext_resource type="Resource" uid="uid://0sitcf7s80ln" path="res://resources/exchu_projectile.tres" id="2_sy883"]
+[ext_resource type="Script" uid="uid://dkpkj3qydao1w" path="res://resourced_scripts/weapon_stats.gd" id="2_sy883"]
+[ext_resource type="Resource" uid="uid://b3mt4iw4vabad" path="res://resources/hanger_projectile.tres" id="3_beg4s"]
+[ext_resource type="Resource" uid="uid://0yqajhqxdqky" path="res://resources/embrace_projectile.tres" id="4_vqghe"]
+[ext_resource type="Resource" uid="uid://0sitcf7s80ln" path="res://resources/exchu_projectile.tres" id="5_4fcsi"]
 
 [resource]
 script = ExtResource("1_465q6")
-selected_weapon = ExtResource("2_sy883")
+weapon_listings = Array[ExtResource("2_sy883")]([ExtResource("3_beg4s"), ExtResource("4_vqghe"), ExtResource("5_4fcsi")])
 base_attack_cd = 1.25
 base_health = 250.0
 base_attack_speed = 1.25
 base_speed = 150.0
 repulsion_force = 300.0
+max_rage = 10
+rage_duration = 5.0
 metadata/_custom_type_script = "uid://b8egt56wmliqm"

@@ -6,7 +6,7 @@
 script = ExtResource("1_uvf6q")
 damage = 20
 attack_speed = 0.15
-range = 180.0
+project_range = 125.0
 debuff_type = "\"slow\""
 bleed_damage = 0.0
 bleed_duration = 0.0
@@ -15,4 +15,8 @@ debuff_multiplier = 0.2
 snare_duration = 0.0
 life_span = 0.0
 projectile_speed = 125.0
+rage_gain = 5
+rage_atkspd = 0.25
+rage_damage = 15
+rage_scale = Vector2(0, 0)
 metadata/_custom_type_script = "uid://dkpkj3qydao1w"

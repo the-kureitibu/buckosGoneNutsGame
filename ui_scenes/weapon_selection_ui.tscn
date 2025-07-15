@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://cr60kehshcew6"]
+[gd_scene load_steps=13 format=3 uid="uid://cr60kehshcew6"]
 
 [ext_resource type="Script" uid="uid://4k1bj3bl2rei" path="res://ui_scripts/weapon_selection_ui.gd" id="1_3xf6f"]
-[ext_resource type="Resource" uid="uid://b0hsqpsbbcyhx" path="res://resources/player_stats_manager.tres" id="2_ffxgu"]
 [ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="2_mg2w6"]
 [ext_resource type="Texture2D" uid="uid://baok6r7w2uj7p" path="res://graphics/UI/wep_exchu.png" id="3_fypfw"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="4_ffxgu"]
@@ -35,7 +34,6 @@ region_rect = Rect2(275, 178, 90, 27)
 [node name="WeaponSelectionUI" type="CanvasLayer" node_paths=PackedStringArray("wep1_info", "wep1_image", "wep2_info", "wep2_image", "wep3_info", "wep3_image")]
 layer = 0
 script = ExtResource("1_3xf6f")
-main_character = ExtResource("2_ffxgu")
 wep1_info = NodePath("ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
 wep1_image = NodePath("ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
 wep2_info = NodePath("EmbraceMarginContainer2/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")

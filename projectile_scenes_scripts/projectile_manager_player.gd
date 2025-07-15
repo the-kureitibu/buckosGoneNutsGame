@@ -29,5 +29,11 @@ func trigger_debuff(area: Node2D, weapon: WeaponStats):
 			source.call("apply_debuff", debuff_type, duration, multiplier, added_damage)
 			
 
-func rage_getter():
-	pass
+func rage_getter(area: Node2D, weapon: WeaponStats):
+	if area.is_in_group('enemy_hurtbox') and !PlayerManager.on_rage:
+		PlayerManager.rage += weapon.rage_gain
+		PlayerManager.rage = clamp(PlayerManager.rage, 0, 10)
+		
+		if PlayerManager.rage >= PlayerManager.MAX_RAGE and PlayerManager.player_rage_state == PlayerStateManager.RageState.IDLE: 
+			PlayerManager.on_rage = true
+			PlayerManager.player_rage_state = PlayerStateManager.RageState.RAGING

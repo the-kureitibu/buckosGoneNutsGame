@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
 @export var stats: PlayerStats
-
+@onready var exchu = preload("res://resources/exchu_projectile.tres")
+@onready var embrace = preload("res://resources/embrace_projectile.tres")
+@onready var hanger = preload("res://resources/hanger_projectile.tres")
+var selected_weapon: WeaponStats
 
 #Movement
 var input := Vector2.ZERO
@@ -15,6 +18,8 @@ var is_knockback: bool = false
 var current_state = PlayerStateManager.PlayerState.IDLE
 var added_attack_speed: float
 var current_attack_delay := 1.25
+var rage_cooling_timer := 5.0
+var rage_started: bool = false
 
 #Timers 
 var invulnerable_timer := 0.5
@@ -23,20 +28,67 @@ var current_attack_cd = 0.0
 #Signals
 signal launch_projectile(pos, dir)
 
+func debug_label(): 
+	var labl: String = "Rage State:%s\n" % PlayerStateManager.RageState.keys()[PlayerManager.player_rage_state]
+	labl += "AtkSpd Current:%s\n" % added_attack_speed
+	labl += "Current attack delay:%s\n" % current_attack_delay
+	if selected_weapon:
+		labl += "Current attack:%s\n" % selected_weapon.damage
+	
+	$"CanvasLayer/Debug Label".text = labl
+
 func _ready() -> void:
-	added_attack_speed = stats.selected_weapon.attack_speed
-	current_attack_delay = max(0.1, stats.base_attack_speed - added_attack_speed)
-	current_attack_cd = 0.0
-	current_health = stats.base_health
+	stats = PlayerManager.runtime_player_stats
 	current_state = PlayerStateManager.PlayerState.CAN_ATTACK
 
+func setup_stats():
+	stats = PlayerManager.runtime_player_stats
+	
+	match WeaponsManager.weapon_selected:
+		"exchu":
+			selected_weapon = stats.weapon_listings[2]
+		"hanger":
+			selected_weapon = stats.weapon_listings[0]
+		"embrace":
+			selected_weapon = stats.weapon_listings[1]
+	
+	added_attack_speed = selected_weapon.attack_speed
+	current_attack_delay = max(0.1, stats.base_attack_speed - added_attack_speed)
+	current_health = stats.base_health
+
+
+func rage_modifier(delta):
+	if PlayerManager.on_rage and !rage_started: 
+		rage_started = true
+		
+		selected_weapon.attack_speed += selected_weapon.rage_atkspd
+		atk_spd_setter()
+		
+		await get_tree().create_timer(5.0).timeout
+		
+		
+		selected_weapon.attack_speed -= selected_weapon.rage_atkspd
+		atk_spd_setter()
+		PlayerManager.player_rage_state = PlayerStateManager.RageState.RAGE_RECOVERING
+	
+	if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGE_RECOVERING:
+		await get_tree().create_timer(10.0).timeout
+		PlayerManager.player_rage_state = PlayerStateManager.RageState.RAGE_DONE
+		
+		$RageCoolingTimer.start()
+		
+func atk_spd_setter():
+	added_attack_speed = selected_weapon.attack_speed
+	current_attack_delay = max(0.1, stats.base_attack_speed - added_attack_speed)
 
 func _get_input():
 	input = Input.get_vector("left", "right", "top", "down")
 	return input
 
 func _physics_process(delta: float) -> void:
+	debug_label()
 	_handle_movement()
+	rage_modifier(delta)
 	handle_attack(delta)
 	
 	if is_invulnerable:
@@ -46,7 +98,8 @@ func _physics_process(delta: float) -> void:
 
 func _handle_movement():
 	_get_input()
-	velocity = input * stats.base_speed
+	if stats and stats.selected_weapon:
+		velocity = input * stats.base_speed
 	if !is_knockback:
 		move_and_slide()
 	
@@ -139,3 +192,18 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	got_hit()
 	PlayerManager.apply_damage(damage, current_health)
 	
+
+
+func _on_rage_cooling_timer_timeout() -> void:
+	PlayerManager.rage -= PlayerManager.MAX_RAGE / 5
+	
+	
+	if PlayerManager.rage <= 0: 
+		rage_started = false
+		PlayerManager.on_rage = false
+		PlayerManager.player_rage_state = PlayerStateManager.RageState.IDLE
+		print('rage done')
+		$RageCoolingTimer.stop()
+	
+	
+		

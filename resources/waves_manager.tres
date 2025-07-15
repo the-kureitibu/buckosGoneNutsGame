@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WaveStats" load_steps=2 format=3 uid="uid://d04rry1b0a6ob"]
+
+[ext_resource type="Script" uid="uid://c3vjfoykp0g42" path="res://resourced_scripts/wave_stats.gd" id="1_kmn2c"]
+
+[resource]
+script = ExtResource("1_kmn2c")
+waves = []
+w1_max_mobs = 10
+w2_max_mobs = 12
+w3_max_mobs = 14
+max_active_mobs = 20
+metadata/_custom_type_script = "uid://c3vjfoykp0g42"

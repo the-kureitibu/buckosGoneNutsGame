@@ -22,4 +22,10 @@ texture = ExtResource("2_u5ow7")
 shape = SubResource("CapsuleShape2D_llbko")
 metadata/_edit_lock_ = true
 
+[node name="RageCooling Timer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="RageCooling Timer" to="." method="_on_rage_cooling_timer_timeout"]

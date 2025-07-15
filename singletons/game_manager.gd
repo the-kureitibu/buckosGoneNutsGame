@@ -4,3 +4,42 @@ extends Node2D
 var true_end: bool = false
 var bad_end: bool = false
 var good_end: bool = false
+
+#Wave States
+var wave_one: bool = false
+var wave_two: bool = false
+var wave_three: bool = false
+var current_wave: int = 0  #Set this at weapon selection 
+
+
+#Signals 
+signal update_wave_count 
+
+var _waves: WaveStats
+var current_wave_mobs: int = 0:
+	set(value):
+		current_wave_mobs = value
+		update_wave_count.emit()
+
+func _ready() -> void:
+
+	_waves = preload("res://resources/waves_manager.tres")
+	current_wave_mobs = _waves.w1_max_mobs
+	current_wave = 1
+
+func wave_setter(wave_number: int):
+	match wave_number: 
+		1:
+			wave_one = true
+			current_wave_mobs = _waves.w1_max_mobs
+		2:
+			wave_two = true
+			current_wave = 2
+			current_wave_mobs = _waves.w2_max_mobs
+			wave_one = false
+		3: 
+			wave_three = true
+			current_wave = 3
+			current_wave_mobs = _waves.w3_max_mobs
+			wave_two = false
+			wave_one = false

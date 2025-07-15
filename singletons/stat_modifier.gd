@@ -9,3 +9,4 @@ var bonus_percent: float = 0.0
 
 func get_modified_value():
 	return (base_value + bonus_flat) * (1.0 - bonus_percent)
+	

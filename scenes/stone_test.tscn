@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://da1u1lam0r27n"]
+
+[ext_resource type="Texture2D" uid="uid://bkvhm5hdt84go" path="res://graphics/Ground/stone.png" id="1_52dd3"]
+[ext_resource type="Script" uid="uid://34222ltdqg77" path="res://scene_scripts/stone_test.gd" id="1_n1abq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1abq"]
+radius = 33.0
+
+[node name="StoneTest" type="Area2D" groups=["enemy_hurtbox"]]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_n1abq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_52dd3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_n1abq")
