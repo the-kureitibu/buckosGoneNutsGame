@@ -17,3 +17,9 @@ class_name WeaponStats
 @export var rage_atkspd: float = 0.0
 @export var rage_damage: int = 0
 @export var rage_scale: Vector2
+@export var rage_proj_speed: float = 0.0
+@export var rage_bleed_damage: float = 0.0
+@export var rage_bleed_duration: float = 0.0
+@export var rage_slow_duration: float = 0.0
+@export var rage_debuff_multiplier: float = 0.0
+@export var rage_snare_duration: float = 0.0

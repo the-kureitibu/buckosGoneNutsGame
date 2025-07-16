@@ -3,19 +3,25 @@ extends Node
 #Signals
 signal health_change
 signal rage_change
+signal rage_state_changed
 
 #var player_stats: PlayerStats
 const MAX_RAGE: int = 10
 var on_rage: bool = false
-var player_rage_state = PlayerStateManager.RageState.IDLE
+#var player_rage_state = PlayerStateManager.RageState.IDLE
 var runtime_player_stats: PlayerStats
 
 var weapon_index: int = 0
+var player_rage_state = PlayerStateManager.RageState.IDLE
 
-#
+
 func _ready() -> void:
 	runtime_player_stats = preload("res://resources/player_stats_manager.tres")
-	#max_rage = player_stats.max_rage
+
+var try: String:
+	set(value):
+		try = value
+		rage_state_changed.emit()
 
 var rage := 0:
 	set(value):

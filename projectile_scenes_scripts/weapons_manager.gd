@@ -12,6 +12,7 @@ var weapon_selected: String = ""
 	"exchu" = preload("res://resources/exchu_projectile.tres")
 }
 
+
 var exchulibladder: bool = false
 var hanger: bool = false
 var embrace: bool = false

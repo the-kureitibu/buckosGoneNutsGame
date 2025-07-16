@@ -21,6 +21,7 @@ var current_attack_delay := 1.25
 var rage_cooling_timer := 5.0
 var rage_started: bool = false
 
+
 #Timers 
 var invulnerable_timer := 0.5
 var current_attack_cd = 0.0
@@ -37,9 +38,11 @@ func debug_label():
 	
 	$"CanvasLayer/Debug Label".text = labl
 
+
 func _ready() -> void:
 	stats = PlayerManager.runtime_player_stats
 	current_state = PlayerStateManager.PlayerState.CAN_ATTACK
+
 
 func setup_stats():
 	stats = PlayerManager.runtime_player_stats
@@ -51,6 +54,8 @@ func setup_stats():
 			selected_weapon = stats.weapon_listings[0]
 		"embrace":
 			selected_weapon = stats.weapon_listings[1]
+
+
 	
 	added_attack_speed = selected_weapon.attack_speed
 	current_attack_delay = max(0.1, stats.base_attack_speed - added_attack_speed)
@@ -69,10 +74,12 @@ func rage_modifier(delta):
 		
 		selected_weapon.attack_speed -= selected_weapon.rage_atkspd
 		atk_spd_setter()
+		PlayerManager.player_rage_state = PlayerStateManager.RageState.STATS_REMOVED
+		await get_tree().create_timer(3.0).timeout
 		PlayerManager.player_rage_state = PlayerStateManager.RageState.RAGE_RECOVERING
-	
+		
 	if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGE_RECOVERING:
-		await get_tree().create_timer(10.0).timeout
+		await get_tree().create_timer(7.0).timeout
 		PlayerManager.player_rage_state = PlayerStateManager.RageState.RAGE_DONE
 		
 		$RageCoolingTimer.start()

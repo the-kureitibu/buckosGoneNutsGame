@@ -3,32 +3,51 @@ extends PlayerProjectiles
 
 var damage: int
 var life_span_timer: float
-var wep_scale: Vector2 = Vector2(1, 1)
-var base_scale = wep_scale
+var base_scale = scale
 var raging: bool = false
-
+@onready var collision_polygon2d = $CollisionPolygon2D
+@onready var hit_polys: Array = [
+	$"Frame 1".polygon,
+	$"Frame 2".polygon,
+	$"Frame 3".polygon,
+	$"Frame 4".polygon
+]
 
 func _ready() -> void:
-	damage = weapon_stats.damage
+
 	life_span_timer = weapon_stats.life_span
+
+func set_hitbox_poly(current_frame: int):
+	match current_frame:
+		0: collision_polygon2d.polygon = hit_polys[0]
+		1: collision_polygon2d.polygon = hit_polys[1]
+		2: collision_polygon2d.polygon = hit_polys[2]
+		3: collision_polygon2d.polygon = hit_polys[3]
+
+func set_initial_stats(weapon: WeaponStats, is_raging: bool):
+	if is_raging:
+		damage = weapon.damage + weapon.rage_damage
+		print('norm stats',' damage: ', damage)
+	else:
+		damage = weapon.damage
+		print('norm stats',' damage: ', damage)
+
+
 
 func _process(delta: float) -> void:
 	
+
+	if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
+		var target_scale = scale + weapon_stats.rage_scale
+		var tween = create_tween()
+		tween.tween_property(self, "scale", target_scale, life_span_timer)
+		$AnimationPlayer.play("normal_attack")
+	else:
+		$AnimationPlayer.play("normal_attack")
+
 	await get_tree().create_timer(life_span_timer).timeout
 	queue_free()
-	apply_rage_modifier(weapon_stats)
-
-func apply_rage_modifier(weapon: WeaponStats):
-	if PlayerManager.on_rage and !raging:
-		raging = true
-		damage += weapon.rage_damage
-		print(damage)
-		base_scale = weapon.rage_scale
-		
-		await get_tree().create_timer(5.0).timeout
-		damage -= weapon.rage_damage
-		base_scale = wep_scale
-		$RageCooling.start()
+	
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -38,3 +57,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_rage_cooling_timeout() -> void:
 	raging = false
+
+
+func _on_stats_revert_timeout() -> void:
+	pass

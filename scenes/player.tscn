@@ -5,9 +5,11 @@
 [ext_resource type="Resource" uid="uid://b0hsqpsbbcyhx" path="res://resources/player_stats_manager.tres" id="2_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ftni2"]
+radius = 13.0
+height = 44.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ftni2"]
-radius = 13.0
+radius = 19.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 58
@@ -17,8 +19,11 @@ script = ExtResource("1_ftni2")
 stats = ExtResource("2_qhqgy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, 7.15256e-07)
 rotation = 1.5708
+scale = Vector2(1.33409, 1.44774)
 texture = ExtResource("1_170ft")
+metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Sprite2D"]
 rotation = -1.5708
@@ -28,7 +33,8 @@ shape = SubResource("CapsuleShape2D_ftni2")
 metadata/_edit_lock_ = true
 
 [node name="ProjectileMarker" type="Marker2D" parent="."]
-position = Vector2(14, 0)
+position = Vector2(17, 0)
+metadata/_edit_lock_ = true
 
 [node name="HurtBox" type="Area2D" parent="." groups=["player", "player_hurtbox"]]
 position = Vector2(13, 0)

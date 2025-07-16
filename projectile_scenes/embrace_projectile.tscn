@@ -1,11 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://mco08requ8na"]
+[gd_scene load_steps=7 format=3 uid="uid://mco08requ8na"]
 
 [ext_resource type="Texture2D" uid="uid://cn2qv5sncl5et" path="res://graphics/Projectiles/projectiles2.png" id="1_g5g5r"]
 [ext_resource type="Script" uid="uid://da01qcy2phkll" path="res://projectile_scenes/embrace_projectile.gd" id="1_oafkd"]
 [ext_resource type="Resource" uid="uid://0yqajhqxdqky" path="res://resources/embrace_projectile.tres" id="2_g3yue"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oafkd"]
-radius = 13.0
+[sub_resource type="Animation" id="Animation_lkpre"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_g3yue"]
+resource_name = "normal_attack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [0],
+"method": &"set_hitbox_poly"
+}, {
+"args": [1],
+"method": &"set_hitbox_poly"
+}, {
+"args": [2],
+"method": &"set_hitbox_poly"
+}, {
+"args": [3],
+"method": &"set_hitbox_poly"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lkpre"]
+_data = {
+&"RESET": SubResource("Animation_lkpre"),
+&"normal_attack": SubResource("Animation_g3yue")
+}
 
 [node name="EmbraceProjectile" type="Area2D"]
 collision_layer = 4
@@ -14,19 +71,34 @@ script = ExtResource("1_oafkd")
 weapon_stats = ExtResource("2_g3yue")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(-1, 4)
+scale = Vector2(2.59424, 2.31205)
 texture = ExtResource("1_g5g5r")
 hframes = 4
 region_enabled = true
 region_rect = Rect2(0, 61, 256, 70.9091)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_oafkd")
-metadata/_edit_lock_ = true
+[node name="Frame 1" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, -32, -34, -1, 0, 31, 35, -1)
 
-[node name="RageCooling" type="Timer" parent="."]
-wait_time = 15.0
-one_shot = true
+[node name="Frame 2" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-35, -30, -82, 13, -34, 55, -2, 28, 3, 32, 37, 0, 3, -32, -18, -15)
+
+[node name="Frame 3" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(7, -66, -57, -8, -51, -1, -79, 25, -34, 66, -3, 41, 8, 51, 73, -7)
+
+[node name="Frame 4" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(5, -67, -43, -24, -43, -9, -53, 2, -53, 8, -41, 17, -41, 33, 4, 74, 12, 75, 58, 32, 59, 14, 68, 7, 68, 0, 57, -8, 58, -26, 8, -70)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lkpre")
+}
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="timeout" from="RageCooling" to="." method="_on_rage_cooling_timeout"]

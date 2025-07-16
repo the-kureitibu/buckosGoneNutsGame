@@ -179,5 +179,16 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var damage = 0
 	if area.is_in_group('player_projectiles') and 'damage':
-		damage = area.damage
+		if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
+			if area.has_method("return_player"):
+				var player = area.return_player()
+				#print(player)
+				if player and 'get_rage_damage' in player and PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
+					var player_dmg = player.get_rage_damage()
+					damage = player_dmg
+		else:
+			damage = area.damage
+					#print(samp, 'should be damage here')
+					#print('this working?')
+			
 	apply_damage(damage)
