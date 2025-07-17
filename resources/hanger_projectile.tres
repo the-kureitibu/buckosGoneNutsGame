@@ -25,4 +25,5 @@ rage_bleed_duration = 1.5
 rage_slow_duration = 0.0
 rage_debuff_multiplier = 0.0
 rage_snare_duration = 0.0
+rage_added_range = 250
 metadata/_custom_type_script = "uid://dkpkj3qydao1w"

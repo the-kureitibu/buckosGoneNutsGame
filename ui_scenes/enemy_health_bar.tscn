@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvyhqqcwtkrnr"]
+
+[ext_resource type="Script" uid="uid://tw1p1w5fstua" path="res://ui_scripts/bucko_health_bar.gd" id="1_hgw4t"]
+[ext_resource type="Texture2D" uid="uid://3tray20ymf8q" path="res://graphics/UI/progress.png" id="1_qbb78"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgw4t"]
+bg_color = Color(0.796078, 0.137255, 0.188235, 0.396078)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_omgkn"]
+texture = ExtResource("1_qbb78")
+
+[node name="EnemyHealthBar" type="Control" node_paths=PackedStringArray("health_bar")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hgw4t")
+health_bar = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -15.0
+offset_right = 14.0
+offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hgw4t")
+theme_override_styles/fill = SubResource("StyleBoxTexture_omgkn")
+max_value = 0.0
+show_percentage = false

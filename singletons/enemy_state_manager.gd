@@ -7,7 +7,7 @@ enum EnemyDebuffStates {
 	SLOWED,
 	BLEEDING, 
 	IMMUNE,
-	NO_BEBUFF
+	NO_DEBUFF
 }
 
 enum EnemyStates {

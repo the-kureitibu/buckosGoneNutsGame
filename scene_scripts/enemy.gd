@@ -5,13 +5,13 @@ extends CharacterBody2D
 @export var stats: EnemyStats
 
 #Health Stuff
-var current_health = stats.base_health
+@onready var current_health = stats.base_health
 
 #Movement and Vectors
 var can_knockback: bool = false
 var knockback_timer := 1.0
 var repulsion_force := 300.0
-var current_speed = stats.base_speed
+@onready var current_speed = stats.base_speed
 var movement_stopper = Vector2.ZERO
 var nav_timer := 0.5
 
@@ -28,21 +28,21 @@ var can_debuff: bool = true
 var slow_timer := 0.0
 var snare_timer := 0.0
 var bleed_timer := 0.0
-var enemy_state = EnemyStateManager.EnemyDebuffStates.NO_BEBUFF
+@onready var enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 var is_slowed: bool = false
 var is_bleeding: bool = false
 var is_snared: bool = false
 
 #Signals
-signal health_change
+signal health_change(health)
 
 func _on_VisibilityNotifier2D_screen_exited():
 	if global_position.distance_to(get_viewport().get_camera_2d().global_position) > 1000:
 		queue_free()
 
-func _ready() -> void:
-	pass
+#func _ready() -> void:
 
+	
 #Debug
 func nav_debug_label():
 	var s: String = "is reachable?:%s\n " % nav_agent.is_target_reachable()
@@ -53,6 +53,7 @@ func nav_debug_label():
 
 func _physics_process(delta: float) -> void:
 	#nav_debug_label()
+	handle_debuff(delta)
 	dash_handler(nav_target)
 
 	if nav_target and nav_agent: 
@@ -100,63 +101,56 @@ func _physics_process(delta: float) -> void:
 		
 			
 	move_and_slide()
-
-
+	look_at(nav_target.global_position)
 
 #Debuffs 
-func apply_debuff(type, duration, multiplier, added_damage):
-	
-	if can_debuff and enemy_state == EnemyStateManager.EnemyDebuffStates.NO_BEBUFF:
-		match type:
-			'slow':
-				is_slowed = true
-				#print('is slowed? ', is_slowed)
-				enemy_state = EnemyStateManager.EnemyDebuffStates.SLOWED
-				#print(enemy_state, 'enemy state ')
-				slow_timer = duration
-				current_speed = stats.base_speed * multiplier
-			'bleed':
-				is_bleeding = true
-				print('is bleed? ', is_bleeding)
-				enemy_state = EnemyStateManager.EnemyDebuffStates.BLEEDING
-				#print(enemy_state, 'enemy state ')
-				
-				bleed_timer = duration
-				current_health -= added_damage
-			'snare':
-				is_snared = true
-				print('is snared? ', is_snared)
-				enemy_state = EnemyStateManager.EnemyDebuffStates.SNARED
-				#print(enemy_state, 'enemy state ')
-				
-				snare_timer = duration
-				current_speed = movement_stopper
+func apply_debuff(_type: String, duration: float, multiplier: float, added_damage: float):
+
+	if can_debuff and enemy_state == EnemyStateManager.EnemyDebuffStates.NO_DEBUFF:
+		if WeaponsManager.weapon_selected == "exchu":
+			is_slowed = true
+			enemy_state = EnemyStateManager.EnemyDebuffStates.SLOWED
+			slow_timer = duration
+			current_speed = stats.base_speed * multiplier
+		if WeaponsManager.weapon_selected == "hanger":
+			is_bleeding = true
+			enemy_state = EnemyStateManager.EnemyDebuffStates.BLEEDING
+			bleed_timer = duration
+			current_health -= added_damage
+		if WeaponsManager.weapon_selected == "embrace":
+			is_snared = true
+			enemy_state = EnemyStateManager.EnemyDebuffStates.SNARED
+			snare_timer = duration
+			current_speed = movement_stopper
 	
 func handle_debuff(delta):
 	
 	if is_slowed:
 		slow_timer -= delta 
-		if slow_timer == 0:
+		if slow_timer <= 0:
 			is_slowed = false
 			slow_timer = 0 
-			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_BEBUFF
+			current_speed = stats.base_speed
+			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_snared:
 		snare_timer -= delta 
-		if slow_timer == 0:
-			is_slowed = false
+		if snare_timer <= 0:
+			is_snared = false
 			snare_timer = 0 
-			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_BEBUFF
+			current_speed = stats.base_speed
+			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_bleeding:
 		bleed_timer -= delta 
-		if bleed_timer == 0:
+		if bleed_timer <= 0:
 			is_bleeding = false
 			bleed_timer = 0 
-			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_BEBUFF
+			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 
 func apply_damage(damage):
 	current_health -= damage
+	print(current_health, ' :health ', 'damage: ', damage)
 	current_health = clamp(current_health, 0, 150.0)
-	health_change.emit()
+	health_change.emit(current_health)
 
 #Attacks 
 func dash_handler(target: Node2D):
@@ -179,16 +173,18 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var damage = 0
 	if area.is_in_group('player_projectiles') and 'damage':
-		if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
-			if area.has_method("return_player"):
-				var player = area.return_player()
-				#print(player)
-				if player and 'get_rage_damage' in player and PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
-					var player_dmg = player.get_rage_damage()
-					damage = player_dmg
-		else:
-			damage = area.damage
-					#print(samp, 'should be damage here')
-					#print('this working?')
+		damage = area.damage
+		#
+		#if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
+			#if area.has_method("return_player"):
+				#var player = area.return_player()
+				##print(player)
+				#if player and 'get_rage_damage' in player and PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
+					#var player_dmg = player.get_rage_damage()
+					#damage = player_dmg
+		#else:
+			#damage = area.damage
+					##print(samp, 'should be damage here')
+					##print('this working?')
 			
 	apply_damage(damage)

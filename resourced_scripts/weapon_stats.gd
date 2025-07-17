@@ -23,3 +23,4 @@ class_name WeaponStats
 @export var rage_slow_duration: float = 0.0
 @export var rage_debuff_multiplier: float = 0.0
 @export var rage_snare_duration: float = 0.0
+@export var rage_added_range: int = 0

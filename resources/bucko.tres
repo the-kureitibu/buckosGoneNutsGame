@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_0roca")
 base_health = 150.0
-damage = 7.0
+damage = 20.0
 attack_range = 140.0
 base_speed = 60.0
 metadata/_custom_type_script = "uid://clat5ut5y7vmm"

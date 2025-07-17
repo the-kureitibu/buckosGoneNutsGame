@@ -60,9 +60,9 @@ func setup_stats():
 	added_attack_speed = selected_weapon.attack_speed
 	current_attack_delay = max(0.1, stats.base_attack_speed - added_attack_speed)
 	current_health = stats.base_health
-
-
-func rage_modifier(delta):
+	PlayerManager.player_current_health = stats.base_health
+	
+func rage_modifier():
 	if PlayerManager.on_rage and !rage_started: 
 		rage_started = true
 		
@@ -95,13 +95,15 @@ func _get_input():
 func _physics_process(delta: float) -> void:
 	debug_label()
 	_handle_movement()
-	rage_modifier(delta)
+	rage_modifier()
 	handle_attack(delta)
 	
 	if is_invulnerable:
 		invulnerable_timer -= delta
-		if invulnerable_timer == 0:
+		if invulnerable_timer <= 0:
 			is_invulnerable = false
+			invulnerable_timer = 0.5
+			print('still invulnerable?', is_invulnerable)
 
 func _handle_movement():
 	_get_input()
@@ -130,13 +132,15 @@ func handle_attack(delta):
 			current_attack_cd = current_attack_delay
 
 #Health Stuff
-func got_hit():
-	if !is_invulnerable:
-		is_invulnerable = true
-		invulnerable_timer = 0.5
-		
-		if current_health == 0:
-			die()
+func got_hit(area: Area2D):
+	if !area.is_in_group('player_projectiles'):
+		if !is_invulnerable:
+			is_invulnerable = true
+			print('is invulnerable now?', is_invulnerable)
+			invulnerable_timer = 0.5
+			
+			if current_health == 0:
+				die()
 
 func die():
 	pass
@@ -175,7 +179,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group('enemy_hurtbox'):
 		var source_name = area.get_parent().name
 		var source = area.get_parent()
-		var method_getter = area.get_parent().has_method('dash_handler')
+		#var method_getter = area.get_parent().has_method('dash_handler')
 		
 		match source_name: 
 			'Enemy':
@@ -196,8 +200,9 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	elif area.is_in_group('enemy_projectiles'):
 		damage = area.damage
 
-	got_hit()
-	PlayerManager.apply_damage(damage, current_health)
+	got_hit(area)
+	current_health -= damage
+	PlayerManager.apply_damage(current_health)
 	
 
 

@@ -33,8 +33,7 @@ func set_initial_stats(weapon: WeaponStats, is_raging: bool):
 		print('norm stats',' damage: ', damage)
 
 
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 
 	if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:

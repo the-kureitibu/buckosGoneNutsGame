@@ -26,19 +26,19 @@ func _ready() -> void:
 	update_player_health()
 	update_player_rage()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	debug_label()
 
 
 func debug_label():
 	var labl: String = "current wave:%s\n" % wave_counter.text
 	labl += "current wave mobs count:%s\n" % wave_remain_counter.text
-	labl += "current player health :%s\n" % player_base_health
+	labl += "current player health :%s\n" % PlayerManager.player_current_health
 	labl += "current rage value:%s\n" % rage_bar.value
 	$Debug.text = labl
 	
 func update_player_health():
-	health_bar.value = player_base_health
+	health_bar.value = PlayerManager.player_current_health
 
 func update_player_rage():
 	rage_bar.value = PlayerManager.rage

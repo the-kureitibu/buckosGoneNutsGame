@@ -1,7 +1,7 @@
 extends Node
 
 #Signals
-signal health_change
+signal health_change()
 signal rage_change
 signal rage_state_changed
 
@@ -13,7 +13,10 @@ var runtime_player_stats: PlayerStats
 
 var weapon_index: int = 0
 var player_rage_state = PlayerStateManager.RageState.IDLE
-
+var player_current_health := 0.0:
+	set(value):
+		player_current_health = value
+		health_change.emit()
 
 func _ready() -> void:
 	runtime_player_stats = preload("res://resources/player_stats_manager.tres")
@@ -28,7 +31,7 @@ var rage := 0:
 		rage = value
 		rage_change.emit()
 
-func apply_damage(damage, player_health):
-	player_health -= damage
-	player_health = clamp(player_health, 0, 250.0)
-	health_change.emit()
+func apply_damage(player_health):
+	print('current health, ', player_health)
+	player_health = clamp(player_health, 0, 250.0) #somwhere here the health remains the same after the first damage
+	player_current_health = player_health

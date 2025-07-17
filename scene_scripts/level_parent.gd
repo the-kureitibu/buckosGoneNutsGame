@@ -9,13 +9,6 @@ extends Node2D
 @onready var embrace: PackedScene = preload("res://projectile_scenes/embrace_projectile.tscn")
 
 
-#func _on_VisibilityNotifier2D_screen_exited():
-	#if distance_to($Player/Player) >= 1000:
-		#set_physics_process(false)
-#func _ready() -> void:
-	#print(player_stats.weapon_listings[0])
-
-
 func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 
 
