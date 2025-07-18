@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7rs3evus462w"]
+
+[ext_resource type="Texture2D" uid="uid://bxm8a00k57ci0" path="res://graphics/Projectiles/elder wep3.1.png" id="1_wbo5w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_esodl"]
+height = 66.0
+
+[node name="ChainProjectileTip" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_esodl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_wbo5w")
+hframes = 3
+frame = 2

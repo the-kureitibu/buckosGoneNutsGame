@@ -46,7 +46,7 @@ func debug_label():
 	labl += "Current attack delay:%s\n" % current_attack_delay
 	if selected_weapon:
 		labl += "Current attack:%s\n" % selected_weapon.damage
-	
+
 	$"CanvasLayer/Debug Label".text = labl
 
 
@@ -65,7 +65,6 @@ func setup_stats():
 			selected_weapon = stats.weapon_listings[0]
 		"embrace":
 			selected_weapon = stats.weapon_listings[1]
-
 
 	
 	added_attack_speed = selected_weapon.attack_speed

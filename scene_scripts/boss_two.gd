@@ -98,7 +98,6 @@ func _physics_process(delta: float) -> void:
 
 func apply_damage(damage):
 	current_health -= damage
-	print(current_health, 'boss')
 	current_health = clamp(current_health, 0, 1500.0)
 	health_change.emit(current_health)
 
@@ -107,6 +106,5 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var damage = 0
 	if area.is_in_group('player_projectiles') and 'damage':
 		damage = area.damage
-		print(damage, 'boss')
 
 	apply_damage(damage)
