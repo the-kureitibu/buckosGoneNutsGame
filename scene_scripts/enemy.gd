@@ -23,6 +23,7 @@ var dash_cool_down := 7.0
 var dash_range := 125.0
 var dash_speed := 300.0
 
+
 #Negative Statuses
 var can_debuff: bool = true
 var slow_timer := 0.0
@@ -42,7 +43,6 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 #func _ready() -> void:
 
-	
 #Debug
 func nav_debug_label():
 	var s: String = "is reachable?:%s\n " % nav_agent.is_target_reachable()
@@ -148,7 +148,6 @@ func handle_debuff(delta):
 
 func apply_damage(damage):
 	current_health -= damage
-	print(current_health, ' :health ', 'damage: ', damage)
 	current_health = clamp(current_health, 0, 150.0)
 	health_change.emit(current_health)
 
@@ -169,22 +168,9 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	#var knockback_direction = (global_position - body.global_position).normalized()
 #
 
-
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var damage = 0
 	if area.is_in_group('player_projectiles') and 'damage':
 		damage = area.damage
-		#
-		#if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
-			#if area.has_method("return_player"):
-				#var player = area.return_player()
-				##print(player)
-				#if player and 'get_rage_damage' in player and PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
-					#var player_dmg = player.get_rage_damage()
-					#damage = player_dmg
-		#else:
-			#damage = area.damage
-					##print(samp, 'should be damage here')
-					##print('this working?')
-			
+
 	apply_damage(damage)

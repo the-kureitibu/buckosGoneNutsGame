@@ -8,6 +8,8 @@ var selected_weapon: WeaponStats
 
 #Movement
 var input := Vector2.ZERO
+@onready var base_speed = stats.base_speed
+@onready var current_speed = base_speed
 
 #State and health 
 var current_health: float = 0.0
@@ -17,14 +19,23 @@ var is_slowed: bool = false
 var is_knockback: bool = false
 var current_state = PlayerStateManager.PlayerState.IDLE
 var added_attack_speed: float
+var rage_started: bool = false
+
+#timers
 var current_attack_delay := 1.25
 var rage_cooling_timer := 5.0
-var rage_started: bool = false
+var slow_timer := 2.0
 
 
 #Timers 
-var invulnerable_timer := 0.5
+var invulnerable_timer := 1.5
 var current_attack_cd = 0.0
+var bleeding_vulnerable: bool = true
+var bleed_duration := 3.0
+var bleed_tick_interval := 0.5
+var bleed_timer := 0.0
+var bleed_tick_timer := 0.0
+
 
 #Signals
 signal launch_projectile(pos, dir)
@@ -97,18 +108,53 @@ func _physics_process(delta: float) -> void:
 	_handle_movement()
 	rage_modifier()
 	handle_attack(delta)
+	_handle_debuff(delta)
 	
 	if is_invulnerable:
 		invulnerable_timer -= delta
 		if invulnerable_timer <= 0:
 			is_invulnerable = false
-			invulnerable_timer = 0.5
-			print('still invulnerable?', is_invulnerable)
+			invulnerable_timer = 1.5
+
+			
+
+func _handle_debuff(delta):
+	
+	if is_slowed:
+		current_speed = base_speed * EnemyManager.enemy_list.boss_one.slow_multiplier
+		slow_timer -= delta
+		if slow_timer <= 0: 
+			is_slowed = false 
+			current_speed = base_speed
+			slow_timer = 2.0
+	
+	
+	if is_bleeding:
+		bleed_timer -= delta
+		bleed_tick_timer -= delta
+		
+		if bleed_tick_timer <= 0:
+			bleed_tick_timer = bleed_tick_interval
+			current_health -= EnemyManager.enemy_list.boss_two.bleed_damage
+			print('Bleed tick! Current health:', current_health)
+
+		if bleed_timer <= 0:
+			is_bleeding = false
+			print("Bleeding stopped.")
+	
+	#if is_bleeding and bleeding_vulnerable:
+		#bleeding_vulnerable = false
+		#current_health -= EnemyManager.enemy_list.boss_two.bleed_damage
+		#bleed_timer -= delta
+		#print(' is bleeding: ', current_health)
+		#if bleed_timer <= 0:
+			#is_bleeding = false
+			#bleeding_vulnerable = true
 
 func _handle_movement():
 	_get_input()
 	if stats and stats.selected_weapon:
-		velocity = input * stats.base_speed
+		velocity = input * current_speed
 	if !is_knockback:
 		move_and_slide()
 	
@@ -132,15 +178,84 @@ func handle_attack(delta):
 			current_attack_cd = current_attack_delay
 
 #Health Stuff
+
 func got_hit(area: Area2D):
-	if !area.is_in_group('player_projectiles'):
-		if !is_invulnerable:
-			is_invulnerable = true
-			print('is invulnerable now?', is_invulnerable)
-			invulnerable_timer = 0.5
-			
-			if current_health == 0:
-				die()
+	if is_invulnerable:
+		return
+	
+	if area.is_in_group('player_projectiles'):
+		return
+	
+	is_invulnerable = true
+	invulnerable_timer = 1.5
+	print('Player is now invulnerable')
+
+	var damage = 0
+	var source_name = area.get_parent().name
+	var source = area.get_parent()
+
+	if area.is_in_group('enemy_hurtbox') or area.is_in_group('enemy_projectiles'):
+
+		if source_name == 'Enemy':
+			damage = EnemyManager.enemy_list.bucko.damage
+			if source.is_dashing:
+				var knockback_strengh := 600.0
+				got_knockbacked(source, knockback_strengh)
+
+		if 'id_elder_one' in area:
+			damage = EnemyManager.enemy_list.boss_one.damage
+			is_slowed = true
+		elif 'id_elder_two' in area:
+			damage = EnemyManager.enemy_list.boss_two.damage
+			if !is_bleeding:
+				is_bleeding = true
+				bleed_timer = bleed_duration
+				bleed_tick_timer = bleed_tick_interval
+
+		current_health -= damage
+		print('current player health: ', current_health)
+		PlayerManager.apply_damage(current_health)
+
+		if current_health <= 0:
+			die()
+
+#func got_hit(area: Area2D):
+	#var damage = 0 
+	#
+	#if !area.is_in_group('player_projectiles'):
+		#if !is_invulnerable:
+			#is_invulnerable = true
+			#print('invulnerable now? ', is_invulnerable)
+			#invulnerable_timer = 0.5
+			#
+		#
+#
+		#if area.is_in_group('enemy_hurtbox') or area.is_in_group('enemy_projectiles'):
+			#var source_name = area.get_parent().name
+			#var source = area.get_parent()
+#
+			#if source_name == 'Enemy':
+				#damage = EnemyManager.enemy_list.bucko.damage
+				#if source.is_dashing:
+					#var knockback_strengh := 600.0
+					#got_knockbacked(source, knockback_strengh)
+			#
+			#if 'id_elder_one' in area:
+				#damage = EnemyManager.enemy_list.boss_one.damage
+				#is_slowed = true
+			#elif 'id_elder_two' in area:
+				#damage = EnemyManager.enemy_list.boss_two.damage
+				#if !is_bleeding:
+					#is_bleeding = true
+					#bleed_timer = bleed_duration
+					#bleed_tick_timer = bleed_tick_interval
+			#
+			#current_health -= damage
+			#print('current player health, ', current_health)
+			#PlayerManager.apply_damage(current_health)
+			#
+			#if current_health == 0:
+				#die()
 
 func die():
 	pass
@@ -173,37 +288,8 @@ func _on_hurt_box_body_entered(body: Node2D) -> void:
 		
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-
-	var damage = 0 
-
-	if area.is_in_group('enemy_hurtbox'):
-		var source_name = area.get_parent().name
-		var source = area.get_parent()
-		#var method_getter = area.get_parent().has_method('dash_handler')
-		
-		match source_name: 
-			'Enemy':
-				damage = EnemyManager.enemy_list.bucko.damage
-				print('bucko damage: ', damage)
-			'enemy_boss_one':
-				damage = EnemyManager.enemy_list.boss_one.damage
-			'enemy_boss_two':
-				damage = EnemyManager.enemy_list.boss_two.damage
-			'enemy_boss_three':
-				damage = EnemyManager.enemy_list.boss_three.damage
-				
-		if source.is_dashing:
-			var knockback_strengh := 600.0
-			got_knockbacked(source, knockback_strengh)
-			
-		
-	elif area.is_in_group('enemy_projectiles'):
-		damage = area.damage
-
-	got_hit(area)
-	current_health -= damage
-	PlayerManager.apply_damage(current_health)
 	
+	got_hit(area)
 
 
 func _on_rage_cooling_timer_timeout() -> void:

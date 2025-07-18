@@ -60,7 +60,6 @@ func trigger_debuff(area: Node2D, weapon: WeaponStats):
 		
 		if source_getter:
 			source.call("apply_debuff", debuff_type, duration, multiplier, added_damage)
-			print('db: ', debuff_type, 'dur:', duration, 'multi: ', multiplier, 'added dmg: ', added_damage)
 
 
 func rage_getter(area: Node2D, weapon: WeaponStats):

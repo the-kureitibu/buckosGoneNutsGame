@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://co0fu8qvllgd4"]
+
+[ext_resource type="Texture2D" uid="uid://cuffddb1q1chs" path="res://graphics/Enemies/elder2.png" id="1_gmfow"]
+[ext_resource type="Script" uid="uid://c2krfc1j1gfp7" path="res://scene_scripts/boss_two.gd" id="1_qvm27"]
+[ext_resource type="Resource" uid="uid://df8y7qykb1dat" path="res://resources/boss_two.tres" id="2_px7j8"]
+[ext_resource type="PackedScene" uid="uid://bv61cil4km5g3" path="res://ui_scenes/boss_two_health_bar.tscn" id="4_23rjb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qvm27"]
+radius = 35.0143
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_px7j8"]
+radius = 48.0
+
+[node name="BossTwo" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 51
+motion_mode = 1
+script = ExtResource("1_qvm27")
+stats = ExtResource("2_px7j8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-5, 0)
+rotation = -1.5708
+scale = Vector2(1.57752, 1.65718)
+texture = ExtResource("1_gmfow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qvm27")
+metadata/_edit_lock_ = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 68
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_px7j8")
+debug_color = Color(0.847059, 0.32549, 0.501961, 0.447059)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="BossTwoHealthBar" parent="." instance=ExtResource("4_23rjb")]
+offset_left = 56.0
+offset_right = 56.0
+rotation = 1.5708
+
+[connection signal="health_change" from="." to="BossTwoHealthBar" method="_on_boss_two_health_change"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

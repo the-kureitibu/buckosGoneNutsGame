@@ -32,6 +32,5 @@ var rage := 0:
 		rage_change.emit()
 
 func apply_damage(player_health):
-	print('current health, ', player_health)
-	player_health = clamp(player_health, 0, 250.0) #somwhere here the health remains the same after the first damage
+	player_health = clamp(player_health, 0, 400.0) #somwhere here the health remains the same after the first damage
 	player_current_health = player_health

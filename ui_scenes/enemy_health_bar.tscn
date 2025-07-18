@@ -16,6 +16,7 @@ script = ExtResource("1_hgw4t")
 health_bar = NodePath("ProgressBar")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
 offset_left = -15.0
 offset_right = 14.0
 offset_bottom = 4.0

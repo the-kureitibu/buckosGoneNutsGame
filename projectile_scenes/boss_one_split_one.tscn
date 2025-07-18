@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqfmst28xb2wv"]
+
+[ext_resource type="Script" uid="uid://buknh760n6v6a" path="res://projectile_scenes_scripts/boss_one_split_one.gd" id="1_youdd"]
+[ext_resource type="Resource" uid="uid://5f80aenk6hkp" path="res://resources/boss_one.tres" id="2_v4ueb"]
+[ext_resource type="Texture2D" uid="uid://ckoiybhrum750" path="res://graphics/Projectiles/elder wep2.png" id="3_8ju84"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo1vh"]
+radius = 32.3883
+
+[sub_resource type="Animation" id="Animation_youdd"]
+resource_name = "main_attack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_v4ueb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ju84"]
+_data = {
+&"RESET": SubResource("Animation_v4ueb"),
+&"main_attack": SubResource("Animation_youdd")
+}
+
+[node name="BossOneSplitOne" type="Area2D" groups=["enemy_projectiles"]]
+collision_layer = 132
+collision_mask = 64
+script = ExtResource("1_youdd")
+stats = ExtResource("2_v4ueb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_8ju84")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yo1vh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8ju84")
+}

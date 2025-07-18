@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bat3jm3uoc5f5"]
+[gd_scene load_steps=24 format=4 uid="uid://bat3jm3uoc5f5"]
 
 [ext_resource type="Script" uid="uid://drsner16ve8lq" path="res://scene_scripts/level_parent.gd" id="1_flq4q"]
 [ext_resource type="Texture2D" uid="uid://c8edy7ool4fkl" path="res://graphics/Ground/sprite v_2.png" id="2_1m8kj"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://dh228pcb8b668" path="res://graphics/Ground/soil and grass.png" id="4_mo326"]
 [ext_resource type="Texture2D" uid="uid://d16543ovt4bah" path="res://graphics/Ground/all ground sprite1.png" id="5_02nl5"]
 [ext_resource type="PackedScene" uid="uid://c7au8fwjpgudm" path="res://scenes/enemy.tscn" id="6_22r4n"]
+[ext_resource type="PackedScene" uid="uid://co0fu8qvllgd4" path="res://scenes/boss_two.tscn" id="6_bquyp"]
+[ext_resource type="PackedScene" uid="uid://xl68pwrps7wf" path="res://scenes/boss_one.tscn" id="7_033xp"]
 [ext_resource type="PackedScene" uid="uid://cr60kehshcew6" path="res://ui_scenes/weapon_selection_ui.tscn" id="7_gqu6u"]
 [ext_resource type="PackedScene" uid="uid://080vk2d28i2v" path="res://ui_scenes/in_game_ui.tscn" id="8_mo326"]
 [ext_resource type="PackedScene" uid="uid://da1u1lam0r27n" path="res://scenes/stone_test.tscn" id="9_02nl5"]
@@ -668,36 +670,55 @@ metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D3" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_gqu6u")
+metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_md1pi")
+metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_7iq1j")
+metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D4" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_mo326")
+metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D5" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_02nl5")
+metadata/_edit_lock_ = true
 
 [node name="NavigationRegion2D6" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_22r4n")
-
-[node name="Projectiles" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(825, 247)
 
-[node name="Enemy" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("6_22r4n")]
+[node name="BossTwo" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("6_bquyp")]
+position = Vector2(1244, 23)
 nav_target = NodePath("../../Player/Player")
+
+[node name="Enemy" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("6_22r4n")]
+position = Vector2(968, 113)
+nav_target = NodePath("../../Player/Player")
+metadata/_edit_lock_ = true
+
+[node name="BossOne" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("7_033xp")]
+position = Vector2(748, 462)
+nav_target = NodePath("../../Player/Player")
+metadata/_edit_lock_ = true
+
+[node name="Projectiles" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(174, 339)
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="Player" instance=ExtResource("3_dghoi")]
 position = Vector2(1593, 572)
+metadata/_edit_lock_ = true
 
 [node name="WeaponSelectionUI" parent="." instance=ExtResource("7_gqu6u")]
 

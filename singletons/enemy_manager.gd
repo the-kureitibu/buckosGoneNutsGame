@@ -9,6 +9,8 @@ extends Node
 }
 
 @onready var bucko_health = enemy_list.bucko.base_health
+@onready var boss_one_health = enemy_list.boss_one.base_health
+@onready var boss_two_health = enemy_list.boss_two.base_health
 
 #func _ready() -> void:
 	#print('in enemy manager ', bhealth2)

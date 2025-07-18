@@ -1,0 +1,143 @@
+[gd_scene load_steps=7 format=3 uid="uid://dimxlspsic88q"]
+
+[ext_resource type="Script" uid="uid://d17hwa2t3o0ap" path="res://projectile_scenes_scripts/boss_two_projectile.gd" id="1_id441"]
+[ext_resource type="Texture2D" uid="uid://peup81ecixri" path="res://graphics/Projectiles/elder2 wep.png" id="1_uevnq"]
+[ext_resource type="Resource" uid="uid://df8y7qykb1dat" path="res://resources/boss_two.tres" id="2_d08hv"]
+
+[sub_resource type="Animation" id="Animation_d08hv"]
+resource_name = "main_attack"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.866667, 1.8, 2.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.533333, 1.76667),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [true],
+"method": &"rotate_attack"
+}, {
+"args": [false],
+"method": &"rotate_attack"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.96667, 2.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.0156863)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.9, 1.76667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [0],
+"method": &"match_fr"
+}, {
+"args": [1],
+"method": &"match_fr"
+}, {
+"args": [2],
+"method": &"match_fr"
+}, {
+"args": [3],
+"method": &"match_fr"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_22lob"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6rar5"]
+_data = {
+&"RESET": SubResource("Animation_22lob"),
+&"main_attack": SubResource("Animation_d08hv")
+}
+
+[node name="BossTwoProjectile" type="Area2D" groups=["enemy_projectiles"]]
+collision_layer = 132
+collision_mask = 64
+script = ExtResource("1_id441")
+boss_stats = ExtResource("2_d08hv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1.90735e-06)
+scale = Vector2(1.57031, 1.46094)
+texture = ExtResource("1_uevnq")
+hframes = 4
+
+[node name="frame1" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-28, -73, -49, -61, -65, -46, -78, -22, -81, 4, -76, 28, -64, 51, -44, 68, -20, 78, 10, 80, 38, 72, 62, 53, 76, 30, 82, -1, 77, -25, 64, -46, 47, -62, 23, -74, 2, -78)
+
+[node name="frame2" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-84, -26, -92, -4, -91, 14, -83, 29, -77, 27, -62, 51, -64, 55, -56, 68, -49, 66, -39, 72, -26, 76, -5, 80, 17, 79, 31, 74, 46, 66, 54, 69, 65, 57, 66, 45, 77, 28, 84, 29, 91, 11, 92, -7, 84, -26, 78, -24, 72, -36, 76, -41, 46, -64, 19, -74, -2, -78, -30, -72, -55, -57, -69, -48, -75, -40, -75, -33)
+
+[node name="frame3" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-88, -13, -98, -1, -87, 15, -82, 14, -87, 23, -67, 47, -67, 59, -50, 62, -48, 78, -35, 75, -29, 86, -17, 83, -1, 94, 18, 83, 27, 87, 36, 76, 47, 77, 52, 60, 68, 59, 70, 43, 87, 25, 82, 17, 88, 17, 97, 1, 91, -12, 84, -12, 82, -16, 88, -22, 66, -48, 65, -60, 52, -59, 44, -66, 48, -75, 43, -77, 36, -72, 30, -85, 18, -80, 8, -86, 0, -93, -8, -86, -17, -79, -29, -86, -33, -76, -47, -76, -48, -65, -56, -59, -69, -61, -66, -48, -76, -31, -89, -24, -81, -18, -85, -13)
+
+[node name="frame4" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-30, -72, -50, -63, -68, -42, -78, -21, -82, 2, -77, 29, -65, 50, -44, 68, -16, 78, 13, 80, 38, 71, 58, 57, 75, 34, 83, 7, 78, -21, 62, -50, 38, -68, 8, -78)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6rar5")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]

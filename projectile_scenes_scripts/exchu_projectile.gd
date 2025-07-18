@@ -21,11 +21,9 @@ func set_initial_stats(weapon: WeaponStats, is_raging: bool):
 		speed = weapon.projectile_speed + weapon.rage_proj_speed
 		max_range = weapon.project_range + weapon.rage_added_range
 		damage = weapon.damage + weapon.rage_damage
-		print('norm stats', ' speed: ', speed, ' damage: ', damage, 'max range', max_range)
 	else:
 		speed = weapon.projectile_speed
 		damage = weapon.damage
-		print('norm stats', ' speed: ', speed, ' damage: ', damage)
 
 
 func _process(delta: float) -> void:
