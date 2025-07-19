@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://dw16vt7aj3bwv"]
+
+[ext_resource type="Texture2D" uid="uid://cauafc3lv8ac3" path="res://graphics/Enemies/e3.png" id="1_8c7qu"]
+[ext_resource type="Script" uid="uid://bl8om5v6bxqqo" path="res://scene_scripts/boss_three.gd" id="1_iv8q1"]
+[ext_resource type="Resource" uid="uid://dbhqqay6eefkg" path="res://resources/boss_three.tres" id="2_2kq7i"]
+[ext_resource type="Resource" uid="uid://c8dyvfb7f0u7d" path="res://resources/chain_projectile.tres" id="3_sdq7j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iv8q1"]
+radius = 42.2966
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kq7i"]
+radius = 54.231
+
+[node name="BossThree" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 51
+motion_mode = 1
+script = ExtResource("1_iv8q1")
+stats = ExtResource("2_2kq7i")
+chain_getter = ExtResource("3_sdq7j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 5)
+rotation = -1.5708
+scale = Vector2(1.14844, 1.14844)
+texture = ExtResource("1_8c7qu")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iv8q1")
+metadata/_edit_lock_ = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 68
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_2kq7i")
+debug_color = Color(0.773992, 0.391414, 0.545569, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="AttackMarker" type="Node2D" parent="."]
+
+[node name="SAttack1" type="Marker2D" parent="AttackMarker"]
+position = Vector2(63, 14)
+
+[node name="SAttack2" type="Marker2D" parent="AttackMarker"]
+position = Vector2(63, -13)
+
+[node name="fCone1" type="Marker2D" parent="AttackMarker"]
+position = Vector2(70, 29)
+rotation = -0.122173
+
+[node name="fCone2" type="Marker2D" parent="AttackMarker"]
+position = Vector2(90, 0)
+
+[node name="fCone3" type="Marker2D" parent="AttackMarker"]
+position = Vector2(70, -29)
+rotation = 0.122173

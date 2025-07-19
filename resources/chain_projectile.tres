@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectileAttacks" load_steps=3 format=3 uid="uid://c8dyvfb7f0u7d"]
+
+[ext_resource type="PackedScene" uid="uid://dys1neke6cur5" path="res://projectile_scenes/chain_projectile.tscn" id="1_x4k33"]
+[ext_resource type="Script" uid="uid://cqnchgufs1rg7" path="res://resourced_scripts/projectile_attacks.gd" id="3_ro0jj"]
+
+[resource]
+script = ExtResource("3_ro0jj")
+chain_attack = {
+&"base": ExtResource("1_x4k33")
+}

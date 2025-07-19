@@ -1,17 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0xocok1p05wv"]
+[gd_scene load_steps=4 format=3 uid="uid://breglammtdgbb"]
 
-[ext_resource type="Texture2D" uid="uid://bxm8a00k57ci0" path="res://graphics/Projectiles/elder wep3.1.png" id="1_sgsbw"]
+[ext_resource type="Script" uid="uid://d0isak405t0kc" path="res://projectile_scenes_scripts/chain_projectile_mid.gd" id="1_sgsbw"]
+[ext_resource type="Texture2D" uid="uid://bxm8a00k57ci0" path="res://graphics/Projectiles/elder wep3.1.png" id="1_u54qw"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u54qw"]
-height = 72.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c44ap"]
+height = 70.0
 
 [node name="ChainProjectileMid" type="Area2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_sgsbw")
-hframes = 3
-frame = 1
+script = ExtResource("1_sgsbw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_u54qw")
+shape = SubResource("CapsuleShape2D_c44ap")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_u54qw")
+hframes = 3
+frame = 1
