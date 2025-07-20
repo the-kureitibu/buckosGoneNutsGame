@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhoq024ftk2ku"]
+
+[ext_resource type="Script" uid="uid://cpoapdabuiutt" path="res://ui_scripts/starting_menu.gd" id="1_lbsw2"]
+[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_1gn6g"]
+[ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="3_1gn6g"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_if2u5"]
+texture = ExtResource("3_1gn6g")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ncfvg"]
+texture = ExtResource("3_1gn6g")
+region_rect = Rect2(275, 178, 90, 27)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_orjg5"]
+texture = ExtResource("3_1gn6g")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bma1r"]
+texture = ExtResource("3_1gn6g")
+region_rect = Rect2(275, 178, 90, 27)
+
+[node name="StartingMenu" type="Node2D"]
+script = ExtResource("1_lbsw2")
+
+[node name="ButtonHolders" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="ButtonHolders"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ButtonHolders/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="Start" type="Button" parent="ButtonHolders/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.779277, 0.429489, 1, 1)
+theme_override_fonts/font = ExtResource("2_1gn6g")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_if2u5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_if2u5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ncfvg")
+text = "TO WAR "
+
+[node name="Control" type="Control" parent="ButtonHolders/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="ButtonHolders/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.780392, 0.431373, 1, 1)
+theme_override_fonts/font = ExtResource("2_1gn6g")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_orjg5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_orjg5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_bma1r")
+text = "QUIT"
+
+[node name="Control2" type="Control" parent="ButtonHolders/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[connection signal="pressed" from="ButtonHolders/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ButtonHolders/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

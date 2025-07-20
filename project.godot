@@ -24,6 +24,7 @@ PlayerStateManager="*res://singletons/player_state_manager.gd"
 WeaponsManager="*res://projectile_scenes_scripts/weapons_manager.gd"
 EnemyManager="*res://singletons/enemy_manager.gd"
 GameManager="*res://singletons/game_manager.gd"
+Dialogue="*res://resourced_scripts/dialogue.gd"
 
 [display]
 

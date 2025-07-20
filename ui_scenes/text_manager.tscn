@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4jw2nwxqojlv"]
+
+[ext_resource type="Script" uid="uid://mw2slgu0b78q" path="res://ui_scripts/text_manager.gd" id="1_r1gjy"]
+[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_6bevc"]
+[ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="3_am4ev"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y3p0d"]
+texture = ExtResource("3_am4ev")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a18pq"]
+texture = ExtResource("3_am4ev")
+region_rect = Rect2(275, 178, 90, 27)
+
+[sub_resource type="Animation" id="Animation_6bevc"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_am4ev"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y3p0d"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.433333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a18pq"]
+_data = {
+&"RESET": SubResource("Animation_am4ev"),
+&"fade_in": SubResource("Animation_6bevc"),
+&"fade_out": SubResource("Animation_y3p0d")
+}
+
+[node name="TextManager" type="Node2D"]
+script = ExtResource("1_r1gjy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_6bevc")
+theme_override_font_sizes/font_size = 25
+text = "Wave: 1"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="Back to Menu" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(159, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.780392, 0.431373, 1, 1)
+theme_override_fonts/font = ExtResource("2_6bevc")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_y3p0d")
+theme_override_styles/hover = SubResource("StyleBoxTexture_y3p0d")
+theme_override_styles/normal = SubResource("StyleBoxTexture_a18pq")
+text = "BACK TO MENU"
+
+[node name="Control" type="Control" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_a18pq")
+}
+
+[connection signal="pressed" from="CanvasLayer/MarginContainer/VBoxContainer/Back to Menu" to="." method="_on_back_to_menu_pressed"]

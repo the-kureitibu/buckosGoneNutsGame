@@ -1,0 +1,77 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuu8kqqprx2cc"]
+
+[ext_resource type="Script" uid="uid://caaifw8u26odl" path="res://ui_scripts/dialogue_manager.gd" id="1_7pi8v"]
+[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_ows1w"]
+
+[node name="DialogueManager" type="Node2D" node_paths=PackedStringArray("speaker_name", "dialogue", "hbox_cont")]
+script = ExtResource("1_7pi8v")
+speaker_name = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/Speaker")
+dialogue = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer/Dialogue")
+hbox_cont = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -111.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 215)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+alignment = 2
+
+[node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Speaker" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_ows1w")
+theme_override_font_sizes/font_size = 24
+text = "Elder 1"
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 108.5)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Dialogue" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
+text = "Thou've done it now, spidor mama.  I might not but admit our methods are rough,  yet  it is for the sake of getting pampered.  This is the end.  We bid thou farewell 
+"
+autowrap_mode = 2
+
+[node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
