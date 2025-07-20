@@ -865,5 +865,11 @@ curve = SubResource("Curve2D_mo326")
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
+[node name="Wave2SpawnTimer" type="Timer" parent="."]
+
+[node name="Wave3SpawnTimer" type="Timer" parent="."]
+
 [connection signal="launch_projectile" from="Player/Player" to="." method="_on_player_launch_projectile"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Wave2SpawnTimer" to="." method="_on_wave_2_spawn_timer_timeout"]
+[connection signal="timeout" from="Wave3SpawnTimer" to="." method="_on_wave_3_spawn_timer_timeout"]
