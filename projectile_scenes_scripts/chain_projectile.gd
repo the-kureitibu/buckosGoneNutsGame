@@ -12,11 +12,13 @@ var segment_count := 0
 var follow_target: Node2D
 var fire_rotation: float
 
-#func _ready() -> void:
-	#start_extending_chain()
-	##await get_tree().create_timer(2.0).timeout
-	##start_extending_chain()
+func _ready() -> void:
+	$CollisionPolygon2D.polygon = $Polygon2D.polygon
+	
 
+func id_elder_three():
+	return
+	
 func _process(delta: float) -> void:
 	if follow_target:
 		global_position = follow_target.global_position
@@ -29,16 +31,13 @@ func start_extending_chain(marker: Node2D, target: Node2D):
 
 	extend_chain()
 
-func place_chain_tip():
+func add_chain_tip():
 	var tip_chains = tip_chain.instantiate()
 	var offset = Vector2.RIGHT.rotated(fire_rotation) * SEGMENT_SPACE * (MAX_SEGMENT_LENGTH + 1)
-	tip_chain.position = offset
+	tip_chains.position = offset
 		
 	get_parent().add_child(tip_chains) 
-	await get_tree().create_timer(0.1). timeout
-	#extend_chain()
 
-#Call this inside boss dynamically instead 
 
 func extend_chain():
 	if segment_count < MAX_SEGMENT_LENGTH:
@@ -55,21 +54,7 @@ func extend_chain():
 		
 		var tw = create_tween()
 		tw.tween_property(mid_chains, "scale", Vector2.ONE, segment_grow_time).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		#print("After add parent:", mid_chains.get_parent(), "local position:", mid_chains.position, "global:", mid_chains.global_position)
-		##mid_chains.follow_base = follow_target
-		##
-		##var global_offset = follow_target.global_position + offset
-		#
-		#var tween = create_tween()
-		#tween.tween_property(
-				#mid_chains, "position", offset,
-				#0.4,  # duration
-			#).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		#
-		#tween.finished.connect(func():
-			#print("Tween done. global:", mid_chains.global_position, "local:", mid_chains.position))
-		#
-		
+
 		var offset2 = Vector2.RIGHT * SEGMENT_SPACE * (segment_count + 1)
 		$Sprite2D2.position = offset2
 		

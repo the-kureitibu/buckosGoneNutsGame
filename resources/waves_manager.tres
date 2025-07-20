@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="WaveStats" load_steps=2 format=3 uid="uid://d04rry1b0a6ob"]
+[gd_resource type="Resource" script_class="WaveStats" load_steps=6 format=3 uid="uid://d04rry1b0a6ob"]
 
 [ext_resource type="Script" uid="uid://c3vjfoykp0g42" path="res://resourced_scripts/wave_stats.gd" id="1_kmn2c"]
+[ext_resource type="PackedScene" uid="uid://c7au8fwjpgudm" path="res://scenes/enemy.tscn" id="2_bqwh7"]
+[ext_resource type="PackedScene" uid="uid://xl68pwrps7wf" path="res://scenes/boss_one.tscn" id="3_bkjtw"]
+[ext_resource type="PackedScene" uid="uid://co0fu8qvllgd4" path="res://scenes/boss_two.tscn" id="4_uyht2"]
+[ext_resource type="PackedScene" uid="uid://dw16vt7aj3bwv" path="res://scenes/boss_three.tscn" id="5_b6e8s"]
 
 [resource]
 script = ExtResource("1_kmn2c")
-waves = []
+waves = Array[PackedScene]([ExtResource("2_bqwh7"), ExtResource("3_bkjtw"), ExtResource("4_uyht2"), ExtResource("5_b6e8s")])
 w1_max_mobs = 10
 w2_max_mobs = 12
 w3_max_mobs = 14

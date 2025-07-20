@@ -26,7 +26,7 @@ var is_attacking: bool = false
 
 #Signals
 signal health_change(health)
-
+signal death
 
 func _ready() -> void:
 	main_attack = chain_getter.chain_attack["base"]
@@ -165,11 +165,19 @@ func _physics_process(delta: float) -> void:
 
 func apply_damage(damage):
 	current_health -= damage
-	current_health = clamp(current_health, 0, 1500.0)
+	print('boss current health ', current_health)
+	current_health = clamp(current_health, 0, 2100.0)
 	health_change.emit(current_health)
+	
+	if current_health <= 0:
+		die()
 
+func die():
+	death.emit()
+	queue_free()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
+	print('area triggering?')
 	var damage = 0
 	if area.is_in_group('player_projectiles') and 'damage':
 		damage = area.damage

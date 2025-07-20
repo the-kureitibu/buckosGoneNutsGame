@@ -23,6 +23,7 @@ var is_attacking: bool = false
 
 #Signals
 signal health_change(health)
+signal death
 
 func _on_VisibilityNotifier2D_screen_exited():
 	if global_position.distance_to(get_viewport().get_camera_2d().global_position) > 1000:
@@ -103,7 +104,13 @@ func apply_damage(damage):
 	current_health -= damage
 	current_health = clamp(current_health, 0, 800.0)
 	health_change.emit(current_health)
+	
+	if current_health <= 0:
+		die()
 
+func die():
+	death.emit()
+	queue_free()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var damage = 0

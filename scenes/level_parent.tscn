@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://bat3jm3uoc5f5"]
+[gd_scene load_steps=21 format=4 uid="uid://bat3jm3uoc5f5"]
 
 [ext_resource type="Script" uid="uid://drsner16ve8lq" path="res://scene_scripts/level_parent.gd" id="1_flq4q"]
 [ext_resource type="Texture2D" uid="uid://c8edy7ool4fkl" path="res://graphics/Ground/sprite v_2.png" id="2_1m8kj"]
@@ -6,13 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c548ejyy12wud" path="res://graphics/Ground/all ground sprite.png" id="3_gqu6u"]
 [ext_resource type="Texture2D" uid="uid://dh228pcb8b668" path="res://graphics/Ground/soil and grass.png" id="4_mo326"]
 [ext_resource type="Texture2D" uid="uid://d16543ovt4bah" path="res://graphics/Ground/all ground sprite1.png" id="5_02nl5"]
-[ext_resource type="PackedScene" uid="uid://c7au8fwjpgudm" path="res://scenes/enemy.tscn" id="6_22r4n"]
-[ext_resource type="PackedScene" uid="uid://co0fu8qvllgd4" path="res://scenes/boss_two.tscn" id="6_bquyp"]
-[ext_resource type="PackedScene" uid="uid://xl68pwrps7wf" path="res://scenes/boss_one.tscn" id="7_033xp"]
 [ext_resource type="PackedScene" uid="uid://cr60kehshcew6" path="res://ui_scenes/weapon_selection_ui.tscn" id="7_gqu6u"]
 [ext_resource type="PackedScene" uid="uid://080vk2d28i2v" path="res://ui_scenes/in_game_ui.tscn" id="8_mo326"]
-[ext_resource type="PackedScene" uid="uid://da1u1lam0r27n" path="res://scenes/stone_test.tscn" id="9_02nl5"]
-[ext_resource type="PackedScene" uid="uid://dw16vt7aj3bwv" path="res://scenes/boss_three.tscn" id="13_0faef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dghoi"]
 texture = ExtResource("2_1m8kj")
@@ -655,6 +650,8 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(-576, 64, -584, 802, -1348, 802, -1347, 76, -1171, 75, -1171, -700, -680, -697, -680, 70)])
 agent_radius = 20.0
 
+[sub_resource type="Curve2D" id="Curve2D_mo326"]
+
 [node name="LevelParent" type="Node2D"]
 script = ExtResource("1_flq4q")
 
@@ -693,28 +690,11 @@ metadata/_edit_lock_ = true
 navigation_polygon = SubResource("NavigationPolygon_22r4n")
 metadata/_edit_lock_ = true
 
-[node name="Enemies" type="Node2D" parent="."]
-position = Vector2(825, 247)
-
-[node name="BossTwo" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("6_bquyp")]
-position = Vector2(1244, 23)
-nav_target = NodePath("../../Player/Player")
-
-[node name="Enemy" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("6_22r4n")]
-position = Vector2(968, 113)
-nav_target = NodePath("../../Player/Player")
-metadata/_edit_lock_ = true
-
-[node name="BossOne" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("7_033xp")]
-position = Vector2(748, 462)
-nav_target = NodePath("../../Player/Player")
-metadata/_edit_lock_ = true
-
-[node name="BossThree" parent="Enemies" node_paths=PackedStringArray("nav_target") instance=ExtResource("13_0faef")]
-nav_target = NodePath("../../Player/Player")
-
 [node name="Projectiles" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2(825, 247)
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(174, 339)
@@ -728,7 +708,162 @@ metadata/_edit_lock_ = true
 
 [node name="InGameUI" parent="." instance=ExtResource("8_mo326")]
 
-[node name="StoneTest" parent="." instance=ExtResource("9_02nl5")]
-position = Vector2(1829, 789)
+[node name="SpawnMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(181, -74)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(195, -279)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(106, -453)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-136, -362)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-333, -467)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-410, -242)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1232, 680)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1041, 626)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-873, 683)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1272, 455)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1235, 184)
+
+[node name="Marker2D12" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1032, 272)
+
+[node name="Marker2D13" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1082, -1057)
+
+[node name="Marker2D14" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-893, -1102)
+
+[node name="Marker2D15" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1123, -882)
+
+[node name="Marker2D16" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(362, -1044)
+
+[node name="Marker2D17" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(743, -1280)
+
+[node name="Marker2D18" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1010, -1311)
+
+[node name="Marker2D19" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1205, -1218)
+
+[node name="Marker2D20" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1433, -1288)
+
+[node name="Marker2D21" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1703, -1278)
+
+[node name="Marker2D22" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1752, -1050)
+
+[node name="Marker2D23" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(722, -560)
+
+[node name="Marker2D24" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1840, -280)
+
+[node name="Marker2D25" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2125, 93)
+
+[node name="Marker2D26" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2161, 332)
+
+[node name="Marker2D27" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2158, 560)
+
+[node name="Marker2D28" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(2176, 832)
+
+[node name="Marker2D29" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1963, 837)
+
+[node name="Marker2D30" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1597, 827)
+
+[node name="Marker2D31" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1283, 843)
+
+[node name="Marker2D32" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(959, 838)
+
+[node name="Marker2D33" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(762, 737)
+
+[node name="Marker2D34" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(479, 813)
+
+[node name="Marker2D35" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(191, 671)
+
+[node name="Marker2D36" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-512, 626)
+
+[node name="Marker2D37" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-704, 212)
+
+[node name="Marker2D38" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-436, 35)
+
+[node name="Marker2D39" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1803, 111)
+
+[node name="Marker2D40" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(737, -875)
+
+[node name="Marker2D41" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1637, -804)
+
+[node name="Marker2D42" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1667, -475)
+
+[node name="Marker2D43" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(707, -273)
+
+[node name="Marker2D44" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-577, -1036)
+
+[node name="Marker2D45" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-228, -1006)
+
+[node name="Marker2D46" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-1107, -556)
+
+[node name="Marker2D47" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1799, 490)
+
+[node name="Marker2D48" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(933, -664)
+
+[node name="Marker2D49" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(196, 908)
+
+[node name="Marker2D50" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1673, -152)
+
+[node name="Path2D" type="Path2D" parent="SpawnMarkers"]
+curve = SubResource("Curve2D_mo326")
+
+[node name="SpawnTimer" type="Timer" parent="."]
 
 [connection signal="launch_projectile" from="Player/Player" to="." method="_on_player_launch_projectile"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

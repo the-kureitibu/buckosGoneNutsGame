@@ -119,6 +119,8 @@ func _physics_process(delta: float) -> void:
 
 func _handle_debuff(delta):
 	
+	#change boss damage here 
+	
 	if is_slowed:
 		current_speed = base_speed * EnemyManager.enemy_list.boss_one.slow_multiplier
 		slow_timer -= delta
@@ -206,6 +208,12 @@ func got_hit(area: Area2D):
 			is_slowed = true
 		elif 'id_elder_two' in area:
 			damage = EnemyManager.enemy_list.boss_two.damage
+			if !is_bleeding:
+				is_bleeding = true
+				bleed_timer = bleed_duration
+				bleed_tick_timer = bleed_tick_interval
+		elif 'id_elder_three' in area:
+			damage = EnemyManager.enemy_list.boss_three.damage
 			if !is_bleeding:
 				is_bleeding = true
 				bleed_timer = bleed_duration

@@ -18,7 +18,7 @@ var player_base_health: float = 0.0
 func _ready() -> void:
 	PlayerManager.health_change.connect(update_player_health)
 	PlayerManager.rage_change.connect(update_player_rage)
-	GameManager.update_wave_count.connect(update_wave)
+	GameManager.update_wave_quota.connect(update_wave)
 	player_base_health = player_stats.base_health
 	player_max_rage = player_stats.max_rage
 	main_stats_getter()
@@ -44,8 +44,8 @@ func update_player_rage():
 	rage_bar.value = PlayerManager.rage
 
 func update_wave():
-	wave_bar.value = GameManager.current_wave_mobs
-	wave_remain_counter.text = str(GameManager.current_wave_mobs)
+	wave_bar.value = GameManager.current_wave_quota
+	wave_remain_counter.text = str(GameManager.current_wave_quota)
 	wave_counter.text = str(GameManager.current_wave)
 
 func main_stats_getter():

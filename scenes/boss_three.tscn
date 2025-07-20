@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw16vt7aj3bwv"]
+[gd_scene load_steps=8 format=3 uid="uid://dw16vt7aj3bwv"]
 
 [ext_resource type="Texture2D" uid="uid://cauafc3lv8ac3" path="res://graphics/Enemies/e3.png" id="1_8c7qu"]
 [ext_resource type="Script" uid="uid://bl8om5v6bxqqo" path="res://scene_scripts/boss_three.gd" id="1_iv8q1"]
 [ext_resource type="Resource" uid="uid://dbhqqay6eefkg" path="res://resources/boss_three.tres" id="2_2kq7i"]
 [ext_resource type="Resource" uid="uid://c8dyvfb7f0u7d" path="res://resources/chain_projectile.tres" id="3_sdq7j"]
+[ext_resource type="PackedScene" uid="uid://d3hwsmgrwh0uc" path="res://ui_scenes/boss_three_health_bar.tscn" id="5_3ayj8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iv8q1"]
 radius = 42.2966
@@ -19,6 +20,11 @@ script = ExtResource("1_iv8q1")
 stats = ExtResource("2_2kq7i")
 chain_getter = ExtResource("3_sdq7j")
 
+[node name="BossThreeHealthBar" parent="." instance=ExtResource("5_3ayj8")]
+offset_left = 60.0
+offset_right = 60.0
+rotation = 1.5708
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 5)
 rotation = -1.5708
@@ -30,7 +36,7 @@ metadata/_edit_lock_ = true
 shape = SubResource("CircleShape2D_iv8q1")
 metadata/_edit_lock_ = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." groups=["player_projectiles"]]
 collision_layer = 128
 collision_mask = 68
 metadata/_edit_lock_ = true
@@ -52,11 +58,14 @@ position = Vector2(63, -13)
 
 [node name="fCone1" type="Marker2D" parent="AttackMarker"]
 position = Vector2(70, 29)
-rotation = -0.122173
+rotation = 0.122173
 
 [node name="fCone2" type="Marker2D" parent="AttackMarker"]
 position = Vector2(90, 0)
 
 [node name="fCone3" type="Marker2D" parent="AttackMarker"]
 position = Vector2(70, -29)
-rotation = 0.122173
+rotation = -0.122173
+
+[connection signal="health_change" from="." to="BossThreeHealthBar" method="_on_boss_three_health_change"]
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

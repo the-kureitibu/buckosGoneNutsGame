@@ -3,12 +3,8 @@ extends Area2D
 var pos: Vector2
 var follow_base: Node2D
 
-func _ready() -> void:
-	print(position)
-
-func _process(delta: float) -> void:
-	pass
-	
+func id_elder_three():
+	return
 #
 func appear():
 	scale = Vector2.ZERO

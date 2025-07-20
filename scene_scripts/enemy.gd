@@ -36,10 +36,11 @@ var is_snared: bool = false
 
 #Signals
 signal health_change(health)
+signal death
 
-func _on_VisibilityNotifier2D_screen_exited():
-	if global_position.distance_to(get_viewport().get_camera_2d().global_position) > 1000:
-		queue_free()
+#func _on_VisibilityNotifier2D_screen_exited():
+	#if global_position.distance_to(get_viewport().get_camera_2d().global_position) > 1000:
+		#queue_free()
 
 #func _ready() -> void:
 
@@ -52,27 +53,26 @@ func nav_debug_label():
 	$Label.text = s
 
 func _physics_process(delta: float) -> void:
-	#nav_debug_label()
+	nav_debug_label()
 	handle_debuff(delta)
 	dash_handler(nav_target)
+	
+	if is_dashing:
+		handle_dash(delta)
+		return
+		
+	if !can_dash:
+		dash_cool_down -= delta
+		if dash_cool_down <= 0:
+			can_dash = true
+			dash_cool_down = 7.0
 
 	if nav_target and nav_agent: 
-		if is_dashing:
-			var dash_direction = (nav_target.global_position - global_position).normalized()
-			velocity = dash_direction * dash_speed
-			dash_timer -= delta
-			if dash_timer <= 0:
-				is_dashing = false
-				velocity = dash_direction * current_speed
-					
-			move_and_slide()
-			return
-		
-		if !can_dash:
-			dash_cool_down -= delta
-			if dash_cool_down <= 0:
-				can_dash = true
-				dash_cool_down = 7.0
+		nav_timer -= delta
+		if nav_timer <= 0:
+			set_agent_target(nav_target.global_position)
+			nav_timer = 0.2
+			
 		
 		nav_agent.target_position = nav_target.global_position
 		var avoid_force = Vector2.ZERO
@@ -90,18 +90,36 @@ func _physics_process(delta: float) -> void:
 	
 		if !nav_agent.is_navigation_finished():
 			var next_dir = (nav_agent.get_next_path_position() - global_position).normalized()
-			nav_timer -= delta
-			if nav_timer == 0:
-				nav_timer = 0.5
+			#nav_timer -= delta
+			#if nav_timer <= 0:
+				#nav_timer = 0.2
 			velocity = next_dir * current_speed
-		elif nav_agent.is_navigation_finished():
-			nav_agent.max_speed = 0
-			await get_tree().create_timer(0.5).timeout
-			nav_agent.get_next_path_position()
+		else:
+			velocity = Vector2.ZERO
+		
+		#nav_agent.is_navigation_finished():
+			#await get_tree().create_timer(0.5).timeout
+			#nav_agent.get_next_path_position()
 		
 			
 	move_and_slide()
-	look_at(nav_target.global_position)
+	if nav_target:
+		look_at(nav_target.global_position)
+
+func set_agent_target(target_pos: Vector2):
+	var map = get_world_2d().navigation_map
+	var projected = NavigationServer2D.map_get_closest_point(map, target_pos)
+	nav_agent.target_position = projected
+
+func handle_dash(delta):
+	var dash_direction = (nav_target.global_position - global_position).normalized()
+	velocity = dash_direction * dash_speed
+	dash_timer -= delta
+	if dash_timer <= 0:
+		is_dashing = false
+		velocity = dash_direction * current_speed
+					
+	move_and_slide()
 
 #Debuffs 
 func apply_debuff(_type: String, duration: float, multiplier: float, added_damage: float):
@@ -150,6 +168,13 @@ func apply_damage(damage):
 	current_health -= damage
 	current_health = clamp(current_health, 0, 150.0)
 	health_change.emit(current_health)
+	
+	if current_health <= 0:
+		die()
+
+func die():
+	death.emit()
+	queue_free()
 
 #Attacks 
 func dash_handler(target: Node2D):

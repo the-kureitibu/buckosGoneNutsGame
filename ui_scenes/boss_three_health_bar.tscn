@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3hwsmgrwh0uc"]
+
+[ext_resource type="Script" uid="uid://dpxwr8udxvs3p" path="res://ui_scripts/boss_three_health_bar.gd" id="1_i3rq0"]
+[ext_resource type="Texture2D" uid="uid://3tray20ymf8q" path="res://graphics/UI/progress.png" id="2_pbwd4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dumf"]
+bg_color = Color(0.796078, 0.137255, 0.188235, 0.396078)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ctpl4"]
+texture = ExtResource("2_pbwd4")
+
+[node name="BossThreeHealthBar" type="Control" node_paths=PackedStringArray("health_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i3rq0")
+health_bar = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = -55.0
+offset_right = 55.0
+offset_bottom = 7.0
+theme_override_styles/background = SubResource("StyleBoxFlat_4dumf")
+theme_override_styles/fill = SubResource("StyleBoxTexture_ctpl4")
+max_value = 0.0
+show_percentage = false

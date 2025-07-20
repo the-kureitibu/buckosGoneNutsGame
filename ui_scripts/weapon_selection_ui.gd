@@ -63,6 +63,7 @@ func _on_weapon_1_select_button_pressed() -> void:
 	main_character.selected_weapon = WeaponsManager.weapon_list["exchu"]
 	GameManager.true_end = true
 	GameManager.current_wave = 1
+	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "exchu"
 	$"../Player/Player".setup_stats()
 	queue_free()
@@ -72,6 +73,7 @@ func _on_weapon_2_select_button_pressed() -> void:
 	main_character.selected_weapon = WeaponsManager.weapon_list["embrace"]
 	GameManager.good_end = true
 	GameManager.current_wave = 1
+	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "embrace"
 	$"../Player/Player".setup_stats()
 	queue_free()
@@ -82,6 +84,7 @@ func _on_weapon_3_select_button_pressed() -> void:
 	main_character.selected_weapon = WeaponsManager.weapon_list["hanger"]
 	GameManager.bad_end = true
 	GameManager.current_wave = 1
+	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "hanger"
 	$"../Player/Player".setup_stats()
 	queue_free()
