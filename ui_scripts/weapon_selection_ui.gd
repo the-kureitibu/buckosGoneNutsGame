@@ -90,5 +90,5 @@ func _on_weapon_3_select_button_pressed() -> void:
 	GameManager.current_wave = 1
 	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "hanger"
-	#$"../Player/Player".setup_stats()
+	$"../Player/Player".setup_stats()
 	queue_free()

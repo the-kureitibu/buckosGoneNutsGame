@@ -10,7 +10,6 @@ extends Node2D
 @onready var dialogue_scene: PackedScene = preload("res://ui_scenes/dialogue_manager.tscn")
 @onready var test_ui: PackedScene = preload("res://ui_scenes/weapon_selection_ui.tscn")
 
-
 #Spawners
 const MIN_PLAYER_DIST := 200
 const MAX_PLAYER_DIST := 600
@@ -298,7 +297,11 @@ func _on_wave_3_spawn_timer_timeout() -> void:
 	if GameManager.current_wave == 3 and enemy_deaths >= GameManager.current_wave_mobs:
 		is_wave_done = true
 		$Wave3SpawnTimer.stop()
-		print('game end')
+		await TransitionsManager.fade_in()
+		get_tree().change_scene_to_file("res://ui_scenes/ending_dialogue.tscn")
+		queue_free()
+		
+		
 		#run ending 
 		return
 	
