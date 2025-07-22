@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuu8kqqprx2cc"]
+[gd_scene load_steps=3 format=3 uid="uid://bds3lb3wncmq4"]
 
-[ext_resource type="Script" uid="uid://caaifw8u26odl" path="res://ui_scripts/dialogue_manager.gd" id="1_7pi8v"]
-[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_ows1w"]
+[ext_resource type="Script" uid="uid://bhfoepoxeyv7x" path="res://ui_scripts/pre_and_post_dialogue.gd" id="1_b6juv"]
+[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_a3j3k"]
 
-[node name="DialogueManager" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont")]
+[node name="PreAndPostDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_7pi8v")
+script = ExtResource("1_b6juv")
 speaker_name = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/Speaker")
 dialogue_label = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer/Dialogue")
 hbox_cont = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
@@ -55,7 +55,7 @@ mouse_filter = 2
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("2_ows1w")
+theme_override_fonts/font = ExtResource("2_a3j3k")
 theme_override_font_sizes/font_size = 24
 
 [node name="Control" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
@@ -87,6 +87,3 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 mouse_filter = 2
-
-[connection signal="pre_dialogue_finished" from="." to="." method="_on_pre_dialogue_finished"]
-[connection signal="ready_for_next_wave" from="." to="." method="_on_ready_for_next_wave"]

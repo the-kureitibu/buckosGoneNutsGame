@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bat3jm3uoc5f5"]
+[gd_scene load_steps=20 format=4 uid="uid://bat3jm3uoc5f5"]
 
 [ext_resource type="Script" uid="uid://drsner16ve8lq" path="res://scene_scripts/level_parent.gd" id="1_flq4q"]
 [ext_resource type="Texture2D" uid="uid://c8edy7ool4fkl" path="res://graphics/Ground/sprite v_2.png" id="2_1m8kj"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c548ejyy12wud" path="res://graphics/Ground/all ground sprite.png" id="3_gqu6u"]
 [ext_resource type="Texture2D" uid="uid://dh228pcb8b668" path="res://graphics/Ground/soil and grass.png" id="4_mo326"]
 [ext_resource type="Texture2D" uid="uid://d16543ovt4bah" path="res://graphics/Ground/all ground sprite1.png" id="5_02nl5"]
-[ext_resource type="PackedScene" uid="uid://cr60kehshcew6" path="res://ui_scenes/weapon_selection_ui.tscn" id="7_gqu6u"]
 [ext_resource type="PackedScene" uid="uid://080vk2d28i2v" path="res://ui_scenes/in_game_ui.tscn" id="8_mo326"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dghoi"]
@@ -703,8 +702,6 @@ metadata/_edit_lock_ = true
 [node name="Player" parent="Player" instance=ExtResource("3_dghoi")]
 position = Vector2(1593, 572)
 metadata/_edit_lock_ = true
-
-[node name="WeaponSelectionUI" parent="." instance=ExtResource("7_gqu6u")]
 
 [node name="InGameUI" parent="." instance=ExtResource("8_mo326")]
 

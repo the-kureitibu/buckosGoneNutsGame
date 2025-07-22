@@ -40,6 +40,7 @@ mouse_filter = 2
 [node name="Control" type="Control" parent="RageBarContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RageBarContainer/HBoxContainer"]
 layout_mode = 2
@@ -57,6 +58,7 @@ texture_progress = ExtResource("2_mju2t")
 
 [node name="Control" type="Control" parent="RageBarContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HeathBarContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -89,9 +91,11 @@ metadata/_edit_lock_ = true
 
 [node name="Control" type="Control" parent="HeathBarContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Control2" type="Control" parent="HeathBarContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="WaveContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -131,6 +135,7 @@ mouse_filter = 2
 [node name="Control" type="Control" parent="WaveContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
+mouse_filter = 2
 
 [node name="WaveCounter" type="Label" parent="WaveContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
@@ -141,6 +146,7 @@ theme_override_font_sizes/font_size = 12
 [node name="Control" type="Control" parent="WaveContainer/VBoxContainer2"]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 
 [node name="WaveCount" type="Label" parent="WaveContainer/VBoxContainer2"]
 layout_mode = 2

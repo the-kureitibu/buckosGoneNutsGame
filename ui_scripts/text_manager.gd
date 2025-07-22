@@ -1,17 +1,22 @@
 extends Node2D
 
-@onready var text_label = $CanvasLayer/MarginContainer/VBoxContainer/Label
-@onready var animation = $AnimationPlayer
+@export var text_label: Label
+@export var animation: AnimationPlayer
 
 func wave_announcer(wave: int):
 	
+	#await get_tree().process_frames()
+	await get_tree().process_frame
+	text_label.text = "Wave: %s" % wave
 	animation.play("fade_in")
-	text_label.text = "Wave:%s" % wave
 	await animation.animation_finished
 	
-	await get_tree().create_timer(2.0).timeou
-	animation.play("fade_in")
+	await get_tree().create_timer(2.0).timeout
+	
+	
+	animation.play("fade_out")
 	await animation.animation_finished
+	queue_free()
 	# play animation here
 
 func ending_announcer():

@@ -13,6 +13,7 @@ var current_wave: int = 0  #Set this at weapon selection
 var max_active_enemies: int 
 var game_started := false 
 var weapon_select := false
+var pre_game_start:= false
 
 #Signals 
 signal update_wave_count 

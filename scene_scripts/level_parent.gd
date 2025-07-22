@@ -6,6 +6,9 @@ extends Node2D
 @onready var hanger: PackedScene = preload("res://projectile_scenes/hanger_projectile.tscn")
 @onready var exchu: PackedScene = preload("res://projectile_scenes/exchu_projectile.tscn")
 @onready var embrace: PackedScene = preload("res://projectile_scenes/embrace_projectile.tscn")
+@onready var text_man: PackedScene = preload("res://ui_scenes/text_manager.tscn")
+@onready var dialogue_scene: PackedScene = preload("res://ui_scenes/dialogue_manager.tscn")
+@onready var test_ui: PackedScene = preload("res://ui_scenes/weapon_selection_ui.tscn")
 
 
 #Spawners
@@ -24,9 +27,19 @@ var is_wave_three_started: bool = false
 var is_wave_done := false
 
 
-##
-#func _ready() -> void:
-	#print(max_enemies)
+
+func _ready() -> void:
+	await TransitionsManager.fade_out()
+	var wp_ui = test_ui.instantiate()
+	add_child(wp_ui)
+
+##For refactor
+#func start_wave(wave: int):
+	#var enemy_deaths := 0
+	#var active_enemies := 0
+	#var spawn_count := 0
+	#
+	#
 
 func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 
@@ -45,7 +58,7 @@ func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 			exchu_projectile.set_initial_stats(
 				player_stats.weapon_listings[2],
 				false
-				)	
+				)
 		$Projectiles.add_child(exchu_projectile)
 	elif WeaponsManager.weapon_selected == "hanger":
 		var hanger_projectile = hanger.instantiate()
@@ -82,23 +95,23 @@ func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 
 func _process(delta: float) -> void:
 	
-	if GameManager.weapon_select and !GameManager.game_started and !is_wave_done: 
+	if GameManager.weapon_select and !GameManager.game_started and !is_wave_done:
 		GameManager.game_started = true
 		game_start()
-		
-	#if GameManager.current_wave == 2 and !is_wave_two_started:
-		#is_wave_two_started = true
-		#await get_tree().create_timer(3.0).timeout
-		#wave_two_start()
-	#if GameManager.current_wave == 3 and !is_wave_three_started:
-		#is_wave_three_started = true
-		#await get_tree().create_timer(3.0).timeout
-		#wave_three_start()
-
+	
 
 func game_start():
 	if GameManager.game_started and GameManager.current_wave == 1 and !is_wave_done:
+		$SpawnTimer.stop()
+	
+		var text = text_man.instantiate()
+		add_child(text)
+		await text.wave_announcer(1)
+		
+		await get_tree().create_timer(1.0).timeout
+		
 		$SpawnTimer.start()
+		
 
 func get_valid_points():
 	
@@ -123,13 +136,27 @@ func spawn_mobs():
 	print("Spawned at:", enemy.global_position, " marker:", spawn_location.global_position)
 	#enemy.position = spawn_location.global_position
 	
-	if target: 
+	if target:
 		enemy.nav_target = target
 	
 	enemy.connect("death", reduce_active_enemies)
 	active_enemies += 1
 	spawn_count += 1
 	print('spawning now? ', active_enemies)
+
+func run_wave_dialogue(wave: int, part: int):
+	
+
+	get_tree().paused = true
+	
+	var dialogue = dialogue_scene.instantiate()
+
+	add_child(dialogue)
+	
+	dialogue.set_current_dialogue(wave, part)
+
+	await dialogue.finished
+	get_tree().paused = false
 
 
 func spawn_boss(index: int):
@@ -147,7 +174,7 @@ func spawn_boss(index: int):
 	print("Spawned boss at:", boss.global_position, " marker:", spawn_location.global_position)
 	#enemy.position = spawn_location.global_position
 	
-	if target: 
+	if target:
 		boss.nav_target = target
 	
 	boss.connect("death", reduce_active_enemies)
@@ -161,12 +188,15 @@ func reduce_active_enemies():
 	
 	if !boss_one_spawned and GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs / 2:
 		boss_one_spawned = true
+		run_wave_dialogue(1,1)
 		call_deferred("spawn_boss", 1)
 	elif !boss_two_spawned and GameManager.current_wave == 2 and enemy_deaths >= GameManager.current_wave_mobs / 2:
 		boss_two_spawned = true
+		run_wave_dialogue(2,1)
 		call_deferred("spawn_boss", 2)
 	elif !boss_three_spawned and GameManager.current_wave == 3 and enemy_deaths >= GameManager.current_wave_mobs / 2:
 		boss_three_spawned = true
+		run_wave_dialogue(3,1)
 		call_deferred("spawn_boss", 3)
 		
 	print('current active enemies: ', active_enemies, ' current enemy death: ', enemy_deaths, ' current wave mobs: ', GameManager.current_wave_mobs)
@@ -174,6 +204,7 @@ func reduce_active_enemies():
 func _on_spawn_timer_timeout() -> void:
 	if GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs:
 		is_wave_done = true
+		run_wave_dialogue(1,2)
 		on_wave_cleared()
 		return
 	
@@ -189,16 +220,8 @@ func on_wave_cleared():
 	
 	if GameManager.current_wave == 1:
 		$SpawnTimer.stop()
-		print(' is the wave done? ', is_wave_done)
-		print('wave one done')
-		print('is Timer stop on wave 1?: ', $SpawnTimer.is_stopped())
-		
-	elif GameManager.current_wave == 2: 
+	elif GameManager.current_wave == 2:
 		$Wave2SpawnTimer.stop()
-		
-
-		print('wave two done')
-		print('is Timer stop on wave 2?: ', $Wave2SpawnTimer.is_stopped())
 
 	active_enemies = 0
 	spawn_count = 0
@@ -206,20 +229,37 @@ func on_wave_cleared():
 	next_wave_setter()
 
 func next_wave_setter():
-	print('did this worked?')
 	if GameManager.current_wave == 1:
 		GameManager.wave_setter(2)
 		start_wave_after_delay(2)
-	elif GameManager.current_wave == 2: 
+	elif GameManager.current_wave == 2:
 		GameManager.wave_setter(3)
 		start_wave_after_delay(3)
 
 func start_wave_after_delay(wave: int):
 	await get_tree().create_timer(2.0).timeout
 	if wave == 2:
+		$Wave2SpawnTimer.stop()
+	
+		var text = text_man.instantiate()
+		add_child(text)
+		await text.wave_announcer(2)
+		
+		await get_tree().create_timer(1.0).timeout
+		
 		is_wave_done = false
 		$Wave2SpawnTimer.start()
+		
+
 	elif wave == 3:
+		$Wave3SpawnTimer.stop()
+	
+		var text = text_man.instantiate()
+		add_child(text)
+		await text.wave_announcer(3)
+		
+		await get_tree().create_timer(1.0).timeout
+		
 		is_wave_done = false
 		$Wave3SpawnTimer.start()
 		
@@ -241,6 +281,7 @@ func start_wave_after_delay(wave: int):
 func _on_wave_2_spawn_timer_timeout() -> void:
 	if GameManager.current_wave == 2 and enemy_deaths >= GameManager.current_wave_mobs:
 		is_wave_done = true
+		run_wave_dialogue(2,2)
 		on_wave_cleared()
 		return
 	
@@ -258,6 +299,7 @@ func _on_wave_3_spawn_timer_timeout() -> void:
 		is_wave_done = true
 		$Wave3SpawnTimer.stop()
 		print('game end')
+		#run ending 
 		return
 	
 	if active_enemies >= max_enemies / 4:

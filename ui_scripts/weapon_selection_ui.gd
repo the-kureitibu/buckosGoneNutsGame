@@ -11,11 +11,13 @@ var new_resource = PlayerStats
 @export var wep3_info: Label
 @export var wep3_image: NinePatchRect
 
+
 func visibility_toggle(object):
 	if object.visible == true: 
 		object.visible = false
 	else:
 		object.visible = true
+
 
 func _ready() -> void:
 	new_resource = main_character.duplicate()
@@ -66,15 +68,17 @@ func _on_weapon_1_select_button_pressed() -> void:
 	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "exchu"
 	$"../Player/Player".setup_stats()
+	#get_parent().get_node("Player").setup_stats()
 	queue_free()
 	
-
+# I test everything here, nothing worked 
 func _on_weapon_2_select_button_pressed() -> void:
 	main_character.selected_weapon = WeaponsManager.weapon_list["embrace"]
 	GameManager.good_end = true
 	GameManager.current_wave = 1
 	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "embrace"
+	#get_parent().get_par("Player").setup_stats()
 	$"../Player/Player".setup_stats()
 	queue_free()
 	
@@ -86,5 +90,5 @@ func _on_weapon_3_select_button_pressed() -> void:
 	GameManager.current_wave = 1
 	GameManager.weapon_select = true
 	WeaponsManager.weapon_selected = "hanger"
-	$"../Player/Player".setup_stats()
+	#$"../Player/Player".setup_stats()
 	queue_free()
