@@ -5,6 +5,7 @@ var damage: int
 var life_span_timer: float
 var base_scale = scale
 var raging: bool = false
+@onready var projectile_audio_stream = $AudioStreamPlayer2D
 @onready var collision_polygon2d = $CollisionPolygon2D
 @onready var hit_polys: Array = [
 	$"Frame 1".polygon,
@@ -50,6 +51,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
+	projectile_audio_stream.play()
 	trigger_debuff(area, weapon_stats)
 	rage_getter(area, weapon_stats)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bt28emtj6uskf"]
+[gd_scene load_steps=7 format=3 uid="uid://bt28emtj6uskf"]
 
 [ext_resource type="Texture2D" uid="uid://b8y4fm73hxdj3" path="res://graphics/Player/ami.png" id="1_170ft"]
 [ext_resource type="Script" uid="uid://b0sit605iq3du" path="res://scene_scripts/player.gd" id="1_ftni2"]
 [ext_resource type="Resource" uid="uid://b0hsqpsbbcyhx" path="res://resources/player_stats_manager.tres" id="2_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://2aa76flvsjtc" path="res://graphics/Audio/player_walking.wav" id="4_dqkch"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ftni2"]
 radius = 13.0
@@ -59,6 +60,11 @@ offset_right = 44.0
 offset_bottom = 122.0
 theme_override_font_sizes/font_size = 10
 text = "test"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_dqkch")
+volume_db = 5.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

@@ -72,6 +72,6 @@ func credits_announcer():
 
 
 func _on_back_to_menu_pressed() -> void:
-	await get_tree().change_scene_to_file("res://ui_scenes/starting_menu.tscn")
+	get_tree().change_scene_to_file("res://ui_scenes/starting_menu.tscn")
 	#manual change scene here 
 	queue_free()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://mco08requ8na"]
+[gd_scene load_steps=8 format=3 uid="uid://mco08requ8na"]
 
 [ext_resource type="Texture2D" uid="uid://cn2qv5sncl5et" path="res://graphics/Projectiles/projectiles2.png" id="1_g5g5r"]
 [ext_resource type="Script" uid="uid://da01qcy2phkll" path="res://projectile_scenes/embrace_projectile.gd" id="1_oafkd"]
 [ext_resource type="Resource" uid="uid://0yqajhqxdqky" path="res://resources/embrace_projectile.tres" id="2_g3yue"]
+[ext_resource type="AudioStream" uid="uid://b8lnyj1o5fpwi" path="res://graphics/Audio/stick-though-spider-web.mp3" id="4_lkpre"]
 
 [sub_resource type="Animation" id="Animation_lkpre"]
 length = 0.001
@@ -100,5 +101,10 @@ polygon = PackedVector2Array(5, -67, -43, -24, -43, -9, -53, 2, -53, 8, -41, 17,
 libraries = {
 &"": SubResource("AnimationLibrary_lkpre")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_lkpre")
+volume_db = 4.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

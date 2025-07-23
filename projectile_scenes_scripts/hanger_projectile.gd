@@ -5,12 +5,13 @@ var damage: float
 var max_range: float
 var direction: Vector2 = Vector2.UP
 var range_starting_pos: Vector2 
-
+@onready var projectile_audio_stream = $AudioStreamPlayer2D
 
 func _ready() -> void:
 	range_starting_pos = global_position
 	max_range = weapon_stats.project_range
 	#range_handler()
+	projectile_audio_stream.play()
 
 
 func range_handler():
@@ -31,7 +32,7 @@ func set_initial_stats(weapon: WeaponStats, is_raging: bool):
 func _process(delta: float) -> void:
 
 	position += direction * speed * delta
-	
+	$AnimationPlayer.play("normal_attack")
 	range_handler()
 
 

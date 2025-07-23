@@ -9,6 +9,10 @@ extends Node2D
 @onready var text_man: PackedScene = preload("res://ui_scenes/text_manager.tscn")
 @onready var dialogue_scene: PackedScene = preload("res://ui_scenes/dialogue_manager.tscn")
 @onready var test_ui: PackedScene = preload("res://ui_scenes/weapon_selection_ui.tscn")
+@onready var bgm = $AudioStreamPlayer2D
+@onready var bgm_is_playing := false
+@onready var test_bgm = $AudioStreamPlayer
+
 
 #Spawners
 const MIN_PLAYER_DIST := 200
@@ -29,6 +33,8 @@ var is_wave_done := false
 
 func _ready() -> void:
 	await TransitionsManager.fade_out()
+	bgm_is_playing = true
+	play_bgm()
 	var wp_ui = test_ui.instantiate()
 	add_child(wp_ui)
 
@@ -92,15 +98,38 @@ func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 		
 		$Projectiles.add_child(embrace_projectile)
 
+func play_bgm():
+	if bgm_is_playing:
+		if !test_bgm.playing:
+			test_bgm.volume_db = -60.0
+			test_bgm.play()
+			fade_music(-10.0, 2.0)
+	else:
+		if test_bgm.playing:
+			test_bgm.stop()
+
+func fade_music(target_db: float, duration: float):
+	var tween := get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(test_bgm, "volume_db", target_db, duration)
+	
+	
 func _process(delta: float) -> void:
 	
 	if GameManager.weapon_select and !GameManager.game_started and !is_wave_done:
 		GameManager.game_started = true
+		bgm_is_playing = true
 		game_start()
+		
+	
+	
 	
 
 func game_start():
 	if GameManager.game_started and GameManager.current_wave == 1 and !is_wave_done:
+		
+		
 		$SpawnTimer.stop()
 	
 		var text = text_man.instantiate()
@@ -147,7 +176,7 @@ func run_wave_dialogue(wave: int, part: int):
 	
 
 	get_tree().paused = true
-	
+	fade_music(-28.0, 0.25)
 	var dialogue = dialogue_scene.instantiate()
 
 	add_child(dialogue)
@@ -156,6 +185,7 @@ func run_wave_dialogue(wave: int, part: int):
 
 	await dialogue.finished
 	get_tree().paused = false
+	fade_music(-10.0, 0.25) 
 
 
 func spawn_boss(index: int):

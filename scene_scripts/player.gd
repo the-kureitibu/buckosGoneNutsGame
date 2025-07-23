@@ -4,12 +4,14 @@ extends CharacterBody2D
 @onready var exchu = preload("res://resources/exchu_projectile.tres")
 @onready var embrace = preload("res://resources/embrace_projectile.tres")
 @onready var hanger = preload("res://resources/hanger_projectile.tres")
+@onready var walking_audio = $AudioStreamPlayer2D
 var selected_weapon: WeaponStats
 
 #Movement
 var input := Vector2.ZERO
 @onready var base_speed = stats.base_speed
 @onready var current_speed = base_speed
+#var is_moving := 
 
 #State and health 
 var current_health: float = 0.0
@@ -143,19 +145,16 @@ func _handle_debuff(delta):
 			is_bleeding = false
 			print("Bleeding stopped.")
 	
-	#if is_bleeding and bleeding_vulnerable:
-		#bleeding_vulnerable = false
-		#current_health -= EnemyManager.enemy_list.boss_two.bleed_damage
-		#bleed_timer -= delta
-		#print(' is bleeding: ', current_health)
-		#if bleed_timer <= 0:
-			#is_bleeding = false
-			#bleeding_vulnerable = true
 
 func _handle_movement():
 	_get_input()
 	if stats and stats.selected_weapon:
 		velocity = input * current_speed
+		if velocity.length_squared() > 0.1: 
+			if !walking_audio.playing:
+				walking_audio.play()
+		elif walking_audio.playing: 
+			walking_audio.stop()
 	if !is_knockback:
 		move_and_slide()
 	
@@ -174,6 +173,8 @@ func handle_attack(delta):
 	
 	if current_state == PlayerStateManager.PlayerState.CAN_ATTACK:
 		if Input.is_action_just_pressed("primary(mouse)"):
+			
+			
 			launch_projectile.emit(projectile_position, projectile_direction)
 			current_state = PlayerStateManager.PlayerState.CANT_ATTACK
 			current_attack_cd = current_attack_delay

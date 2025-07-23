@@ -42,12 +42,6 @@ wep2_image = NodePath("EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/Ma
 wep3_info = NodePath("HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
 wep3_image = NodePath("HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
 
-[node name="Control2" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="ExchuMarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 4
 anchor_top = 0.5
@@ -254,7 +248,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Background" type="NinePatchRect" parent="EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/MainHBoxContainer"]
-custom_minimum_size = Vector2(180, 200)
+custom_minimum_size = Vector2(180, 235)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -360,6 +354,11 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_3xf6f")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_3xf6f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_mg2w6")
 
+[node name="Control3" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+mouse_filter = 2
+
 [node name="Weapon2SelectButton" type="Button" parent="EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
 custom_minimum_size = Vector2(80, 20)
 layout_mode = 2
@@ -374,16 +373,12 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_fypfw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ffxgu")
 text = "Select"
 
-[node name="Control3" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/MainHBoxContainer/Background/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-mouse_filter = 2
-
 [node name="InfoLabelMainContainer" type="VBoxContainer" parent="EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/MainHBoxContainer/Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -416,10 +411,6 @@ per individual bucko.
 Choke hazard. Beware."
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Control" type="Control" parent="EmbraceMarginContainer2/MainBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
 
 [node name="HangerMarginContainer3" type="MarginContainer" parent="."]
 z_index = 1
