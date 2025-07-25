@@ -1,9 +1,233 @@
-[gd_scene load_steps=3 format=3 uid="uid://bds3lb3wncmq4"]
+[gd_scene load_steps=18 format=3 uid="uid://bds3lb3wncmq4"]
 
 [ext_resource type="Script" uid="uid://bhfoepoxeyv7x" path="res://ui_scripts/pre_and_post_dialogue.gd" id="1_b6juv"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_a3j3k"]
+[ext_resource type="Texture2D" uid="uid://cvjt7dgyyb8hi" path="res://graphics/Enemies/elders_int.png" id="3_a3j3k"]
+[ext_resource type="Texture2D" uid="uid://ceofo3bml7j6l" path="res://graphics/Enemies/ami_dialogue.png" id="3_keakf"]
+[ext_resource type="AudioStream" uid="uid://bmlool1lvvr5v" path="res://graphics/Audio/battle_horn_1-6931.mp3" id="4_v7mak"]
 
-[node name="PreAndPostDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont")]
+[sub_resource type="Animation" id="Animation_keakf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/E2:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/E3:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/Ami:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_v7mak"]
+resource_name = "elder1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_chfpi"]
+resource_name = "elder1_1"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_a3j3k"]
+resource_name = "elder2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_lkrul"]
+resource_name = "elder2_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_lm2mt"]
+resource_name = "elder3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ab31y"]
+resource_name = "elder3_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_epejm"]
+resource_name = "ami_happy"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2hv0s"]
+resource_name = "ami_annoyed"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_k43q3"]
+resource_name = "ami_monkas"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_jkmu6"]
+resource_name = "ami_angry"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lkrul"]
+_data = {
+&"RESET": SubResource("Animation_keakf"),
+&"ami_angry": SubResource("Animation_jkmu6"),
+&"ami_annoyed": SubResource("Animation_2hv0s"),
+&"ami_happy": SubResource("Animation_epejm"),
+&"ami_monkas": SubResource("Animation_k43q3"),
+&"elder1": SubResource("Animation_v7mak"),
+&"elder1_1": SubResource("Animation_chfpi"),
+&"elder2": SubResource("Animation_a3j3k"),
+&"elder2_1": SubResource("Animation_lkrul"),
+&"elder3": SubResource("Animation_lm2mt"),
+&"elder3_1": SubResource("Animation_ab31y")
+}
+
+[node name="PreAndPostDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont", "elder1", "elder2", "elder3", "ami")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
@@ -11,10 +235,52 @@ script = ExtResource("1_b6juv")
 speaker_name = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/Speaker")
 dialogue_label = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer/Dialogue")
 hbox_cont = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
+elder1 = NodePath("CanvasLayer/E1")
+elder2 = NodePath("CanvasLayer/E2")
+elder3 = NodePath("CanvasLayer/E3")
+ami = NodePath("CanvasLayer/Ami")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 100
+
+[node name="E1" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(548.5, 160)
+scale = Vector2(1.38281, 1.39844)
+texture = ExtResource("3_a3j3k")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 128)
+
+[node name="E2" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(548.5, 159)
+scale = Vector2(1.36719, 1.41406)
+texture = ExtResource("3_a3j3k")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 130, 256, 126)
+metadata/_edit_lock_ = true
+
+[node name="E3" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(548.5, 157)
+scale = Vector2(1.35156, 1.41538)
+texture = ExtResource("3_a3j3k")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 256, 256, 130)
+metadata/_edit_lock_ = true
+
+[node name="Ami" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(68, 162)
+scale = Vector2(1.33984, 1.36719)
+texture = ExtResource("3_keakf")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(18, 0, 494, 128)
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 12
@@ -55,6 +321,8 @@ mouse_filter = 2
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.839216, 0.709804, 0.87451, 1)
+theme_override_colors/font_shadow_color = Color(0.419608, 0.133333, 0.341176, 1)
 theme_override_fonts/font = ExtResource("2_a3j3k")
 theme_override_font_sizes/font_size = 24
 
@@ -81,9 +349,18 @@ mouse_filter = 2
 [node name="Dialogue" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(620, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_a3j3k")
 autowrap_mode = 2
 
 [node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lkrul")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_v7mak")
