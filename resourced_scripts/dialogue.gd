@@ -7,8 +7,8 @@ extends Node2D
 	{"speaker": "Elder1", "line": "- Elder, the bros and gals are lacking Chus'; morale is low. What do we do?,", "emotion": ""},
 	{"speaker": "Elder2", "line": "...", "emotion": ""},
 	{"speaker": "Elder3", "line": "...", "emotion": ""},
-	{"speaker": "Elder3", "line": "We go to war. Muster all legions", "emotion": ""},
-	{"speaker": "Elder3", "line": "The Spidor's might is not to beest taken lighteth of. We might not but taketh caution", "emotion": ""},
+	{"speaker": "Elder3", "line": "We go to war. Muster all legions.", "emotion": ""},
+	{"speaker": "Elder3", "line": "The Spidor's might is not to beest taken lighteth of. We might not but taketh caution.", "emotion": ""},
 	{"speaker": "Elder1/Elder2", "line": "By thy shall.", "emotion": ""}
 ]
 

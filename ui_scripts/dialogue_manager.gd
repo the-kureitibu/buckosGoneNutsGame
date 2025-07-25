@@ -7,6 +7,11 @@ extends Control
 var current_index := 0
 var dialogue: Array
 var is_last_dialogue:= false
+@export var elder1: Sprite2D
+@export var elder2: Sprite2D
+@export var elder3: Sprite2D
+
+
 signal pre_dialogue_finished
 signal finished
 signal ready_for_next_wave
@@ -30,8 +35,57 @@ func _set_current_index(index: int):
 	else:
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_END
 
+	if idx["speaker"] == "Elder1":
+		elder1.visible = true
+		elder2.visible = false
+		elder3.visible = false
+		if idx.line == "...":
+			$AnimationPlayer.play("elder_one_1")
+		else:
+			$AnimationPlayer.play("elder1")
+		
+	elif idx["speaker"] == "Elder2":
+		elder1.visible = false
+		elder2.visible = true
+		elder3.visible = false
+		if idx.line == "...":
+			$AnimationPlayer.play("elder_two_2")
+		else:
+			$AnimationPlayer.play("elder2")
 
-func _unhandled_input(event: InputEvent) -> void:
+	elif idx["speaker"] == "Elder3":
+		elder1.visible = false
+		elder2.visible = false
+		elder3.visible = true
+		if idx.line == "...":
+			$AnimationPlayer.play("elder_3_one")
+		else:
+			$AnimationPlayer.play("elder3")
+			
+	elif idx["speaker"] == "Elder1/Elder2":
+		elder1.visible = true
+		elder2.visible = true
+		elder3.visible = true
+		elder1.position.x = 400.0
+		elder2.position.x = 460.0
+		if idx.line == "...":
+			$AnimationPlayer.play("elder_one_1")
+			$AnimationPlayer.play("elder_two_2")
+		else:
+			$AnimationPlayer.play("elder1")
+			$AnimationPlayer.play("elder2")
+		
+	elif idx["speaker"] == "Elder1/Elder2/Elder3":
+		elder1.visible = true
+		elder2.visible = true
+		elder3.visible = true
+		elder1.position.x = 400.0
+		elder2.position.x = 460.0
+		$AnimationPlayer.play("elder_one_1")
+		$AnimationPlayer.play("elder_two_2")
+		$AnimationPlayer.play("elder_3_one")
+
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("next_dialogue"):
 		current_index += 1
 		if current_index < dialogue.size():
@@ -40,6 +94,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			speaker_name.text = ""
 			dialogue_label.text = ""
 			current_index = 0
+			elder1.visible = false
+			elder2.visible = false
+			elder3.visible = false
 			await TransitionsManager.fade_in()
 			get_tree().change_scene_to_file("res://ui_scenes/pre_and_post_dialogue.tscn")
 			queue_free()
@@ -56,7 +113,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		#queue_free()
 
 func run_wave_dialogue():
-
 	
 	if Input.is_action_just_pressed("next_dialogue"):
 		current_index += 1
@@ -98,6 +154,10 @@ func set_current_dialogue(wave: int, part: int):
 
 func _ready() -> void:
 	await TransitionsManager.fade_out()
+	
+	elder1.visible = false
+	elder2.visible = false
+	elder3.visible = false
 	
 	if !GameManager.game_started:
 		dialogue = Dialogue.prologue

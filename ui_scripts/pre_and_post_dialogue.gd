@@ -28,7 +28,7 @@ func _set_current_index(index: int):
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_END
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("next_dialogue"):
 		current_index += 1
 		if current_index < dialogue.size():

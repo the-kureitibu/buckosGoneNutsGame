@@ -14,10 +14,28 @@ var max_active_enemies: int
 var game_started := false 
 var weapon_select := false
 var pre_game_start:= false
+var restart_game := false
 
 #Signals 
 signal update_wave_count 
 signal update_wave_quota
+
+func reset_stats():
+	game_started = false
+	weapon_select = false
+	pre_game_start = false
+	wave_one = false
+	wave_two = false
+	wave_three = false
+	true_end = false
+	bad_end = false
+	good_end = false
+	_waves = preload("res://resources/waves_manager.tres")
+	current_wave_mobs = _waves.w1_max_mobs
+	current_wave_quota = _waves.w1_max_mobs
+	current_wave = 1
+	max_active_enemies = _waves.max_active_mobs
+	
 
 var current_wave_quota: int = 0: 
 	set(value): 

@@ -343,6 +343,7 @@ func _on_wave_3_spawn_timer_timeout() -> void:
 
 
 func _on_player_player_death() -> void:
+	GameManager.restart_game = true
 	var text = text_man.instantiate()
 	add_child(text)
 	await text.death_announce()

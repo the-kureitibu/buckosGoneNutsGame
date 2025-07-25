@@ -3,33 +3,6 @@
 [ext_resource type="Script" uid="uid://c0efg3ndjowoi" path="res://ui_scripts/ending_dialogue.gd" id="1_mm1cr"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_qrldc"]
 
-[sub_resource type="Animation" id="Animation_qrldc"]
-resource_name = "hide_canvas"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/PanelContainer:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0666667, 0.933333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/VBoxContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0666667, 0.933333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_o1qik"]
 length = 0.001
 tracks/0/type = "value"
@@ -55,6 +28,33 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qrldc"]
+resource_name = "hide_canvas"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/PanelContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ghctq"]

@@ -19,6 +19,13 @@ var player_current_health := 0.0:
 		player_current_health = value
 		health_change.emit()
 
+func reset_stats():
+	on_rage = false
+	weapon_index = 0
+	player_rage_state = PlayerStateManager.RageState.IDLE
+	player_current_health = 0.0
+	player_died = false
+
 func _ready() -> void:
 	runtime_player_stats = preload("res://resources/player_stats_manager.tres")
 
