@@ -19,6 +19,19 @@ func wave_announcer(wave: int):
 	queue_free()
 	# play animation here
 
+func death_announce():
+	
+	await get_tree().process_frame
+	text_label.text = "You've failed, Spidor"
+	animation.play("fade_in")
+	await animation.animation_finished
+	
+	await get_tree().create_timer(2.0).timeout
+	
+	animation.play("fade_out")
+	await animation.animation_finished
+	queue_free()
+
 func ending_announcer():
 	
 	if GameManager.true_end:

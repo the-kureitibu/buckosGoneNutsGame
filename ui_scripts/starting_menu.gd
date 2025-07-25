@@ -1,5 +1,8 @@
 extends Node2D
 
+func _ready() -> void:
+	if PlayerManager.player_died:
+		await TransitionsManager.fade_out()
 
 func _on_start_pressed() -> void:
 

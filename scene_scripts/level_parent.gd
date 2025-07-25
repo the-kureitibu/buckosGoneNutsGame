@@ -9,6 +9,7 @@ extends Node2D
 @onready var text_man: PackedScene = preload("res://ui_scenes/text_manager.tscn")
 @onready var dialogue_scene: PackedScene = preload("res://ui_scenes/dialogue_manager.tscn")
 @onready var test_ui: PackedScene = preload("res://ui_scenes/weapon_selection_ui.tscn")
+@onready var start_menu = preload("res://ui_scenes/starting_menu.tscn")
 @onready var bgm = $AudioStreamPlayer2D
 @onready var bgm_is_playing := false
 @onready var test_bgm = $AudioStreamPlayer
@@ -103,7 +104,7 @@ func play_bgm():
 		if !test_bgm.playing:
 			test_bgm.volume_db = -60.0
 			test_bgm.play()
-			fade_music(-10.0, 2.0)
+			fade_music(-5.0, 2.0)
 	else:
 		if test_bgm.playing:
 			test_bgm.stop()
@@ -121,10 +122,7 @@ func _process(delta: float) -> void:
 		GameManager.game_started = true
 		bgm_is_playing = true
 		game_start()
-		
-	
-	
-	
+
 
 func game_start():
 	if GameManager.game_started and GameManager.current_wave == 1 and !is_wave_done:
@@ -185,7 +183,7 @@ func run_wave_dialogue(wave: int, part: int):
 
 	await dialogue.finished
 	get_tree().paused = false
-	fade_music(-10.0, 0.25) 
+	fade_music(-5.0, 0.25) 
 
 
 func spawn_boss(index: int):
@@ -342,3 +340,20 @@ func _on_wave_3_spawn_timer_timeout() -> void:
 		return
 	
 	spawn_mobs()
+
+
+func _on_player_player_death() -> void:
+	var text = text_man.instantiate()
+	add_child(text)
+	await text.death_announce()
+	PlayerManager.player_died = true
+	
+	
+	await TransitionsManager.fade_in()
+	var new_sc = start_menu.instantiate()
+	var tree = get_tree()
+	var cur_scene = tree.get_current_scene()
+	tree.get_root().add_child(new_sc)
+	tree.get_root().remove_child(cur_scene)
+	tree.set_current_scene(new_sc)
+	return 

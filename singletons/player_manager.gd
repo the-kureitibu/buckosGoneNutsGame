@@ -10,6 +10,7 @@ const MAX_RAGE: int = 10
 var on_rage: bool = false
 #var player_rage_state = PlayerStateManager.RageState.IDLE
 var runtime_player_stats: PlayerStats
+var player_died := false
 
 var weapon_index: int = 0
 var player_rage_state = PlayerStateManager.RageState.IDLE

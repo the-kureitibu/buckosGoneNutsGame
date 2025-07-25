@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvialb15cv8ki"]
+
+[ext_resource type="Texture2D" uid="uid://k04d3n6yenmh" path="res://graphics/UI/png-clipart-callout-speech-balloon-comic-miscellaneous-angle.png" id="1_7xfiq"]
+[ext_resource type="Script" uid="uid://r5shw2bs1aen" path="res://ui_scripts/rage_speech.gd" id="1_euq0x"]
+
+[node name="RageSpeech" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_euq0x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 90.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(70, 40)
+layout_mode = 2
+texture = ExtResource("1_7xfiq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/NinePatchRect"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/NinePatchRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/NinePatchRect/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/NinePatchRect/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(7, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/NinePatchRect/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Silly buckos!!"

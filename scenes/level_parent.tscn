@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bat3jm3uoc5f5"]
+[gd_scene load_steps=22 format=4 uid="uid://bat3jm3uoc5f5"]
 
 [ext_resource type="Script" uid="uid://drsner16ve8lq" path="res://scene_scripts/level_parent.gd" id="1_flq4q"]
 [ext_resource type="Texture2D" uid="uid://c8edy7ool4fkl" path="res://graphics/Ground/sprite v_2.png" id="2_1m8kj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dh228pcb8b668" path="res://graphics/Ground/soil and grass.png" id="4_mo326"]
 [ext_resource type="Texture2D" uid="uid://d16543ovt4bah" path="res://graphics/Ground/all ground sprite1.png" id="5_02nl5"]
 [ext_resource type="AudioStream" uid="uid://if6npm3hojw6" path="res://graphics/Audio/Heroic Demise (New).mp3" id="8_02nl5"]
+[ext_resource type="AudioStream" uid="uid://d4fpsr1gy27g2" path="res://graphics/Audio/The Fall of Arcana.mp3" id="8_22r4n"]
 [ext_resource type="PackedScene" uid="uid://080vk2d28i2v" path="res://ui_scenes/in_game_ui.tscn" id="8_mo326"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dghoi"]
@@ -868,8 +869,8 @@ curve = SubResource("Curve2D_mo326")
 [node name="Wave3SpawnTimer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_02nl5")
-volume_db = -10.0
+stream = ExtResource("8_22r4n")
+volume_db = -5.0
 bus = &"BGM"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -877,6 +878,7 @@ stream = ExtResource("8_02nl5")
 bus = &"BGM"
 
 [connection signal="launch_projectile" from="Player/Player" to="." method="_on_player_launch_projectile"]
+[connection signal="player_death" from="Player/Player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Wave2SpawnTimer" to="." method="_on_wave_2_spawn_timer_timeout"]
 [connection signal="timeout" from="Wave3SpawnTimer" to="." method="_on_wave_3_spawn_timer_timeout"]

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var embrace = preload("res://resources/embrace_projectile.tres")
 @onready var hanger = preload("res://resources/hanger_projectile.tres")
 @onready var walking_audio = $AudioStreamPlayer2D
+@onready var rage_bubble = preload("res://ui_scenes/rage_speech.tscn")
 var selected_weapon: WeaponStats
 
 #Movement
@@ -41,6 +42,7 @@ var bleed_tick_timer := 0.0
 
 #Signals
 signal launch_projectile(pos, dir)
+signal player_death
 
 func debug_label(): 
 	var labl: String = "Rage State:%s\n" % PlayerStateManager.RageState.keys()[PlayerManager.player_rage_state]
@@ -56,6 +58,14 @@ func _ready() -> void:
 	stats = PlayerManager.runtime_player_stats
 	current_state = PlayerStateManager.PlayerState.CAN_ATTACK
 
+#func rage_speech():
+	#print('did this worked? ')
+	#if not PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
+		#return
+#
+	#var bubble = $RageSpeech
+	#bubble.target_node = self
+	#bubble.show_speech()
 
 func setup_stats():
 	stats = PlayerManager.runtime_player_stats
@@ -77,6 +87,7 @@ func setup_stats():
 func rage_modifier():
 	if PlayerManager.on_rage and !rage_started: 
 		rage_started = true
+		#rage_speech()
 		
 		selected_weapon.attack_speed += selected_weapon.rage_atkspd
 		atk_spd_setter()
@@ -227,46 +238,9 @@ func got_hit(area: Area2D):
 		if current_health <= 0:
 			die()
 
-#func got_hit(area: Area2D):
-	#var damage = 0 
-	#
-	#if !area.is_in_group('player_projectiles'):
-		#if !is_invulnerable:
-			#is_invulnerable = true
-			#print('invulnerable now? ', is_invulnerable)
-			#invulnerable_timer = 0.5
-			#
-		#
-#
-		#if area.is_in_group('enemy_hurtbox') or area.is_in_group('enemy_projectiles'):
-			#var source_name = area.get_parent().name
-			#var source = area.get_parent()
-#
-			#if source_name == 'Enemy':
-				#damage = EnemyManager.enemy_list.bucko.damage
-				#if source.is_dashing:
-					#var knockback_strengh := 600.0
-					#got_knockbacked(source, knockback_strengh)
-			#
-			#if 'id_elder_one' in area:
-				#damage = EnemyManager.enemy_list.boss_one.damage
-				#is_slowed = true
-			#elif 'id_elder_two' in area:
-				#damage = EnemyManager.enemy_list.boss_two.damage
-				#if !is_bleeding:
-					#is_bleeding = true
-					#bleed_timer = bleed_duration
-					#bleed_tick_timer = bleed_tick_interval
-			#
-			#current_health -= damage
-			#print('current player health, ', current_health)
-			#PlayerManager.apply_damage(current_health)
-			#
-			#if current_health == 0:
-				#die()
-
 func die():
-	pass
+	player_death.emit()
+
 
 func got_knockbacked(source: Node2D, force: float):
 	if is_knockback:
