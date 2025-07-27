@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxjomca5gm17j"]
+[gd_scene load_steps=18 format=3 uid="uid://cxjomca5gm17j"]
 
 [ext_resource type="Script" uid="uid://c0efg3ndjowoi" path="res://ui_scripts/ending_dialogue.gd" id="1_mm1cr"]
+[ext_resource type="Texture2D" uid="uid://cvjt7dgyyb8hi" path="res://graphics/Enemies/elders_int.png" id="2_o1qik"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_qrldc"]
+[ext_resource type="Texture2D" uid="uid://ceofo3bml7j6l" path="res://graphics/Enemies/ami_dialogue.png" id="3_ghctq"]
 
 [sub_resource type="Animation" id="Animation_o1qik"]
 length = 0.001
@@ -28,6 +30,208 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Ami:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/E1:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/E2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/E3:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_45v4k"]
+resource_name = "ami_angry"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_n8vfd"]
+resource_name = "ami_annoyed"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_sgw62"]
+resource_name = "ami_happy"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_64pdm"]
+resource_name = "ami_monkas"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Ami:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_qflpn"]
+resource_name = "elder1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fk04m"]
+resource_name = "elder1_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_2apy5"]
+resource_name = "elder2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2rxvk"]
+resource_name = "elder2_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_u5n0x"]
+resource_name = "elder3"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wdlu3"]
+resource_name = "elder3_1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
 }
 
 [sub_resource type="Animation" id="Animation_qrldc"]
@@ -56,14 +260,72 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/E1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0666667, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CanvasLayer/E2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.0666667, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/E3:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.0666667, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/Ami:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.0666667, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ghctq"]
 _data = {
 &"RESET": SubResource("Animation_o1qik"),
+&"ami_angry": SubResource("Animation_45v4k"),
+&"ami_annoyed": SubResource("Animation_n8vfd"),
+&"ami_happy": SubResource("Animation_sgw62"),
+&"ami_monkas": SubResource("Animation_64pdm"),
+&"elder1": SubResource("Animation_qflpn"),
+&"elder1_1": SubResource("Animation_fk04m"),
+&"elder2": SubResource("Animation_2apy5"),
+&"elder2_1": SubResource("Animation_2rxvk"),
+&"elder3": SubResource("Animation_u5n0x"),
+&"elder3_1": SubResource("Animation_wdlu3"),
 &"hide_canvas": SubResource("Animation_qrldc")
 }
 
-[node name="EndingDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont")]
+[node name="EndingDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont", "elder1", "elder2", "elder3", "ami")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
@@ -71,10 +333,52 @@ script = ExtResource("1_mm1cr")
 speaker_name = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/Speaker")
 dialogue_label = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer/Dialogue")
 hbox_cont = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
+elder1 = NodePath("CanvasLayer/E1")
+elder2 = NodePath("CanvasLayer/E2")
+elder3 = NodePath("CanvasLayer/E3")
+ami = NodePath("CanvasLayer/Ami")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 100
+
+[node name="E1" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(399, 160)
+scale = Vector2(1.4375, 1.39063)
+texture = ExtResource("2_o1qik")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 128)
+metadata/_edit_lock_ = true
+
+[node name="E2" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(459, 161)
+scale = Vector2(1.44531, 1.40551)
+texture = ExtResource("2_o1qik")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 130, 256, 127)
+
+[node name="E3" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(544, 159)
+scale = Vector2(1.44141, 1.39922)
+texture = ExtResource("2_o1qik")
+hframes = 2
+region_enabled = true
+region_rect = Rect2(0, 257, 256, 129)
+metadata/_edit_lock_ = true
+
+[node name="Ami" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(80, 161)
+scale = Vector2(1.39516, 1.36822)
+texture = ExtResource("3_ghctq")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(13, -1, 499, 129)
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 12
@@ -86,6 +390,7 @@ grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -94,6 +399,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Control" type="Control" parent="CanvasLayer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 215)

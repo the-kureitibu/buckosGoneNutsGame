@@ -31,6 +31,12 @@ var is_wave_three_started: bool = false
 var is_wave_done := false
 
 
+func _on_VisibilityNotifier2D_screen_exited():
+	if global_position.distance_to($Player/Player.global_position) >= 1000:
+		set_physics_process(false)
+#
+func _on_VisibilityNotifier2D_screen_entered():
+	set_physics_process(true)
 
 func _ready() -> void:
 	await TransitionsManager.fade_out()
@@ -104,7 +110,7 @@ func play_bgm():
 		if !test_bgm.playing:
 			test_bgm.volume_db = -60.0
 			test_bgm.play()
-			fade_music(-5.0, 2.0)
+			fade_music(-10.0, 2.0)
 	else:
 		if test_bgm.playing:
 			test_bgm.stop()
@@ -116,7 +122,7 @@ func fade_music(target_db: float, duration: float):
 	tween.tween_property(test_bgm, "volume_db", target_db, duration)
 	
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if GameManager.weapon_select and !GameManager.game_started and !is_wave_done:
 		GameManager.game_started = true
@@ -159,7 +165,6 @@ func spawn_mobs():
 	var enemy = GameManager._waves.waves[0].instantiate()
 	enemy.position = $Enemies.to_local(spawn_location.global_position)
 	$Enemies.add_child(enemy)
-	print("Spawned at:", enemy.global_position, " marker:", spawn_location.global_position)
 	#enemy.position = spawn_location.global_position
 	
 	if target:
@@ -168,7 +173,6 @@ func spawn_mobs():
 	enemy.connect("death", reduce_active_enemies)
 	active_enemies += 1
 	spawn_count += 1
-	print('spawning now? ', active_enemies)
 
 func run_wave_dialogue(wave: int, part: int):
 	
@@ -183,11 +187,10 @@ func run_wave_dialogue(wave: int, part: int):
 
 	await dialogue.finished
 	get_tree().paused = false
-	fade_music(-5.0, 0.25) 
+	fade_music(-10.0, 0.25) 
 
 
 func spawn_boss(index: int):
-	print('boss spawned? ')
 	var target = $Player/Player
 	var valid_position = get_valid_points()
 	
@@ -198,7 +201,6 @@ func spawn_boss(index: int):
 	var boss = GameManager._waves.waves[index].instantiate()
 	boss.position = $Enemies.to_local(spawn_location.global_position)
 	$Enemies.add_child(boss)
-	print("Spawned boss at:", boss.global_position, " marker:", spawn_location.global_position)
 	#enemy.position = spawn_location.global_position
 	
 	if target:
@@ -226,8 +228,6 @@ func reduce_active_enemies():
 		run_wave_dialogue(3,1)
 		call_deferred("spawn_boss", 3)
 		
-	print('current active enemies: ', active_enemies, ' current enemy death: ', enemy_deaths, ' current wave mobs: ', GameManager.current_wave_mobs)
-
 func _on_spawn_timer_timeout() -> void:
 	if GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs:
 		is_wave_done = true

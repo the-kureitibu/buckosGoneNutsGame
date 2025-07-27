@@ -19,7 +19,7 @@ func _ready() -> void:
 func id_elder_three():
 	return
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if follow_target:
 		global_position = follow_target.global_position
 
@@ -58,7 +58,7 @@ func extend_chain():
 		var offset2 = Vector2.RIGHT * SEGMENT_SPACE * (segment_count + 1)
 		$Sprite2D2.position = offset2
 		
-		await get_tree().create_timer(0.4). timeout
+		await get_tree().create_timer(0.4).timeout
 		extend_chain()
 	else: 
 		await get_tree().create_timer(1.0).timeout

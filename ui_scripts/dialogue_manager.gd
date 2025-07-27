@@ -10,6 +10,7 @@ var is_last_dialogue:= false
 @export var elder1: Sprite2D
 @export var elder2: Sprite2D
 @export var elder3: Sprite2D
+@export var ami: Sprite2D
 
 
 signal pre_dialogue_finished
@@ -31,9 +32,23 @@ func _set_current_index(index: int):
 	dialogue_label.text = dialogue[current_index].line
 
 	if idx["speaker"] == "Ami":
+		ami.visible = true
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_BEGIN
 	else:
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_END
+
+	if idx["speaker"] == "Ami" and idx["emotion"] == "happy":
+		$AnimationPlayer.play("ami_happy")
+	if idx["speaker"] == "Ami" and idx["emotion"] == "monkas":
+		ami.position.x = 68.0
+		$AnimationPlayer.play("ami_monkas")
+	if idx["speaker"] == "Ami" and idx["emotion"] == "angry":
+		ami.position.x = 65.0
+		$AnimationPlayer.play("ami_angry")
+	if idx["speaker"] == "Ami" and idx["emotion"] == "annoyed":
+		ami.position.x = 70.0
+		$AnimationPlayer.play("ami_annoyed")
+	
 
 	if idx["speaker"] == "Elder1":
 		elder1.visible = true
@@ -94,6 +109,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 			speaker_name.text = ""
 			dialogue_label.text = ""
 			current_index = 0
+			ami.visible = false
 			elder1.visible = false
 			elder2.visible = false
 			elder3.visible = false
@@ -155,6 +171,7 @@ func set_current_dialogue(wave: int, part: int):
 func _ready() -> void:
 	await TransitionsManager.fade_out()
 	
+	ami.visible = false
 	elder1.visible = false
 	elder2.visible = false
 	elder3.visible = false

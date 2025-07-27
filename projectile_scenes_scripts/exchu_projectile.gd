@@ -37,3 +37,5 @@ func _on_area_entered(area: Area2D) -> void:
 	projectile_audio_stream.play()
 	trigger_debuff(area, weapon_stats)
 	rage_getter(area, weapon_stats)
+	await get_tree().create_timer(0.5).timeout
+	queue_free()

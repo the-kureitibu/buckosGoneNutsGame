@@ -23,6 +23,9 @@ var is_knockback: bool = false
 var current_state = PlayerStateManager.PlayerState.IDLE
 var added_attack_speed: float
 var rage_started: bool = false
+var not_hit := true
+var hit_count := 0
+var health_state = PlayerStateManager.PlayerState.FULLY_HEALED
 
 #timers
 var current_attack_delay := 1.25
@@ -38,13 +41,15 @@ var bleed_duration := 3.0
 var bleed_tick_interval := 0.5
 var bleed_timer := 0.0
 var bleed_tick_timer := 0.0
+var regen_timer := 20.0
+
 
 
 #Signals
 signal launch_projectile(pos, dir)
 signal player_death
 
-func debug_label(): 
+func debug_label():
 	var labl: String = "Rage State:%s\n" % PlayerStateManager.RageState.keys()[PlayerManager.player_rage_state]
 	labl += "AtkSpd Current:%s\n" % added_attack_speed
 	labl += "Current attack delay:%s\n" % current_attack_delay
@@ -73,10 +78,16 @@ func setup_stats():
 	match WeaponsManager.weapon_selected:
 		"exchu":
 			selected_weapon = stats.weapon_listings[2]
+			$Exchu.visible = true
+			$Sprite2D.visible = false
 		"hanger":
 			selected_weapon = stats.weapon_listings[0]
+			$Hanger.visible = true
+			$Sprite2D.visible = false
 		"embrace":
 			selected_weapon = stats.weapon_listings[1]
+			$Embrace.visible = true
+			$Sprite2D.visible = false
 
 	
 	added_attack_speed = selected_weapon.attack_speed
@@ -85,7 +96,7 @@ func setup_stats():
 	PlayerManager.player_current_health = stats.base_health
 	
 func rage_modifier():
-	if PlayerManager.on_rage and !rage_started: 
+	if PlayerManager.on_rage and !rage_started:
 		rage_started = true
 		#rage_speech()
 		
@@ -117,6 +128,7 @@ func _get_input():
 
 func _physics_process(delta: float) -> void:
 	debug_label()
+	_regen(delta)
 	_handle_movement()
 	rage_modifier()
 	handle_attack(delta)
@@ -126,9 +138,9 @@ func _physics_process(delta: float) -> void:
 		invulnerable_timer -= delta
 		if invulnerable_timer <= 0:
 			is_invulnerable = false
+			health_state = PlayerStateManager.PlayerState.ATTACK_RECOVERY
 			invulnerable_timer = 1.5
-
-			
+	
 
 func _handle_debuff(delta):
 	
@@ -137,8 +149,8 @@ func _handle_debuff(delta):
 	if is_slowed:
 		current_speed = base_speed * EnemyManager.enemy_list.boss_one.slow_multiplier
 		slow_timer -= delta
-		if slow_timer <= 0: 
-			is_slowed = false 
+		if slow_timer <= 0:
+			is_slowed = false
 			current_speed = base_speed
 			slow_timer = 2.0
 	
@@ -161,19 +173,21 @@ func _handle_movement():
 	_get_input()
 	if stats and stats.selected_weapon:
 		velocity = input * current_speed
-		if velocity.length_squared() > 0.1: 
+		if velocity.length_squared() > 0.1:
 			if !walking_audio.playing:
 				walking_audio.play()
-		elif walking_audio.playing: 
+		elif walking_audio.playing:
 			walking_audio.stop()
 	if !is_knockback:
 		move_and_slide()
 	
-	look_at(get_global_mouse_position())
+	look_at(get_global_mouse_position()) 
 
 
 func handle_attack(delta):
 	# instantiate projectile here 
+	
+
 	var projectile_direction = (get_global_mouse_position() - global_position).normalized()
 	var projectile_position = $ProjectileMarker.global_position
 	
@@ -184,6 +198,12 @@ func handle_attack(delta):
 	
 	if current_state == PlayerStateManager.PlayerState.CAN_ATTACK:
 		if Input.is_action_just_pressed("primary(mouse)"):
+			if WeaponsManager.weapon_selected == "exchu":
+				$AnimationPlayer.play("exchu_attack")
+			elif WeaponsManager.weapon_selected == "embrace":
+				$AnimationPlayer.play("embrace_attack")
+			elif WeaponsManager.weapon_selected == "hanger":
+				$AnimationPlayer.play("hanger_attack")
 			
 			
 			launch_projectile.emit(projectile_position, projectile_direction)
@@ -198,7 +218,9 @@ func got_hit(area: Area2D):
 	
 	if area.is_in_group('player_projectiles'):
 		return
-	
+		
+	health_state = PlayerStateManager.PlayerState.DAMAGED
+	print(PlayerStateManager.PlayerState.keys()[health_state])
 	is_invulnerable = true
 	invulnerable_timer = 1.5
 	print('Player is now invulnerable')
@@ -232,14 +254,36 @@ func got_hit(area: Area2D):
 				bleed_tick_timer = bleed_tick_interval
 
 		current_health -= damage
-		print('current player health: ', current_health)
 		PlayerManager.apply_damage(current_health)
 
 		if current_health <= 0:
 			die()
 
 func die():
+	if PlayerManager.on_rage:
+		PlayerManager.on_rage = false
+	
+	if !$RageCoolingTimer.is_stopped():
+		$RageCoolingTimer.stop()
 	player_death.emit()
+
+func _regen(delta):
+	
+	if !health_state == PlayerStateManager.PlayerState.ATTACK_RECOVERY:
+		if regen_timer < 20.0:
+			regen_timer = 20.0
+		return
+	
+	if health_state == PlayerStateManager.PlayerState.ATTACK_RECOVERY:
+		regen_timer -= delta
+		
+		if regen_timer <= 0:
+			health_state = PlayerStateManager.PlayerState.HEALING
+			$RegenTimer.start()
+			regen_timer = 20.0
+			
+
+
 
 
 func got_knockbacked(source: Node2D, force: float):
@@ -257,8 +301,7 @@ func got_knockbacked(source: Node2D, force: float):
 
 		await get_tree().create_timer(0.2).timeout
 		is_knockback = false
-		
-		
+
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 
 	if not body: return
@@ -278,12 +321,18 @@ func _on_rage_cooling_timer_timeout() -> void:
 	PlayerManager.rage -= PlayerManager.MAX_RAGE / 5
 	
 	
-	if PlayerManager.rage <= 0: 
+	if PlayerManager.rage <= 0:
 		rage_started = false
 		PlayerManager.on_rage = false
 		PlayerManager.player_rage_state = PlayerStateManager.RageState.IDLE
 		print('rage done')
 		$RageCoolingTimer.stop()
 	
+
+func _on_regen_timer_timeout() -> void:
 	
-		
+	if current_health < stats.base_health:
+		current_health += 2.0
+	elif current_health == stats.base_health:
+		$RegenTimer.stop()
+		health_state = PlayerStateManager.PlayerState.FULLY_HEALED

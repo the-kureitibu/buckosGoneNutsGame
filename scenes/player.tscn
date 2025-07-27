@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt28emtj6uskf"]
+[gd_scene load_steps=13 format=3 uid="uid://bt28emtj6uskf"]
 
 [ext_resource type="Texture2D" uid="uid://b8y4fm73hxdj3" path="res://graphics/Player/ami.png" id="1_170ft"]
 [ext_resource type="Script" uid="uid://b0sit605iq3du" path="res://scene_scripts/player.gd" id="1_ftni2"]
 [ext_resource type="Resource" uid="uid://b0hsqpsbbcyhx" path="res://resources/player_stats_manager.tres" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://dgpu2o3b4xhk1" path="res://graphics/Enemies/ami_sprites.png" id="3_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://2aa76flvsjtc" path="res://graphics/Audio/player_walking.wav" id="4_dqkch"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ftni2"]
@@ -12,12 +13,134 @@ height = 44.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ftni2"]
 radius = 19.0
 
+[sub_resource type="Animation" id="Animation_qlg0r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Exchu:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Embrace:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hanger:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "embrace_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Embrace:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.233333, 0.333333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 3, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "exchu_attack"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Exchu:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.366667, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 0, 3]
+}
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "hanger_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hanger:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.333333, 0.433333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 3, 2, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
+_data = {
+&"RESET": SubResource("Animation_qlg0r"),
+&"embrace_attack": SubResource("Animation_fjrip"),
+&"exchu_attack": SubResource("Animation_tuyoq"),
+&"hanger_attack": SubResource("Animation_smehm")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 58
 motion_mode = 1
 platform_floor_layers = 0
 script = ExtResource("1_ftni2")
 stats = ExtResource("2_qhqgy")
+
+[node name="Embrace" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 4.76837e-07)
+rotation = 1.5708
+scale = Vector2(1.24112, 1.29986)
+texture = ExtResource("3_qlg0r")
+hframes = 4
+vframes = 4
+
+[node name="Exchu" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(2, 2)
+rotation = 1.5708
+scale = Vector2(1.12008, 1.10356)
+texture = ExtResource("3_qlg0r")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 69, 256, 60)
+
+[node name="Hanger" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1.19209e-07, -5.96046e-08)
+rotation = 1.5708
+scale = Vector2(1.17117, 1.21542)
+texture = ExtResource("3_qlg0r")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 133, 256, 63)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4.76837e-07, 7.15256e-07)
@@ -51,6 +174,8 @@ metadata/_edit_lock_ = true
 
 [node name="RageCoolingTimer" type="Timer" parent="."]
 
+[node name="RegenTimer" type="Timer" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Debug Label" type="Label" parent="CanvasLayer"]
@@ -66,6 +191,12 @@ stream = ExtResource("4_dqkch")
 volume_db = 5.0
 bus = &"SFX"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fjrip")
+}
+
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="timeout" from="RageCoolingTimer" to="." method="_on_rage_cooling_timer_timeout"]
+[connection signal="timeout" from="RegenTimer" to="." method="_on_regen_timer_timeout"]

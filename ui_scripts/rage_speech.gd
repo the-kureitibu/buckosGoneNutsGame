@@ -17,7 +17,7 @@ func show_speech():
 	await get_tree().create_timer(4.0).timeout
 	$VBoxContainer/HBoxContainer/NinePatchRect.visible = false
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not target_node:
 		return
 	

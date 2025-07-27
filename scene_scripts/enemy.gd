@@ -53,7 +53,7 @@ func nav_debug_label():
 	$Label.text = s
 
 func _physics_process(delta: float) -> void:
-	nav_debug_label()
+
 	handle_debuff(delta)
 	dash_handler(nav_target)
 	

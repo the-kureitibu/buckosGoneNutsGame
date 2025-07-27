@@ -21,6 +21,7 @@ signal update_wave_count
 signal update_wave_quota
 
 func reset_stats():
+	PlayerManager.on_rage = false
 	game_started = false
 	weapon_select = false
 	pre_game_start = false

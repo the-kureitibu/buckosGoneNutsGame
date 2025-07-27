@@ -54,16 +54,12 @@ metadata/_edit_lock_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 50.0
-debug_enabled = true
 
 [node name="Label" type="Label" parent="."]
 offset_left = -44.0
 offset_top = -110.0
 offset_right = 45.0
 offset_bottom = -35.0
-text = "asdasasdas
-asdasd
-asdadas"
 
 [connection signal="health_change" from="." to="EnemyHealthBar" method="_on_enemy_health_change"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
