@@ -28,6 +28,8 @@ var done_chargin: bool = true
 var timer := 0.0
 var charging_timer := 0.5
 var proj_owner: Node
+var damage = 30
+
 
 #Split 
 var has_split: bool = false

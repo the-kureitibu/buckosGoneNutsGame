@@ -14,6 +14,8 @@ extends Node2D
 @onready var bgm_is_playing := false
 @onready var test_bgm = $AudioStreamPlayer
 
+#Waves Tscns
+@onready var buckos: PackedScene = preload("res://scenes/enemy.tscn")
 
 #Spawners
 const MIN_PLAYER_DIST := 200
@@ -162,7 +164,7 @@ func spawn_mobs():
 		print("NO VALID MARKERS. (Player @", $Player/Player.global_position, ")")
 		return
 	var spawn_location = valid_position[randi() % valid_position.size()]
-	var enemy = GameManager._waves.waves[0].instantiate()
+	var enemy = buckos.instantiate()
 	enemy.position = $Enemies.to_local(spawn_location.global_position)
 	$Enemies.add_child(enemy)
 	#enemy.position = spawn_location.global_position

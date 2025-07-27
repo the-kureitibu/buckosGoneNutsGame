@@ -6,8 +6,10 @@ extends CharacterBody2D
 @onready var hanger = preload("res://resources/hanger_projectile.tres")
 @onready var walking_audio = $AudioStreamPlayer2D
 @onready var rage_bubble = preload("res://ui_scenes/rage_speech.tscn")
+@onready var pop_up_dmg = preload("res://ui_scenes/pop_up_damage.tscn")
 var selected_weapon: WeaponStats
 
+@onready var bdamage = EnemyManager.enemy_list.bucko.damage
 #Movement
 var input := Vector2.ZERO
 @onready var base_speed = stats.base_speed
@@ -49,6 +51,8 @@ var regen_timer := 20.0
 signal launch_projectile(pos, dir)
 signal player_death
 
+
+var bdmg = 10
 func debug_label():
 	var labl: String = "Rage State:%s\n" % PlayerStateManager.RageState.keys()[PlayerManager.player_rage_state]
 	labl += "AtkSpd Current:%s\n" % added_attack_speed
@@ -136,6 +140,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_invulnerable:
 		invulnerable_timer -= delta
+		print(invulnerable_timer)
 		if invulnerable_timer <= 0:
 			is_invulnerable = false
 			health_state = PlayerStateManager.PlayerState.ATTACK_RECOVERY
@@ -220,44 +225,61 @@ func got_hit(area: Area2D):
 		return
 		
 	health_state = PlayerStateManager.PlayerState.DAMAGED
-	print(PlayerStateManager.PlayerState.keys()[health_state])
 	is_invulnerable = true
 	invulnerable_timer = 1.5
 	print('Player is now invulnerable')
 
-	var damage = 0
-	var source_name = area.get_parent().name
-	var source = area.get_parent()
+
 
 	if area.is_in_group('enemy_hurtbox') or area.is_in_group('enemy_projectiles'):
+		var source_name = area.get_parent().name
+		var source = area.get_parent()
+		var source_damage = source.damage
+		var dmg = source_damage
+
 
 		if source_name == 'Enemy':
-			damage = EnemyManager.enemy_list.bucko.damage
 			if source.is_dashing:
 				var knockback_strengh := 600.0
 				got_knockbacked(source, knockback_strengh)
 
 		if 'id_elder_one' in area:
-			damage = EnemyManager.enemy_list.boss_one.damage
+			dmg = EnemyManager.enemy_list.boss_one.damage
 			is_slowed = true
 		elif 'id_elder_two' in area:
-			damage = EnemyManager.enemy_list.boss_two.damage
+			dmg = EnemyManager.enemy_list.boss_two.damage
 			if !is_bleeding:
 				is_bleeding = true
 				bleed_timer = bleed_duration
 				bleed_tick_timer = bleed_tick_interval
 		elif 'id_elder_three' in area:
-			damage = EnemyManager.enemy_list.boss_three.damage
+			dmg = EnemyManager.enemy_list.boss_three.damage
 			if !is_bleeding:
 				is_bleeding = true
 				bleed_timer = bleed_duration
 				bleed_tick_timer = bleed_tick_interval
 
-		current_health -= damage
+		current_health -= dmg
+		if health_state == PlayerStateManager.PlayerState.DAMAGED:
+			pop_up_damage(dmg, false)
+			
 		PlayerManager.apply_damage(current_health)
+		
 
 		if current_health <= 0:
 			die()
+
+func pop_up_damage(damage, regen):
+	var pop_up = pop_up_dmg.instantiate()
+	get_tree().current_scene.add_child(pop_up)
+	pop_up.position = $popup.global_position
+	pop_up._show_damage(damage, regen)
+	
+	var tween = create_tween()
+	tween.tween_property(pop_up, "position", global_position + _get_direction(), 0.75)
+
+func _get_direction():
+	return Vector2(randf_range(-1,1), -randf()) * 16
 
 func die():
 	if PlayerManager.on_rage:
@@ -316,6 +338,8 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	
 	got_hit(area)
 
+func test_dmg(damage):
+	print(damage)
 
 func _on_rage_cooling_timer_timeout() -> void:
 	PlayerManager.rage -= PlayerManager.MAX_RAGE / 5
@@ -331,8 +355,11 @@ func _on_rage_cooling_timer_timeout() -> void:
 
 func _on_regen_timer_timeout() -> void:
 	
+	
 	if current_health < stats.base_health:
 		current_health += 2.0
+		pop_up_damage(2, true)
+		
 	elif current_health == stats.base_health:
 		$RegenTimer.stop()
 		health_state = PlayerStateManager.PlayerState.FULLY_HEALED

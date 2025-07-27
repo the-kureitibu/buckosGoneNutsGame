@@ -46,7 +46,7 @@ func update_player_rage():
 func update_wave():
 	wave_bar.value = GameManager.current_wave_quota
 	wave_remain_counter.text = str(GameManager.current_wave_quota)
-	wave_counter.text = str(GameManager.current_wave)
+	wave_counter.text = "Wave: %s " % str(GameManager.current_wave)
 
 func main_stats_getter():
 	health_bar.value = player_base_health
@@ -56,4 +56,4 @@ func main_stats_getter():
 	wave_bar.value = GameManager.current_wave_mobs
 	wave_bar.max_value = GameManager.current_wave_mobs
 	wave_remain_counter.text = str(GameManager.current_wave_mobs)
-	wave_counter.text = str("Wave: ", GameManager.current_wave)
+	wave_counter.text = "Wave:%s " % str(GameManager.current_wave)

@@ -3,6 +3,7 @@ extends Area2D
 const SEGMENT_SPACE: float = 64
 const MAX_SEGMENT_LENGTH: int = 3
 var segment_count := 0
+var damage = 20
 @export var segment_grow_time := 0.12
 @onready var mid_chain: PackedScene = preload("res://projectile_scenes/chain_projectile_mid.tscn")
 @onready var tip_chain: PackedScene = preload("res://projectile_scenes/chain_projectile_tip.tscn")

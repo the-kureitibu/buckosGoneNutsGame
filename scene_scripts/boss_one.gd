@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @export var nav_target: Node2D
 @onready var main_attack: PackedScene = preload("res://projectile_scenes/boss_one_projectile_one.tscn")
+@onready var pop_up: PackedScene = preload("res://ui_scenes/pop_up_damage.tscn")
 
 #Health Stuff
 @onready var current_health = stats.base_health
@@ -18,8 +19,7 @@ var nav_timer := 0.5
 @onready var attack_state = EnemyStateManager.EnemyStates.CAN_ATTACK
 var attack_cooldown := 5.0
 var is_attacking: bool = false
-
-
+var damage = 30
 
 #Signals
 signal health_change(health)
@@ -100,10 +100,17 @@ func _physics_process(delta: float) -> void:
 	look_at(nav_target.global_position)
 
 
-func apply_damage(damage):
-	current_health -= damage
+func apply_damage(dmg, area: Area2D):
+	if area.is_in_group('player_projectiles'):
+		var popup = pop_up.instantiate()
+		get_tree().current_scene.add_child(popup)
+		popup.position = $popup.global_position
+		popup._show_damage(dmg, false)
+		
+	current_health -= dmg
 	current_health = clamp(current_health, 0, 800.0)
 	health_change.emit(current_health)
+
 	
 	if current_health <= 0:
 		die()
@@ -113,8 +120,8 @@ func die():
 	queue_free()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	var damage = 0
+	var dmg = 0
 	if area.is_in_group('player_projectiles') and 'damage':
-		damage = area.damage
+		dmg = area.damage
 
-	apply_damage(damage)
+	apply_damage(dmg, area)

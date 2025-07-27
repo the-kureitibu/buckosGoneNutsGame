@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @export var nav_target: Node2D
 @export var chain_getter: ProjectileAttacks
+@onready var pop_up: PackedScene = preload("res://ui_scenes/pop_up_damage.tscn")
 #@onready var main_attack: PackedScene = preload("res://projectile_scenes/chain_projectile.tscn")
 var middle_chain: PackedScene = preload("res://projectile_scenes/chain_projectile_mid.tscn")
 var main_attack: PackedScene
@@ -18,6 +19,8 @@ var repulsion_force := 300.0
 @onready var current_speed = stats.base_speed
 var movement_stopper = Vector2.ZERO
 var nav_timer := 0.5
+var damage = 20
+
 
 #Attack Patterns
 @onready var attack_state = EnemyStateManager.EnemyStates.CAN_ATTACK
@@ -163,11 +166,17 @@ func _physics_process(delta: float) -> void:
 	look_at(nav_target.global_position)
 
 
-func apply_damage(damage):
-	current_health -= damage
-	print('boss current health ', current_health)
+func apply_damage(dmg, area: Area2D):
+	if area.is_in_group('player_projectiles'):
+		var popup = pop_up.instantiate()
+		get_tree().current_scene.add_child(popup)
+		popup.position = $popup.global_position
+		popup._show_damage(dmg, false)
+		
+	current_health -= dmg
 	current_health = clamp(current_health, 0, 2100.0)
 	health_change.emit(current_health)
+
 	
 	if current_health <= 0:
 		die()
@@ -178,8 +187,8 @@ func die():
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	print('area triggering?')
-	var damage = 0
+	var dmg = 0
 	if area.is_in_group('player_projectiles') and 'damage':
-		damage = area.damage
+		dmg = area.damage
 
-	apply_damage(damage)
+	apply_damage(dmg, area)

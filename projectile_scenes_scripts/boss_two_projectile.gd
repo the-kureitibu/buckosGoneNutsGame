@@ -6,6 +6,7 @@ extends Area2D
 var follow_target: Node2D
 var rotation_speed := 100.0
 var is_rotating: bool = false
+var damage = 15
 @onready var hit_box_polys: Array = [
 	$frame1.polygon,
 	$frame2.polygon,

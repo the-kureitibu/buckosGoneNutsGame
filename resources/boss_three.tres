@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_obad0")
 base_health = 2100.0
-damage = 10.0
+damage = 20.0
 attack_range = 0.0
 base_speed = 70.0
 bleed_damage = 7

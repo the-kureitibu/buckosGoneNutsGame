@@ -2,16 +2,17 @@ extends CharacterBody2D
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @export var nav_target: Node2D
-@export var stats: EnemyStats
+@onready var pop_up: PackedScene = preload("res://ui_scenes/pop_up_damage.tscn")
+#@export var stats: EnemyStats
 
 #Health Stuff
-@onready var current_health = stats.base_health
+@onready var current_health = 150.0
 
 #Movement and Vectors
 var can_knockback: bool = false
 var knockback_timer := 1.0
 var repulsion_force := 300.0
-@onready var current_speed = stats.base_speed
+@onready var current_speed = 60.0
 var movement_stopper = Vector2.ZERO
 var nav_timer := 0.5
 
@@ -22,6 +23,7 @@ var dash_timer := 0.3
 var dash_cool_down := 7.0
 var dash_range := 125.0
 var dash_speed := 300.0
+var damage := 10
 
 
 #Negative Statuses
@@ -129,7 +131,7 @@ func apply_debuff(_type: String, duration: float, multiplier: float, added_damag
 			is_slowed = true
 			enemy_state = EnemyStateManager.EnemyDebuffStates.SLOWED
 			slow_timer = duration
-			current_speed = stats.base_speed * multiplier
+			current_speed = 60.0 * multiplier
 		if WeaponsManager.weapon_selected == "hanger":
 			is_bleeding = true
 			enemy_state = EnemyStateManager.EnemyDebuffStates.BLEEDING
@@ -148,14 +150,14 @@ func handle_debuff(delta):
 		if slow_timer <= 0:
 			is_slowed = false
 			slow_timer = 0 
-			current_speed = stats.base_speed
+			current_speed = 60.0
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_snared:
 		snare_timer -= delta 
 		if snare_timer <= 0:
 			is_snared = false
 			snare_timer = 0 
-			current_speed = stats.base_speed
+			current_speed = 60.0
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_bleeding:
 		bleed_timer -= delta 
@@ -164,10 +166,19 @@ func handle_debuff(delta):
 			bleed_timer = 0 
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 
-func apply_damage(damage):
-	current_health -= damage
+func apply_damage(dmg, area: Area2D):
+	
+	if area.is_in_group('player_projectiles'):
+		var popup = pop_up.instantiate()
+		get_tree().current_scene.add_child(popup)
+		popup.position = $popup.global_position
+		popup._show_damage(dmg, false)
+	
+	current_health -= dmg
 	current_health = clamp(current_health, 0, 150.0)
 	health_change.emit(current_health)
+
+
 	
 	if current_health <= 0:
 		die()
@@ -194,8 +205,8 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 #
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	var damage = 0
+	var dmg = 0
 	if area.is_in_group('player_projectiles') and 'damage':
-		damage = area.damage
+		dmg = area.damage
 
-	apply_damage(damage)
+	apply_damage(dmg, area)
