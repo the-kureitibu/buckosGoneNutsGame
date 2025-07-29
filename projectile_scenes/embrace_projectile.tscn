@@ -107,4 +107,8 @@ stream = ExtResource("4_lkpre")
 volume_db = 4.0
 bus = &"SFX"
 
+[node name="RageGainTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="RageGainTimer" to="." method="_on_rage_gain_timer_timeout"]

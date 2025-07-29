@@ -5,6 +5,7 @@ var damage: int
 var life_span_timer: float
 var base_scale = scale
 var raging: bool = false
+var can_gain_rage: bool = true
 @onready var projectile_audio_stream = $AudioStreamPlayer2D
 @onready var collision_polygon2d = $CollisionPolygon2D
 @onready var hit_polys: Array = [
@@ -53,12 +54,30 @@ func _process(_delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	projectile_audio_stream.play()
 	trigger_debuff(area, weapon_stats)
-	rage_getter(area, weapon_stats)
+	#rage_getter(area, weapon_stats)
+	embrace_rage_getter(area, weapon_stats)
 
 
 func _on_rage_cooling_timeout() -> void:
 	raging = false
 
+func embrace_rage_getter(area: Node2D, weapon: WeaponStats):
+	if area.is_in_group('enemy_hurtbox') and !PlayerManager.on_rage:
+		if can_gain_rage == false:
+			return
+		PlayerManager.rage += weapon.rage_gain
+		can_gain_rage = false
+		
+		PlayerManager.rage = clamp(PlayerManager.rage, 0, 50)
+		
+		if PlayerManager.rage >= PlayerManager.MAX_RAGE and PlayerManager.player_rage_state == PlayerStateManager.RageState.IDLE: 
+			PlayerManager.on_rage = true
+			PlayerManager.player_rage_state = PlayerStateManager.RageState.RAGING
+
 
 func _on_stats_revert_timeout() -> void:
 	pass
+
+
+func _on_rage_gain_timer_timeout() -> void:
+	can_gain_rage = true

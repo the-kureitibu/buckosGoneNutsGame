@@ -3,6 +3,7 @@ extends Area2D
 class_name PlayerProjectiles
 
 @export var weapon_stats: WeaponStats
+var embrace_timer := 1.0
 
 func trigger_debuff(area: Node2D, weapon: WeaponStats):
 	var duration = 0.0
@@ -65,7 +66,7 @@ func trigger_debuff(area: Node2D, weapon: WeaponStats):
 func rage_getter(area: Node2D, weapon: WeaponStats):
 	if area.is_in_group('enemy_hurtbox') and !PlayerManager.on_rage:
 		PlayerManager.rage += weapon.rage_gain
-		PlayerManager.rage = clamp(PlayerManager.rage, 0, 10)
+		PlayerManager.rage = clamp(PlayerManager.rage, 0, 50)
 		
 		if PlayerManager.rage >= PlayerManager.MAX_RAGE and PlayerManager.player_rage_state == PlayerStateManager.RageState.IDLE: 
 			PlayerManager.on_rage = true

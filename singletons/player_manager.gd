@@ -6,7 +6,7 @@ signal rage_change
 signal rage_state_changed
 
 #var player_stats: PlayerStats
-const MAX_RAGE: int = 10
+const MAX_RAGE: int = 50
 var on_rage: bool = false
 #var player_rage_state = PlayerStateManager.RageState.IDLE
 var runtime_player_stats: PlayerStats
