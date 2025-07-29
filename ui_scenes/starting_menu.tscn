@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhoq024ftk2ku"]
+[gd_scene load_steps=9 format=3 uid="uid://dhoq024ftk2ku"]
 
 [ext_resource type="Script" uid="uid://cpoapdabuiutt" path="res://ui_scripts/starting_menu.gd" id="1_lbsw2"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_1gn6g"]
+[ext_resource type="Texture2D" uid="uid://us60ti0njx2d" path="res://graphics/UI/startmenu_art.png" id="2_if2u5"]
 [ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="3_1gn6g"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_if2u5"]
@@ -25,6 +26,16 @@ script = ExtResource("1_lbsw2")
 
 [node name="ButtonHolders" type="CanvasLayer" parent="."]
 
+[node name="TextureRect" type="TextureRect" parent="ButtonHolders"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_if2u5")
+metadata/_edit_lock_ = true
+
 [node name="MarginContainer" type="MarginContainer" parent="ButtonHolders"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,6 +43,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ButtonHolders/MarginContainer"]
 layout_mode = 2
@@ -71,6 +83,53 @@ text = "QUIT"
 [node name="Control2" type="Control" parent="ButtonHolders/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+
+[node name="Label" type="Label" parent="ButtonHolders"]
+custom_minimum_size = Vector2(10, 30)
+offset_left = 201.0
+offset_top = 46.0
+offset_right = 252.0
+offset_bottom = 137.0
+rotation = -0.539307
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.941176, 0.733333, 0.901961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("2_1gn6g")
+theme_override_font_sizes/font_size = 80
+text = "B"
+
+[node name="Label2" type="Label" parent="ButtonHolders"]
+custom_minimum_size = Vector2(50, 0)
+offset_left = 285.0
+offset_top = 61.0
+offset_right = 400.0
+offset_bottom = 103.0
+theme_override_colors/font_color = Color(0.941176, 0.733333, 0.901961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("2_1gn6g")
+theme_override_font_sizes/font_size = 36
+text = "uckoS"
+
+[node name="Label3" type="Label" parent="ButtonHolders"]
+offset_left = 291.0
+offset_top = 100.515
+offset_right = 338.0
+offset_bottom = 123.515
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("2_1gn6g")
+theme_override_font_sizes/font_size = 18
+text = "gone"
+
+[node name="Label4" type="Label" parent="ButtonHolders"]
+offset_left = 266.0
+offset_top = 113.0
+offset_right = 367.0
+offset_bottom = 159.0
+theme_override_colors/font_color = Color(0.941176, 0.733333, 0.901961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("2_1gn6g")
+theme_override_font_sizes/font_size = 40
+text = "NUTS"
 
 [connection signal="pressed" from="ButtonHolders/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="ButtonHolders/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

@@ -7,6 +7,12 @@ func _ready() -> void:
 		PlayerManager.reset_stats()
 		GameManager.reset_stats()
 		await TransitionsManager.fade_out()
+	
+	elif GameManager.back_to_menu_clicked:
+		PlayerManager.reset_stats()
+		GameManager.reset_stats()
+		await TransitionsManager.fade_out()
+		GameManager.back_to_menu_clicked = false
 
 func _on_start_pressed() -> void:
 

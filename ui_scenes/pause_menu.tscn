@@ -1,0 +1,207 @@
+[gd_scene load_steps=13 format=3 uid="uid://b5cdsmk2cgtba"]
+
+[ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="1_pa1wy"]
+[ext_resource type="Script" uid="uid://b8r8biiirvxv2" path="res://ui_scripts/pause_menu.gd" id="1_yyn8p"]
+[ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_8ul5w"]
+
+[sub_resource type="Animation" id="Animation_7u8iq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainPauseContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CloseContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.05, 1.05)]
+}
+
+[sub_resource type="Animation" id="Animation_yyn8p"]
+resource_name = "closing"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainPauseContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CloseContainer:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.334782, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_blyqf"]
+_data = {
+&"RESET": SubResource("Animation_7u8iq"),
+&"closing": SubResource("Animation_yyn8p")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ul5w"]
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yyn8p"]
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(275, 178, 90, 27)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pa1wy"]
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7u8iq"]
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(275, 178, 90, 27)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_blyqf"]
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(869, 134, 22, 22)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wej04"]
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(837, 132, 22, 24)
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+visible = false
+script = ExtResource("1_yyn8p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_blyqf")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.172549, 0.196078, 0.439216, 0.105882)
+
+[node name="MainPauseContainer" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -50.0
+offset_right = 75.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPauseContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MainBackground" type="NinePatchRect" parent="MainPauseContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 2
+mouse_filter = 1
+texture = ExtResource("1_pa1wy")
+region_rect = Rect2(245, 5, 38, 38)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPauseContainer/VBoxContainer/MainBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="MainMenu" type="Button" parent="MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer"]
+custom_minimum_size = Vector2(115, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.882838, 0.454883, 0.820912, 1)
+theme_override_fonts/font = ExtResource("2_8ul5w")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_8ul5w")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8ul5w")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yyn8p")
+text = "Back to menu"
+
+[node name="Quit" type="Button" parent="MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.882353, 0.454902, 0.819608, 1)
+theme_override_fonts/font = ExtResource("2_8ul5w")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_pa1wy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pa1wy")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7u8iq")
+text = "quit"
+
+[node name="CloseContainer" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+scale = Vector2(1.05, 1.05)
+
+[node name="Control" type="Control" parent="CloseContainer"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CloseContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CloseContainer/HBoxContainer"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="XButton" type="Button" parent="CloseContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_blyqf")
+theme_override_styles/hover = SubResource("StyleBoxTexture_blyqf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wej04")
+
+[connection signal="pressed" from="MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CloseContainer/HBoxContainer/XButton" to="." method="_on_x_button_pressed"]

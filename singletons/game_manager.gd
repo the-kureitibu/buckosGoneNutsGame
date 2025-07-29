@@ -15,6 +15,7 @@ var game_started := false
 var weapon_select := false
 var pre_game_start:= false
 var restart_game := false
+var back_to_menu_clicked := false 
 
 #Signals 
 signal update_wave_count 

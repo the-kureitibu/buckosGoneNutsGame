@@ -18,6 +18,11 @@ motion_mode = 1
 script = ExtResource("1_qvm27")
 stats = ExtResource("2_px7j8")
 
+[node name="BossTwoHealthBar" parent="." instance=ExtResource("4_23rjb")]
+offset_left = 56.0
+offset_right = 56.0
+rotation = 1.5708
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-5, 0)
 rotation = -1.5708
@@ -38,10 +43,7 @@ debug_color = Color(0.847059, 0.32549, 0.501961, 0.447059)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
-[node name="BossTwoHealthBar" parent="." instance=ExtResource("4_23rjb")]
-offset_left = 56.0
-offset_right = 56.0
-rotation = 1.5708
+[node name="popup" type="Marker2D" parent="."]
 
 [connection signal="health_change" from="." to="BossTwoHealthBar" method="_on_boss_two_health_change"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

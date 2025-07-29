@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7au8fwjpgudm"]
+[gd_scene load_steps=13 format=3 uid="uid://c7au8fwjpgudm"]
 
-[ext_resource type="Texture2D" uid="uid://bw8vj6nqo1mgm" path="res://graphics/Enemies/bucko_base.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://b4e80cimpn7f6" path="res://scene_scripts/enemy.gd" id="1_md0e3"]
+[ext_resource type="Texture2D" uid="uid://jrmmg8yd1362" path="res://graphics/Enemies/bucko.png" id="3_4ra3w"]
 [ext_resource type="PackedScene" uid="uid://dvyhqqcwtkrnr" path="res://ui_scenes/enemy_health_bar.tscn" id="4_5uy6h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uy6h"]
@@ -9,6 +9,130 @@ size = Vector2(22, 22)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ra3w"]
 radius = 23.0
+
+[sub_resource type="Animation" id="Animation_c4w8v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nenq2"]
+resource_name = "bleed"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_4ra3w"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0666667, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xwavj"]
+resource_name = "slow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_md484"]
+resource_name = "snared"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+
+[sub_resource type="Animation" id="Animation_5uy6h"]
+resource_name = "walk"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.3, 0.5, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 0, 2, 3, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ipns3"]
+_data = {
+&"RESET": SubResource("Animation_c4w8v"),
+&"bleed": SubResource("Animation_nenq2"),
+&"death": SubResource("Animation_4ra3w"),
+&"slow": SubResource("Animation_xwavj"),
+&"snared": SubResource("Animation_md484"),
+&"walk": SubResource("Animation_5uy6h")
+}
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 2
@@ -33,7 +157,9 @@ rotation = -1.5708
 position = Vector2(3, -5.68434e-14)
 rotation = -1.5708
 scale = Vector2(0.753126, 0.745647)
-texture = ExtResource("1_7p1mj")
+texture = ExtResource("3_4ra3w")
+hframes = 4
+vframes = 2
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -53,13 +179,12 @@ metadata/_edit_lock_ = true
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 target_desired_distance = 50.0
 
-[node name="Label" type="Label" parent="."]
-offset_left = -44.0
-offset_top = -110.0
-offset_right = 45.0
-offset_bottom = -35.0
-
 [node name="popup" type="Marker2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ipns3")
+}
 
 [connection signal="health_change" from="." to="EnemyHealthBar" method="_on_enemy_health_change"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

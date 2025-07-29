@@ -67,5 +67,7 @@ position = Vector2(90, 0)
 position = Vector2(70, -29)
 rotation = -0.122173
 
+[node name="popup" type="Marker2D" parent="."]
+
 [connection signal="health_change" from="." to="BossThreeHealthBar" method="_on_boss_three_health_change"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

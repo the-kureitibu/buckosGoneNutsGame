@@ -43,7 +43,7 @@ var bleed_duration := 3.0
 var bleed_tick_interval := 0.5
 var bleed_timer := 0.0
 var bleed_tick_timer := 0.0
-var regen_timer := 20.0
+var regen_timer := 10.0
 
 
 
@@ -140,7 +140,6 @@ func _physics_process(delta: float) -> void:
 	
 	if is_invulnerable:
 		invulnerable_timer -= delta
-		print(invulnerable_timer)
 		if invulnerable_timer <= 0:
 			is_invulnerable = false
 			health_state = PlayerStateManager.PlayerState.ATTACK_RECOVERY
@@ -167,11 +166,9 @@ func _handle_debuff(delta):
 		if bleed_tick_timer <= 0:
 			bleed_tick_timer = bleed_tick_interval
 			current_health -= EnemyManager.enemy_list.boss_two.bleed_damage
-			print('Bleed tick! Current health:', current_health)
 
 		if bleed_timer <= 0:
 			is_bleeding = false
-			print("Bleeding stopped.")
 	
 
 func _handle_movement():
@@ -227,37 +224,34 @@ func got_hit(area: Area2D):
 	health_state = PlayerStateManager.PlayerState.DAMAGED
 	is_invulnerable = true
 	invulnerable_timer = 1.5
-	print('Player is now invulnerable')
 
 
-
-	if area.is_in_group('enemy_hurtbox') or area.is_in_group('enemy_projectiles'):
+	if area.is_in_group('enemy_hurtbox'):
 		var source_name = area.get_parent().name
 		var source = area.get_parent()
 		var source_damage = source.damage
 		var dmg = source_damage
-
 
 		if source_name == 'Enemy':
 			if source.is_dashing:
 				var knockback_strengh := 600.0
 				got_knockbacked(source, knockback_strengh)
 
-		if 'id_elder_one' in area:
-			dmg = EnemyManager.enemy_list.boss_one.damage
-			is_slowed = true
-		elif 'id_elder_two' in area:
-			dmg = EnemyManager.enemy_list.boss_two.damage
-			if !is_bleeding:
-				is_bleeding = true
-				bleed_timer = bleed_duration
-				bleed_tick_timer = bleed_tick_interval
-		elif 'id_elder_three' in area:
-			dmg = EnemyManager.enemy_list.boss_three.damage
-			if !is_bleeding:
-				is_bleeding = true
-				bleed_timer = bleed_duration
-				bleed_tick_timer = bleed_tick_interval
+		#if 'id_elder_one' in area:
+			#dmg = EnemyManager.enemy_list.boss_one.damage
+			#is_slowed = true
+		#elif 'id_elder_two' in area:
+			#dmg = EnemyManager.enemy_list.boss_two.damage
+			#if !is_bleeding:
+				#is_bleeding = true
+				#bleed_timer = bleed_duration
+				#bleed_tick_timer = bleed_tick_interval
+		#elif 'id_elder_three' in area:
+			#dmg = EnemyManager.enemy_list.boss_three.damage
+			#if !is_bleeding:
+				#is_bleeding = true
+				#bleed_timer = bleed_duration
+				#bleed_tick_timer = bleed_tick_interval
 
 		current_health -= dmg
 		if health_state == PlayerStateManager.PlayerState.DAMAGED:
@@ -265,6 +259,29 @@ func got_hit(area: Area2D):
 			
 		PlayerManager.apply_damage(current_health)
 		
+		
+	if area.is_in_group('enemy_projectiles'):
+		var src_damage = area.damage
+		var elder_dmg = src_damage
+
+		if 'id_elder_one' in area:
+			is_slowed = true
+		elif 'id_elder_two' in area:
+			if !is_bleeding:
+				is_bleeding = true
+				bleed_timer = bleed_duration
+				bleed_tick_timer = bleed_tick_interval
+		elif 'id_elder_three' in area:
+			if !is_bleeding:
+				is_bleeding = true
+				bleed_timer = bleed_duration
+				bleed_tick_timer = bleed_tick_interval
+
+		current_health -= elder_dmg
+		if health_state == PlayerStateManager.PlayerState.DAMAGED:
+			pop_up_damage(elder_dmg, false)
+				
+		PlayerManager.apply_damage(current_health)
 
 		if current_health <= 0:
 			die()
@@ -292,8 +309,8 @@ func die():
 func _regen(delta):
 	
 	if !health_state == PlayerStateManager.PlayerState.ATTACK_RECOVERY:
-		if regen_timer < 20.0:
-			regen_timer = 20.0
+		if regen_timer < 10.0:
+			regen_timer = 10.0
 		return
 	
 	if health_state == PlayerStateManager.PlayerState.ATTACK_RECOVERY:
@@ -302,8 +319,7 @@ func _regen(delta):
 		if regen_timer <= 0:
 			health_state = PlayerStateManager.PlayerState.HEALING
 			$RegenTimer.start()
-			regen_timer = 20.0
-			
+			regen_timer = 10.0
 
 
 
@@ -349,17 +365,19 @@ func _on_rage_cooling_timer_timeout() -> void:
 		rage_started = false
 		PlayerManager.on_rage = false
 		PlayerManager.player_rage_state = PlayerStateManager.RageState.IDLE
-		print('rage done')
 		$RageCoolingTimer.stop()
 	
 
 func _on_regen_timer_timeout() -> void:
+	if health_state != PlayerStateManager.PlayerState.HEALING:
+		$RegenTimer.stop()
 	
-	
-	if current_health < stats.base_health:
-		current_health += 2.0
-		pop_up_damage(2, true)
+	if current_health < stats.base_health and health_state == PlayerStateManager.PlayerState.HEALING:
+		current_health += 5.0
+		pop_up_damage(5, true)
+		PlayerManager.apply_damage(current_health)
 		
 	elif current_health == stats.base_health:
-		$RegenTimer.stop()
 		health_state = PlayerStateManager.PlayerState.FULLY_HEALED
+		$RegenTimer.stop()
+		

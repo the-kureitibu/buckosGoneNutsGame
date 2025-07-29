@@ -50,5 +50,7 @@ metadata/_edit_lock_ = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
+[node name="popup" type="Marker2D" parent="."]
+
 [connection signal="health_change" from="." to="ElderOneHealthBar" method="_on_boss_one_health_change"]
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cr60kehshcew6"]
+[gd_scene load_steps=24 format=3 uid="uid://cr60kehshcew6"]
 
 [ext_resource type="Script" uid="uid://4k1bj3bl2rei" path="res://ui_scripts/weapon_selection_ui.gd" id="1_3xf6f"]
 [ext_resource type="Texture2D" uid="uid://pcxxokknm43c" path="res://graphics/Sprout Lands - UI Pack - Basic pack/Sprite sheets/Sprite sheet for Basic Pack.png" id="2_mg2w6"]
@@ -31,10 +31,251 @@ region_rect = Rect2(275, 212, 90, 25)
 texture = ExtResource("2_mg2w6")
 region_rect = Rect2(275, 178, 90, 27)
 
-[node name="WeaponSelectionUI" type="CanvasLayer" node_paths=PackedStringArray("wep1_info", "wep1_image", "wep2_info", "wep2_image", "wep3_info", "wep3_image")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fdasp"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(436, 82, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_arhxp"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(420, 82, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fa1lv"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(437, 66, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u8m5w"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(421, 66, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1m7cv"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(275, 212, 90, 25)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fvygx"]
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(275, 178, 90, 27)
+
+[sub_resource type="Animation" id="Animation_ffxgu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HowToPlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.06, 1.06)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HowToPlay:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(170, 15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HowToPlay:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HowToPlay:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MarginContainer:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.05, 1.05)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ExchuMarginContainer:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 62.5)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("EmbraceMarginContainer2:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(440, 62.5)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HangerMarginContainer3:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(230, 62.5)]
+}
+
+[sub_resource type="Animation" id="Animation_fypfw"]
+resource_name = "how_to_one"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HowToPlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.06, 1.06), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_txc48"]
+resource_name = "how_to_two"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HowToPlay:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(170, 30), Vector2(170, 15), Vector2(170, 50)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HowToPlay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HowToPlay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_cjltj"]
+resource_name = "wep_select_one"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExchuMarginContainer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 100), Vector2(0, 50), Vector2(0, 62.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EmbraceMarginContainer2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(440, 100), Vector2(440, 50), Vector2(440, 62.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HangerMarginContainer3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(230, 100), Vector2(230, 50), Vector2(230, 62.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MarginContainer:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cjltj"]
+_data = {
+&"RESET": SubResource("Animation_ffxgu"),
+&"how_to_one": SubResource("Animation_fypfw"),
+&"how_to_two": SubResource("Animation_txc48"),
+&"wep_select_one": SubResource("Animation_cjltj")
+}
+
+[node name="WeaponSelectionUI" type="CanvasLayer" node_paths=PackedStringArray("how_to_title", "how_to_descrip", "wep1_info", "wep1_image", "wep2_info", "wep2_image", "wep3_info", "wep3_image")]
 process_mode = 1
 layer = 0
 script = ExtResource("1_3xf6f")
+how_to_title = NodePath("HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ContentInfo/VBoxContainer/Title")
+how_to_descrip = NodePath("HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ContentInfo/VBoxContainer/Description")
 wep1_info = NodePath("ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
 wep1_image = NodePath("ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
 wep2_info = NodePath("EmbraceMarginContainer2/MainBoxContainer/VBoxContainer/MainHBoxContainer/Background/InfoLabelMainContainer/HBoxContainer/LabelMainContainer/WeaponInfo")
@@ -43,6 +284,7 @@ wep3_info = NodePath("HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/
 wep3_image = NodePath("HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/ImageBackground/ManImageContainer/VBoxContainer/MainImage")
 
 [node name="ExchuMarginContainer" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -218,6 +460,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="EmbraceMarginContainer2" type="MarginContainer" parent="."]
+visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -413,6 +656,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HangerMarginContainer3" type="MarginContainer" parent="."]
+visible = false
 z_index = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -603,13 +847,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_right = 120.0
+offset_bottom = 54.0
 grow_horizontal = 2
-grow_vertical = 2
+scale = Vector2(1.05, 1.05)
 mouse_filter = 2
-metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -651,11 +898,158 @@ theme_override_fonts/font = ExtResource("4_ffxgu")
 theme_override_font_sizes/font_size = 20
 text = "Choose yer weapon"
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HowToPlay" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -165.0
+offset_right = 150.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.06, 1.06)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlay"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Main Background" type="NinePatchRect" parent="HowToPlay/VBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(275, 212, 90, 25)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlay/VBoxContainer/Main Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="BoardBackground" type="NinePatchRect" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer"]
+custom_minimum_size = Vector2(280, 280)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(201, 9, 30, 30)
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="HowToPlay" type="Label" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 0.733333, 0.901961, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 22
+text = "How to play"
+horizontal_alignment = 1
+
+[node name="ContentInfo" type="NinePatchRect" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer"]
+custom_minimum_size = Vector2(240, 165)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_mg2w6")
+region_rect = Rect2(245, 5, 38, 38)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ContentInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ContentInfo/VBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ContentInfo/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0.207843, 0.776471)
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ContentInfo/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(190, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 12
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ButtonLeft" type="Button" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_fdasp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fdasp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_arhxp")
+
+[node name="ButtonRight" type="Button" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_fa1lv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fa1lv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_u8m5w")
+
+[node name="ButtonClose" type="Button" parent="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.780392, 0.431373, 1, 1)
+theme_override_fonts/font = ExtResource("4_ffxgu")
+theme_override_font_sizes/font_size = 19
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_1m7cv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1m7cv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fvygx")
+text = "GOT IT"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cjltj")
+}
 
 [connection signal="pressed" from="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep1InfoButton1" to="." method="_on_wep_1_info_button_1_pressed"]
 [connection signal="pressed" from="ExchuMarginContainer/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep1InfoButton2" to="." method="_on_wep_1_info_button_2_pressed"]
@@ -666,3 +1060,6 @@ offset_bottom = 40.0
 [connection signal="pressed" from="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep3InfoButton1" to="." method="_on_wep_3_info_button_1_pressed"]
 [connection signal="pressed" from="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/InfoSwitcher/Wep3InfoButton2" to="." method="_on_wep_3_info_button_2_pressed"]
 [connection signal="pressed" from="HangerMarginContainer3/MainBoxContainer/MainHBoxContainer/Background/VBoxContainer/Weapon3SelectButton" to="." method="_on_weapon_3_select_button_pressed"]
+[connection signal="pressed" from="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/HBoxContainer/ButtonLeft" to="." method="_on_button_left_pressed"]
+[connection signal="pressed" from="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/HBoxContainer/ButtonRight" to="." method="_on_button_right_pressed"]
+[connection signal="pressed" from="HowToPlay/VBoxContainer/Main Background/VBoxContainer/BoardBackground/VBoxContainer/ButtonClose" to="." method="_on_button_close_pressed"]

@@ -28,10 +28,10 @@ func set_hitbox_poly(current_frame: int):
 func set_initial_stats(weapon: WeaponStats, is_raging: bool):
 	if is_raging:
 		damage = weapon.damage + weapon.rage_damage
-		print('norm stats',' damage: ', damage)
+
 	else:
 		damage = weapon.damage
-		print('norm stats',' damage: ', damage)
+
 
 
 func _process(_delta: float) -> void:
