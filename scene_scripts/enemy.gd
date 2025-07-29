@@ -184,8 +184,8 @@ func handle_debuff(delta):
 
 func apply_damage(dmg, area: Area2D):
 	
-	#if is_snared:
-		#return
+	if is_snared:
+		return
 	
 	if area.is_in_group('player_projectiles'):
 		var popup = pop_up.instantiate()
@@ -197,7 +197,6 @@ func apply_damage(dmg, area: Area2D):
 		popup._show_damage(bleed_damage, false)
 	
 	current_health -= dmg
-	print(current_health)
 	current_health = clamp(current_health, 0, 150.0)
 	health_change.emit(current_health)
 

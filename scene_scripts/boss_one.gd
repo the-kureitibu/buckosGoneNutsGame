@@ -8,6 +8,8 @@ extends CharacterBody2D
 
 #Health Stuff
 @onready var current_health = stats.base_health
+var snared_invul_timer := 1.0
+var damaged_state = EnemyStateManager.EnemyStates.IDLE
 
 #Movement and Vectors
 var repulsion_force := 300.0
@@ -58,7 +60,7 @@ func handle_projectile_attack(delta):
 		projectile.proj_owner = self 
 		
 
-			
+	
 		get_tree().get_current_scene().get_node("Projectiles").add_child(projectile)
 		attack_state = EnemyStateManager.EnemyStates.CANT_ATTACK
 
@@ -67,6 +69,13 @@ func handle_projectile_attack(delta):
 func _physics_process(delta: float) -> void:
 	#nav_debug_label()
 	handle_projectile_attack(delta)
+	
+	if damaged_state == EnemyStateManager.EnemyStates.ATTACKED and WeaponsManager.weapon_selected == "embrace":
+		snared_invul_timer -= delta
+		if snared_invul_timer <= 0:
+			damaged_state = EnemyStateManager.EnemyStates.IDLE
+			snared_invul_timer = 1.0
+	
 	
 	if nav_target and nav_agent: 
 		
@@ -101,6 +110,11 @@ func _physics_process(delta: float) -> void:
 
 
 func apply_damage(dmg, area: Area2D):
+	if damaged_state == EnemyStateManager.EnemyStates.ATTACKED:
+		return
+	
+	damaged_state = EnemyStateManager.EnemyStates.ATTACKED
+	
 	if area.is_in_group('player_projectiles'):
 		var popup = pop_up.instantiate()
 		get_tree().current_scene.add_child(popup)

@@ -14,5 +14,6 @@ enum EnemyStates {
 	IDLE,
 	CAN_DASH,
 	CAN_ATTACK,
-	CANT_ATTACK
+	CANT_ATTACK,
+	ATTACKED
 }

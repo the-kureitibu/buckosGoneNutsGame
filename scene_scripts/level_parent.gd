@@ -96,12 +96,12 @@ func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 		embrace_projectile.position = pos
 		if PlayerManager.player_rage_state == PlayerStateManager.RageState.RAGING:
 			embrace_projectile.set_initial_stats(
-				player_stats.weapon_listings[0],
+				player_stats.weapon_listings[1],
 				true
 				)
 		else:
 			embrace_projectile.set_initial_stats(
-				player_stats.weapon_listings[0],
+				player_stats.weapon_listings[1],
 				false
 				)
 		
