@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Buckos_Gone_Nuts_Game"
-run/main_scene="uid://bat3jm3uoc5f5"
+run/main_scene="uid://dhoq024ftk2ku"
 config/features=PackedStringArray("4.4", "Mobile")
 run/max_fps=60
 config/icon="res://icon.svg"
@@ -40,6 +40,7 @@ window/stretch/aspect="expand"
 
 player_projectiles=""
 enemy_projectiles=""
+enemy_hurtbox=""
 
 [input]
 

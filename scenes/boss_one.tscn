@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://xl68pwrps7wf"]
 
-[ext_resource type="Texture2D" uid="uid://lcp20slw71t3" path="res://graphics/Enemies/elder1.png" id="1_nluty"]
 [ext_resource type="Script" uid="uid://dkgsfirb73l6d" path="res://scene_scripts/boss_one.gd" id="1_yc76b"]
 [ext_resource type="Resource" uid="uid://5f80aenk6hkp" path="res://resources/boss_one.tres" id="2_x3s6s"]
 [ext_resource type="PackedScene" uid="uid://dcb7nwcoyfng" path="res://ui_scenes/elder_one_health_bar.tscn" id="3_yp37y"]
+[ext_resource type="Texture2D" uid="uid://cdbkwt3wplalf" path="res://graphics/Enemies/all_boss.png" id="4_yp37y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3s6s"]
 size = Vector2(48, 45.5)
@@ -24,11 +24,12 @@ offset_right = 51.0
 rotation = 1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-4.54747e-13, 0)
+position = Vector2(1.90735e-06, 2.86102e-06)
 rotation = -1.5708
-scale = Vector2(1.54688, 1.5)
-texture = ExtResource("1_nluty")
-metadata/_edit_lock_ = true
+scale = Vector2(1.03332, 1.01627)
+texture = ExtResource("4_yp37y")
+vframes = 3
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_x3s6s")
@@ -38,7 +39,7 @@ metadata/_edit_lock_ = true
 position = Vector2(44, 0)
 metadata/_edit_lock_ = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy_hurtbox"]]
 collision_layer = 128
 collision_mask = 68
 metadata/_edit_lock_ = true

@@ -132,7 +132,7 @@ func _physics_process(delta: float) -> void:
 	#nav_debug_label()
 	handle_projectile_attack(delta)
 	
-	if damaged_state == EnemyStateManager.EnemyStates.ATTACKED and WeaponsManager.weapon_selected == "embrace":
+	if damaged_state == EnemyStateManager.EnemyStates.ATTACKED:
 		snared_invul_timer -= delta
 		if snared_invul_timer <= 0:
 			damaged_state = EnemyStateManager.EnemyStates.IDLE
@@ -199,11 +199,11 @@ func apply_damage(dmg, area: Area2D):
 		die()
 
 func die():
+	EnemyStateManager.boss_state = EnemyStateManager.EnemyStates.BOSS_DEATH
 	death.emit()
 	queue_free()
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	print('area triggering?')
 	var dmg = 0
 	if area.is_in_group('player_projectiles') and 'damage':
 		dmg = area.damage

@@ -7,6 +7,7 @@
 *.import
 export.cfg
 export_credentials.cfg
+export_presets.cfg
 
 # Imported translations (automatically generated from CSV files)
 *.translation
@@ -19,3 +20,5 @@ mono_crash.*.json
 
 #Personal
 *.tmp
+/Main_Export
+/Main_Export/Buckos_Gone_Nuts_Game_Main

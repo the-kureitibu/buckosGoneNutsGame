@@ -870,8 +870,50 @@ position = Vector2(196, 908)
 [node name="Marker2D50" type="Marker2D" parent="SpawnMarkers"]
 position = Vector2(1673, -152)
 
+[node name="Marker2D51" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-610, 932)
+
 [node name="Path2D" type="Path2D" parent="SpawnMarkers"]
 curve = SubResource("Curve2D_mo326")
+
+[node name="Marker2D52" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-426, 1287)
+
+[node name="Marker2D53" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(71, 1299)
+
+[node name="Marker2D54" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(593, 1312)
+
+[node name="Marker2D56" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1771, 1383)
+
+[node name="Marker2D55" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1128, 1312)
+
+[node name="Marker2D57" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1771, 1124)
+
+[node name="Marker2D58" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(986, 596)
+
+[node name="Marker2D59" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1370, 334)
+
+[node name="Marker2D60" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1183, -96)
+
+[node name="Marker2D61" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1243, -854)
+
+[node name="Marker2D62" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-839, -339)
+
+[node name="Marker2D63" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-768, -849)
+
+[node name="Marker2D64" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(566, 485)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
@@ -884,9 +926,14 @@ stream = ExtResource("8_22r4n")
 volume_db = -5.0
 bus = &"BGM"
 
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_02nl5")
+volume_db = -7.0
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_02nl5")
 bus = &"BGM"
+metadata/_edit_lock_ = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_033xp")]
 

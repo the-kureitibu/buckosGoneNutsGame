@@ -12,6 +12,7 @@ func _ready() -> void:
 	range_starting_pos = global_position
 	max_range = weapon_stats.project_range
 
+
 	
 func range_handler():
 	if global_position.distance_to(range_starting_pos) >= max_range:
@@ -26,6 +27,11 @@ func set_initial_stats(weapon: WeaponStats, is_raging: bool):
 		speed = weapon.projectile_speed
 		damage = weapon.damage
 
+func play_sfx():
+	var sound = randf_range(-10.0, -5.0)
+	projectile_audio_stream.volume_db = sound
+	projectile_audio_stream.play()
+
 
 func _process(delta: float) -> void:
 	
@@ -34,7 +40,7 @@ func _process(delta: float) -> void:
 	range_handler()
 
 func _on_area_entered(area: Area2D) -> void:
-	projectile_audio_stream.play()
+	play_sfx()
 	trigger_debuff(area, weapon_stats)
 	rage_getter(area, weapon_stats)
 	await get_tree().create_timer(0.5).timeout

@@ -8,10 +8,12 @@ extends Control
 @export var elder3: Sprite2D
 @onready var audio = $AudioStreamPlayer
 @export var ami: Sprite2D
+@export var bg: TextureRect
 
 var current_index := 0
 var dialogue: Array
 var is_last_dialogue:= false
+var viz_count := 0
 
 enum DialogueStates {
 	PROLOGUE,
@@ -32,6 +34,14 @@ func _set_current_index(index: int):
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_BEGIN
 	else:
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_END
+	
+	if current_index == 3 and viz_count != 1:
+		viz_count = 1
+		
+		var tw = create_tween()
+		tw.tween_property(bg, "modulate:a", 1.0, 1.0)
+		$CanvasLayer/TextureRect.visible = true
+
 	
 	if idx["speaker"] == "Ami" and idx["emotion"] == "happy":
 		$AnimationPlayer.play("ami_happy")
@@ -118,6 +128,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 			elder1.visible = false 
 			elder2.visible = false
 			elder3.visible = false
+			$CanvasLayer/TextureRect.visible = false
+			$CanvasLayer/VBoxContainer2/Label.visible = false
 			await TransitionsManager.fade_in()
 			get_tree().change_scene_to_file("res://scenes/level_parent.tscn")
 			queue_free()
@@ -139,6 +151,7 @@ func _ready() -> void:
 	_set_current_index(current_index)
 
 	set_process(true)
+
 
 
 func _on_ready_for_next_wave() -> void:

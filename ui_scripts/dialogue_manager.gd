@@ -3,6 +3,7 @@ extends Control
 @export var speaker_name: Label
 @export var dialogue_label: Label
 @export var hbox_cont: HBoxContainer
+@export var bg: TextureRect
 
 var current_index := 0
 var dialogue: Array
@@ -11,7 +12,7 @@ var is_last_dialogue:= false
 @export var elder2: Sprite2D
 @export var elder3: Sprite2D
 @export var ami: Sprite2D
-
+ 
 
 signal pre_dialogue_finished
 signal finished
@@ -36,6 +37,12 @@ func _set_current_index(index: int):
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_BEGIN
 	else:
 		hbox_cont.alignment = BoxContainer.ALIGNMENT_END
+
+	if current_index == 1 and !GameManager.game_started:
+		var tw = create_tween()
+		tw.tween_property(bg, "modulate:a", 1.0, 1.0)
+		$CanvasLayer/TextureRect.visible = true
+
 
 	if idx["speaker"] == "Ami" and idx["emotion"] == "happy":
 		$AnimationPlayer.play("ami_happy")
@@ -113,6 +120,9 @@ func _unhandled_input(_event: InputEvent) -> void:
 			elder1.visible = false
 			elder2.visible = false
 			elder3.visible = false
+			$AnimationPlayer.stop()
+			$CanvasLayer/TextureRect.visible = false
+			$CanvasLayer/VBoxContainer2/Label.visible = false
 			await TransitionsManager.fade_in()
 			get_tree().change_scene_to_file("res://ui_scenes/pre_and_post_dialogue.tscn")
 			queue_free()
@@ -120,7 +130,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 			current_index = 0
 			finished.emit()
 			queue_free()
-			
+		
 #
 #func move_to_main_level():
 	#if is_last_dialogue:
@@ -175,6 +185,7 @@ func _ready() -> void:
 	elder1.visible = false
 	elder2.visible = false
 	elder3.visible = false
+
 	
 	if !GameManager.game_started:
 		dialogue = Dialogue.prologue
@@ -186,9 +197,6 @@ func _ready() -> void:
 
 	set_process(true)
 
-	#
-#func _process(delta: float) -> void:
-	#dialogue_start(1, "pre")
 
 
 func _on_pre_dialogue_finished() -> void:

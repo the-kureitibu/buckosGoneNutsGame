@@ -154,6 +154,7 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("7_pn8xi")
 
 [node name="Debug" type="Label" parent="."]
+visible = false
 offset_left = 18.0
 offset_top = 19.0
 offset_right = 58.0

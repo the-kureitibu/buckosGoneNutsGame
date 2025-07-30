@@ -4,9 +4,6 @@ extends CanvasLayer
 
 func _ready() -> void:
 	$".".visible = false
-	print($CloseContainer/HBoxContainer/XButton.is_connected("pressed", _on_x_button_pressed))
-	print($MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer/Quit.is_connected("pressed", _on_quit_pressed))
-	print($MainPauseContainer/VBoxContainer/MainBackground/VBoxContainer/MainMenu.is_connected("pressed", _on_main_menu_pressed))
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):

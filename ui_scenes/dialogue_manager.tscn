@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://cuu8kqqprx2cc"]
+[gd_scene load_steps=20 format=3 uid="uid://cuu8kqqprx2cc"]
 
 [ext_resource type="Script" uid="uid://caaifw8u26odl" path="res://ui_scripts/dialogue_manager.gd" id="1_7pi8v"]
 [ext_resource type="Texture2D" uid="uid://ceofo3bml7j6l" path="res://graphics/Enemies/ami_dialogue.png" id="2_hd472"]
+[ext_resource type="Texture2D" uid="uid://x3yt516n5wg2" path="res://graphics/UI/pre_dialogue_art.png" id="2_my8b2"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_ows1w"]
 [ext_resource type="Texture2D" uid="uid://cvjt7dgyyb8hi" path="res://graphics/Enemies/elders_int.png" id="3_ows1w"]
 
@@ -54,6 +55,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/TextureRect:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CanvasLayer/VBoxContainer2/Label:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_5mhqo"]
@@ -114,6 +139,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [3]
+}
+
+[sub_resource type="Animation" id="Animation_2st6d"]
+resource_name = "bg_fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.933333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ows1w"]
@@ -211,6 +251,22 @@ tracks/0/keys = {
 "values": [1]
 }
 
+[sub_resource type="Animation" id="Animation_epnd4"]
+resource_name = "info"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/VBoxContainer2/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 2.93333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_my8b2"]
 _data = {
 &"RESET": SubResource("Animation_hd472"),
@@ -218,15 +274,17 @@ _data = {
 &"ami_annoyed": SubResource("Animation_soyay"),
 &"ami_happy": SubResource("Animation_5kux0"),
 &"ami_monkas": SubResource("Animation_87a3t"),
+&"bg_fade": SubResource("Animation_2st6d"),
 &"elder1": SubResource("Animation_ows1w"),
 &"elder2": SubResource("Animation_ijn6w"),
 &"elder3": SubResource("Animation_shycf"),
 &"elder_3_one": SubResource("Animation_0s17k"),
 &"elder_one_1": SubResource("Animation_my8b2"),
-&"elder_two_2": SubResource("Animation_87l62")
+&"elder_two_2": SubResource("Animation_87l62"),
+&"info": SubResource("Animation_epnd4")
 }
 
-[node name="DialogueManager" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont", "elder1", "elder2", "elder3", "ami")]
+[node name="DialogueManager" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont", "bg", "elder1", "elder2", "elder3", "ami")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
@@ -234,6 +292,7 @@ script = ExtResource("1_7pi8v")
 speaker_name = NodePath("CanvasLayer/VBoxContainer/HBoxContainer/Speaker")
 dialogue_label = NodePath("CanvasLayer/VBoxContainer/HBoxContainer2/VBoxContainer/Dialogue")
 hbox_cont = NodePath("CanvasLayer/VBoxContainer/HBoxContainer")
+bg = NodePath("CanvasLayer/TextureRect")
 elder1 = NodePath("CanvasLayer/E1")
 elder2 = NodePath("CanvasLayer/E2")
 elder3 = NodePath("CanvasLayer/E3")
@@ -242,6 +301,17 @@ ami = NodePath("CanvasLayer/Ami")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 layer = 100
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color(0.823529, 0.815686, 0.976471, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_my8b2")
 
 [node name="Ami" type="Sprite2D" parent="CanvasLayer"]
 visible = false
@@ -366,10 +436,26 @@ layout_mode = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ows1w")
+theme_override_font_sizes/font_size = 12
+text = "Spacebar to next... (Please don't spam, there's a bug ><)  "
+horizontal_alignment = 2
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_my8b2")
 }
+autoplay = "info"
 
 [connection signal="pre_dialogue_finished" from="." to="." method="_on_pre_dialogue_finished"]
 [connection signal="ready_for_next_wave" from="." to="." method="_on_ready_for_next_wave"]

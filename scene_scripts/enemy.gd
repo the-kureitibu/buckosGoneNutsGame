@@ -7,6 +7,7 @@ extends CharacterBody2D
 
 #Health Stuff
 @onready var current_health = 150.0
+var damaged_state = EnemyStateManager.EnemyStates.IDLE
 
 #Movement and Vectors
 var can_knockback: bool = false
@@ -23,7 +24,7 @@ var dash_timer := 0.3
 var dash_cool_down := 7.0
 var dash_range := 125.0
 var dash_speed := 300.0
-var damage := 10
+var damage := 5
 
 
 #Negative Statuses
@@ -61,6 +62,24 @@ func _physics_process(delta: float) -> void:
 
 	handle_debuff(delta)
 	dash_handler(nav_target)
+	
+	
+	#if !is_slowed and WeaponsManager.weapon_selected == "exchu":
+		#$AnimationPlayer.play("walk")
+		#if current_health <= 0:
+			#$AnimationPlayer.stop()
+		#
+	#
+	#if !is_snared and WeaponsManager.weapon_selected == "embrace":
+		#$AnimationPlayer.play("walk")
+		#if current_health <= 0:
+			#$AnimationPlayer.stop()
+		#
+	#if !is_bleeding and WeaponsManager.weapon_selected == "hanger":
+		#$AnimationPlayer.play("walk")
+		#if current_health <= 0:
+			#$AnimationPlayer.stop()
+	
 	
 	if is_dashing:
 		handle_dash(delta)
@@ -105,9 +124,10 @@ func _physics_process(delta: float) -> void:
 		#nav_agent.is_navigation_finished():
 			#await get_tree().create_timer(0.5).timeout
 			#nav_agent.get_next_path_position()
-	if $AnimationPlayer.is_playing() and $AnimationPlayer.current_animation != "walk":
-		await $AnimationPlayer.animation_finished
-		$AnimationPlayer.play("walk")
+	#if $AnimationPlayer.is_playing() and $AnimationPlayer.current_animation != "walk":
+		#await $AnimationPlayer.animation_finished
+		#$AnimationPlayer.play("walk")
+	
 	move_and_slide()
 	if nav_target:
 		look_at(nav_target.global_position)
@@ -129,6 +149,8 @@ func handle_dash(delta):
 
 #Debuffs 
 func apply_debuff(_type: String, duration: float, multiplier: float, added_damage: float):
+	if current_health <= 0:
+		return
 
 	if can_debuff and enemy_state == EnemyStateManager.EnemyDebuffStates.NO_DEBUFF:
 
@@ -152,23 +174,34 @@ func apply_debuff(_type: String, duration: float, multiplier: float, added_damag
 func handle_debuff(delta):
 	
 	if is_slowed:
-		$AnimationPlayer.play("slow")
+		if current_health != 0 or current_health < 0: 
+			$AnimationPlayer.play("slow")
 		slow_timer -= delta 
 		if slow_timer <= 0:
+			$AnimationPlayer.stop()
+
+			if current_health != 0 or current_health < 0: 
+				$AnimationPlayer.play("walk")
 			is_slowed = false
 			slow_timer = 0 
 			current_speed = 60.0
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_snared:
-		$AnimationPlayer.play("snared")
+		if current_health != 0 or current_health < 0: 
+			$AnimationPlayer.play("snared")
 		snare_timer -= delta 
 		if snare_timer <= 0:
+			$AnimationPlayer.stop()
+			#
+			if current_health != 0 or current_health < 0: 
+				$AnimationPlayer.play("walk")
 			is_snared = false
 			snare_timer = 0 
 			current_speed = 60.0
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_bleeding:
-		$AnimationPlayer.play("bleed")
+		if current_health != 0 or current_health < 0: 
+			$AnimationPlayer.play("bleed")
 		bleed_timer -= delta 
 		bleed_tick_timer -= delta
 		
@@ -178,36 +211,38 @@ func handle_debuff(delta):
 
 		
 		if bleed_timer <= 0:
+			$AnimationPlayer.stop()
+			
+			if current_health != 0 or current_health < 0: 
+				$AnimationPlayer.play("walk")
 			is_bleeding = false
 			bleed_timer = 0 
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 
 func apply_damage(dmg, area: Area2D):
+
 	
-	if is_snared:
+	if enemy_state == EnemyStateManager.EnemyDebuffStates.SNARED:
 		return
 	
+
 	if area.is_in_group('player_projectiles'):
 		var popup = pop_up.instantiate()
 		get_tree().current_scene.add_child(popup)
 		popup.position = $popup.global_position
 		popup._show_damage(dmg, false)
-		
+	
+		current_health -= dmg
+		health_change.emit(current_health)
+		current_health = clamp(current_health, 0, 150.0)
+	
 		await get_tree().create_timer(0.5).timeout
 		popup._show_damage(bleed_damage, false)
 	
-	current_health -= dmg
-	current_health = clamp(current_health, 0, 150.0)
-	health_change.emit(current_health)
-
-
 	
 	if current_health <= 0:
-		#if $AnimationPlayer.is_playing() and $AnimationPlayer.current_animation != "death":
-			##$AnimationPlayer.stop()
-		$AnimationPlayer.play("death")
-
-		await $AnimationPlayer.animation_finished
+		#$AnimationPlayer.play("death")
+		#await $AnimationPlayer.animation_finished
 		die()
 
 func die():
@@ -236,5 +271,5 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var dmg = 0
 	if area.is_in_group('player_projectiles') and 'damage':
 		dmg = area.damage
-
+		
 	apply_damage(dmg, area)

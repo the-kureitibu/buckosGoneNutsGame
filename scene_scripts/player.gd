@@ -131,7 +131,7 @@ func _get_input():
 	return input
 
 func _physics_process(delta: float) -> void:
-	debug_label()
+
 	_regen(delta)
 	_handle_movement()
 	rage_modifier()
@@ -373,8 +373,8 @@ func _on_regen_timer_timeout() -> void:
 		$RegenTimer.stop()
 	
 	if current_health < stats.base_health and health_state == PlayerStateManager.PlayerState.HEALING:
-		current_health += 5.0
-		pop_up_damage(5, true)
+		current_health += 10.0
+		pop_up_damage(10, true)
 		PlayerManager.apply_damage(current_health)
 		
 	elif current_health == stats.base_health:

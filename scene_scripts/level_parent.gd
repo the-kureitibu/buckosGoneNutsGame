@@ -13,13 +13,14 @@ extends Node2D
 @onready var bgm = $AudioStreamPlayer2D
 @onready var bgm_is_playing := false
 @onready var test_bgm = $AudioStreamPlayer
+@onready var boss_bgm = $AudioStreamPlayer2
 
 #Waves Tscns
 @onready var buckos: PackedScene = preload("res://scenes/enemy.tscn")
 
 #Spawners
 const MIN_PLAYER_DIST := 200
-const MAX_PLAYER_DIST := 600
+const MAX_PLAYER_DIST := 750
 @onready var max_enemies = GameManager.max_active_enemies
 var enemy_deaths := 0
 var active_enemies := 0
@@ -31,6 +32,8 @@ var boss_three_spawned := false
 var is_wave_two_started: bool = false
 var is_wave_three_started: bool = false
 var is_wave_done := false
+var gate := 0
+
 
 
 func _on_VisibilityNotifier2D_screen_exited():
@@ -41,6 +44,7 @@ func _on_VisibilityNotifier2D_screen_entered():
 	set_physics_process(true)
 
 func _ready() -> void:
+	#print(GameManager.game_started)
 	await TransitionsManager.fade_out()
 	bgm_is_playing = true
 	play_bgm()
@@ -107,12 +111,19 @@ func _on_player_launch_projectile(pos: Variant, dir: Variant) -> void:
 		
 		$Projectiles.add_child(embrace_projectile)
 
+func boss_music():
+	test_bgm.stop()
+	boss_bgm.play()
+
+
 func play_bgm():
+
 	if bgm_is_playing:
 		if !test_bgm.playing:
 			test_bgm.volume_db = -60.0
 			test_bgm.play()
 			fade_music(-10.0, 2.0)
+		
 	else:
 		if test_bgm.playing:
 			test_bgm.stop()
@@ -157,6 +168,9 @@ func get_valid_points():
 	return valid_points
 
 func spawn_mobs():
+	if spawn_count >= GameManager.current_wave_mobs:
+		return
+	
 	var target = $Player/Player
 	var valid_position = get_valid_points()
 
@@ -175,12 +189,14 @@ func spawn_mobs():
 	enemy.connect("death", reduce_active_enemies)
 	active_enemies += 1
 	spawn_count += 1
+	
 
 func run_wave_dialogue(wave: int, part: int):
 	
 
 	get_tree().paused = true
 	fade_music(-28.0, 0.25)
+	
 	var dialogue = dialogue_scene.instantiate()
 
 	add_child(dialogue)
@@ -193,6 +209,9 @@ func run_wave_dialogue(wave: int, part: int):
 
 
 func spawn_boss(index: int):
+	EnemyStateManager.boss_state = EnemyStateManager.EnemyStates.BOSS_SPAWNED
+	boss_music()
+	
 	var target = $Player/Player
 	var valid_position = get_valid_points()
 	
@@ -209,13 +228,21 @@ func spawn_boss(index: int):
 		boss.nav_target = target
 	
 	boss.connect("death", reduce_active_enemies)
+	boss.connect("death", boss_death_bgm)
 	active_enemies += 1
 	spawn_count += 1
+
+
+func boss_death_bgm():
+	boss_bgm.stop()
+	test_bgm.play()
 	
 func reduce_active_enemies():
+
 	active_enemies -= 1
 	GameManager.current_wave_quota -= 1
 	enemy_deaths += 1
+	print(enemy_deaths, ' deaths')
 	
 	if !boss_one_spawned and GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs / 2:
 		boss_one_spawned = true
@@ -237,16 +264,22 @@ func _on_spawn_timer_timeout() -> void:
 		on_wave_cleared()
 		return
 	
-	if active_enemies >= max_enemies / 4:
-		return
-	
 	if spawn_count >= GameManager.current_wave_mobs:
+		#$SpawnTimer.stop()
+		#print('is timer stopped? ', $SpawnTimer.is_stopped())
+		return
+
+	if active_enemies >= max_enemies:
+		##if gate >= GameManager.current_wave_mobs:
+			##$SpawnTimer.stop()
+			##print('is timer stopped? on active enemies ', $SpawnTimer.is_stopped())
+		#else:
 		return
 	
 	spawn_mobs()
 
 func on_wave_cleared():
-	
+	EnemyStateManager.boss_state = EnemyStateManager.EnemyStates.IDLE
 	if GameManager.current_wave == 1:
 		$SpawnTimer.stop()
 	elif GameManager.current_wave == 2:
@@ -314,7 +347,7 @@ func _on_wave_2_spawn_timer_timeout() -> void:
 		on_wave_cleared()
 		return
 	
-	if active_enemies >= max_enemies / 4:
+	if active_enemies >= max_enemies:
 		return
 	
 	if spawn_count >= GameManager.current_wave_mobs:
@@ -331,11 +364,9 @@ func _on_wave_3_spawn_timer_timeout() -> void:
 		get_tree().change_scene_to_file("res://ui_scenes/ending_dialogue.tscn")
 		queue_free()
 		
-		
-		#run ending 
 		return
 	
-	if active_enemies >= max_enemies / 4:
+	if active_enemies >= max_enemies:
 		return
 	
 	if spawn_count >= GameManager.current_wave_mobs:

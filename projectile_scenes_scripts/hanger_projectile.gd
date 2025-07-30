@@ -11,7 +11,7 @@ func _ready() -> void:
 	range_starting_pos = global_position
 	max_range = weapon_stats.project_range
 	#range_handler()
-	projectile_audio_stream.play()
+	play_sfx()
 
 
 func range_handler():
@@ -35,6 +35,13 @@ func _process(delta: float) -> void:
 	$AnimationPlayer.play("normal_attack")
 	range_handler()
 
+
+func play_sfx():
+	var sound = randf_range(-5.0, -2.0)
+	projectile_audio_stream.volume_db = sound
+	projectile_audio_stream.play()
+
+	
 
 func _on_area_entered(area: Area2D) -> void:
 

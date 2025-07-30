@@ -9,8 +9,8 @@
 [resource]
 script = ExtResource("1_kmn2c")
 waves = Array[PackedScene]([ExtResource("2_bqwh7"), ExtResource("3_bkjtw"), ExtResource("4_uyht2"), ExtResource("5_b6e8s")])
-w1_max_mobs = 10
-w2_max_mobs = 12
-w3_max_mobs = 14
-max_active_mobs = 20
+w1_max_mobs = 60
+w2_max_mobs = 80
+w3_max_mobs = 100
+max_active_mobs = 15
 metadata/_custom_type_script = "uid://c3vjfoykp0g42"

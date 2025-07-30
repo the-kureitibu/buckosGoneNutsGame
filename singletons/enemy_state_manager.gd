@@ -10,10 +10,14 @@ enum EnemyDebuffStates {
 	NO_DEBUFF
 }
 
+var boss_state = EnemyStates.IDLE
+
 enum EnemyStates {
 	IDLE,
 	CAN_DASH,
 	CAN_ATTACK,
 	CANT_ATTACK,
-	ATTACKED
+	ATTACKED,
+	BOSS_DEATH,
+	BOSS_SPAWNED
 }
