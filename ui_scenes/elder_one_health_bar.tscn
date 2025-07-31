@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://3tray20ymf8q" path="res://graphics/UI/progress.png" id="2_6k3cn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3eubw"]
-bg_color = Color(0.796078, 0.137255, 0.188235, 0.396078)
+bg_color = Color(0.894118, 0.235294, 0.196078, 0.960784)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8cy2h"]
 texture = ExtResource("2_6k3cn")
+modulate_color = Color(0, 0.615686, 0, 1)
 
 [node name="ElderOneHealthBar" type="Control" node_paths=PackedStringArray("health_bar")]
 layout_mode = 3

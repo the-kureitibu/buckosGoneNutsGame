@@ -44,9 +44,8 @@ var bleed_tick_timer := 0.0
 signal health_change(health)
 signal death
 
-#func _on_VisibilityNotifier2D_screen_exited():
-	#if global_position.distance_to(get_viewport().get_camera_2d().global_position) > 1000:
-		#queue_free()
+func _on_VisibilityNotifier2D_screen_exited():
+	print(position)
 
 #func _ready() -> void:
 

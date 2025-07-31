@@ -14,6 +14,8 @@ var current_index := 0
 var dialogue: Array
 var is_last_dialogue:= false
 var viz_count := 0
+var can_advance := false
+var is_transitioning := false
 
 enum DialogueStates {
 	PROLOGUE,
@@ -24,7 +26,17 @@ enum DialogueStates {
 
 var dialogue_state = DialogueStates.PROLOGUE
 
+
+func _on_anim_finished(anim_name: String) -> void:
+	can_advance = true
+	$AnimationPlayer.disconnect("animation_finished", Callable(self, "_on_anim_finished"))
+
+
 func _set_current_index(index: int):
+	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
+		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
+	
+	var can_advance := false
 	var idx = dialogue[index]
 	speaker_name.text = str(dialogue[current_index].speaker)
 	dialogue_label.text = dialogue[current_index].line
@@ -110,33 +122,42 @@ func _set_current_index(index: int):
 
 
 func _unhandled_input(_event: InputEvent) -> void:
+	if not can_advance:
+		return
+	
 	if Input.is_action_just_pressed("next_dialogue"):
 		current_index += 1
 		if current_index < dialogue.size():
 			_set_current_index(current_index)
-		elif current_index == dialogue.size():
-			if !audio.playing:
-				audio.play()
-			else:
-				if audio.playing:
-					audio.stop()
 		else:
-			speaker_name.text = ""
-			dialogue_label.text = ""
-			current_index = 0
-			ami.visible = false
-			elder1.visible = false 
-			elder2.visible = false
-			elder3.visible = false
-			$CanvasLayer/TextureRect.visible = false
-			$CanvasLayer/VBoxContainer2/Label.visible = false
-			await TransitionsManager.fade_in()
-			get_tree().change_scene_to_file("res://scenes/level_parent.tscn")
-			queue_free()
+			move_to_next_scene()
 	
+	
+func move_to_next_scene():
+	is_transitioning = true
+	can_advance = false
+	if !audio.playing:
+		audio.play()
+	speaker_name.text = ""
+	dialogue_label.text = ""
+	current_index = 0
+	ami.visible = false
+	elder1.visible = false 
+	elder2.visible = false
+	elder3.visible = false
+	$CanvasLayer/TextureRect.visible = false
+	$CanvasLayer/VBoxContainer2/Label.visible = false
+	set_process_unhandled_input(false)
+	await TransitionsManager.fade_in()
+	get_tree().change_scene_to_file("res://scenes/level_parent.tscn")
+	queue_free()
 	
 func _ready() -> void:
 	await TransitionsManager.fade_out()
+	
+	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
+		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
+	
 	ami.visible = false
 	elder1.visible = false 
 	elder2.visible = false

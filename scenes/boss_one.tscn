@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cdbkwt3wplalf" path="res://graphics/Enemies/all_boss.png" id="4_yp37y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3s6s"]
-size = Vector2(48, 45.5)
+size = Vector2(68, 70.75)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yc76b"]
 radius = 43.1045
@@ -32,8 +32,8 @@ vframes = 3
 frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_x3s6s")
-metadata/_edit_lock_ = true
 
 [node name="ProjectileMarker" type="Marker2D" parent="."]
 position = Vector2(44, 0)

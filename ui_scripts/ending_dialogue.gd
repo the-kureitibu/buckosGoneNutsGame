@@ -14,9 +14,21 @@ extends Control
 var current_index := 0
 var dialogue: Array
 var is_last_dialogue:= false
+var can_advance := false
+var is_transitioning := false
+
+
+func _on_anim_finished(anim_name: String) -> void:
+	can_advance = true
+	$AnimationPlayer.disconnect("animation_finished", Callable(self, "_on_anim_finished"))
 
 
 func _set_current_index(index: int):
+	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
+		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
+	
+	can_advance = false
+	
 	var idx = dialogue[index]
 	speaker_name.text = str(dialogue[current_index].speaker)
 	dialogue_label.text = dialogue[current_index].line
@@ -89,16 +101,24 @@ func _set_current_index(index: int):
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not can_advance:
+		return
+	
 	if Input.is_action_just_pressed("next_dialogue"):
 		current_index += 1
 		if current_index < dialogue.size():
 			_set_current_index(current_index)
 		else:
-			$AnimationPlayer.play("hide_canvas")
-			await $AnimationPlayer.animation_finished
+			can_advance = false
+			play_and_wait($AnimationPlayer, "hide_canvas")
+			is_transitioning = true
 			var end_text = text.instantiate()
 			add_child(end_text)
 			end_text.ending_announcer()
+
+func play_and_wait(anim_player: AnimationPlayer, anim_name: String) -> void:
+	anim_player.play(anim_name)
+	await anim_player.animation_finished
 
 func run_final_dialogue():
 
@@ -112,6 +132,9 @@ func run_final_dialogue():
 
 func _ready() -> void:
 	await TransitionsManager.fade_out()
+	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
+		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
+	
 	
 	ami.visible = false
 	elder1.visible = false 

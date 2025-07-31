@@ -8,11 +8,13 @@ extends Control
 var current_index := 0
 var dialogue: Array
 var is_last_dialogue:= false
+var can_advance := false
+var is_transitioning := false
 @export var elder1: Sprite2D
 @export var elder2: Sprite2D
 @export var elder3: Sprite2D
 @export var ami: Sprite2D
- 
+
 
 signal pre_dialogue_finished
 signal finished
@@ -28,6 +30,10 @@ enum DialogueStates {
 var dialogue_state = DialogueStates.PROLOGUE
 
 func _set_current_index(index: int):
+	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
+		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
+	can_advance = false
+	
 	var idx = dialogue[index]
 	speaker_name.text = str(dialogue[current_index].speaker)
 	dialogue_label.text = dialogue[current_index].line
@@ -108,35 +114,44 @@ func _set_current_index(index: int):
 		$AnimationPlayer.play("elder_3_one")
 
 func _unhandled_input(_event: InputEvent) -> void:
+	if not can_advance:
+		return 
+	
 	if Input.is_action_just_pressed("next_dialogue"):
 		current_index += 1
 		if current_index < dialogue.size():
 			_set_current_index(current_index)
 		elif !GameManager.game_started and current_index >= dialogue.size():
-			speaker_name.text = ""
-			dialogue_label.text = ""
-			current_index = 0
-			ami.visible = false
-			elder1.visible = false
-			elder2.visible = false
-			elder3.visible = false
-			$AnimationPlayer.stop()
-			$CanvasLayer/TextureRect.visible = false
-			$CanvasLayer/VBoxContainer2/Label.visible = false
-			await TransitionsManager.fade_in()
-			get_tree().change_scene_to_file("res://ui_scenes/pre_and_post_dialogue.tscn")
-			queue_free()
+			move_to_next_scene()
 		else:
 			current_index = 0
 			finished.emit()
 			queue_free()
 		
-#
-#func move_to_main_level():
-	#if is_last_dialogue:
-		#await TransitionsManager.fade_in()
-		#get_tree().change_scene_to_file("res://scenes/level_parent.tscn")
-		#queue_free()
+
+func move_to_next_scene():
+	is_transitioning = true
+	can_advance = false
+	speaker_name.text = ""
+	dialogue_label.text = ""
+	current_index = 0
+	ami.visible = false
+	elder1.visible = false
+	elder2.visible = false
+	elder3.visible = false
+	$AnimationPlayer.stop()
+	$CanvasLayer/TextureRect.visible = false
+	$CanvasLayer/VBoxContainer2/Label.visible = false
+	set_process_unhandled_input(false)
+	await TransitionsManager.fade_in()
+	get_tree().change_scene_to_file("res://ui_scenes/pre_and_post_dialogue.tscn")
+	queue_free()
+
+func _on_anim_finished(anim_name: String) -> void:
+	can_advance = true
+	$AnimationPlayer.disconnect("animation_finished", Callable(self, "_on_anim_finished"))
+
+
 
 func run_wave_dialogue():
 	
@@ -180,6 +195,9 @@ func set_current_dialogue(wave: int, part: int):
 
 func _ready() -> void:
 	await TransitionsManager.fade_out()
+	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
+		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
+	
 	
 	ami.visible = false
 	elder1.visible = false

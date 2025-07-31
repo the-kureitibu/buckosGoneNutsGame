@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cdbkwt3wplalf" path="res://graphics/Enemies/all_boss.png" id="4_as7tn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qvm27"]
-radius = 35.0143
+radius = 43.1856
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_px7j8"]
 radius = 48.0
@@ -33,7 +33,6 @@ frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_qvm27")
-metadata/_edit_lock_ = true
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["enemy_hurtbox"]]
 collision_layer = 128

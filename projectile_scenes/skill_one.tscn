@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpsttrijeugn"]
+
+[ext_resource type="Script" uid="uid://mre5nqge7gvn" path="res://projectile_scenes_scripts/skill_one.gd" id="1_08syo"]
+[ext_resource type="Texture2D" uid="uid://dtehp5musthbb" path="res://graphics/Projectiles/p1.png" id="2_m0o0x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8sfy7"]
+
+[node name="SkillOne" type="Area2D"]
+script = ExtResource("1_08syo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8sfy7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("2_m0o0x")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(38, 23)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("2_m0o0x")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(23, 54)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("2_m0o0x")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(-16, 55)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("2_m0o0x")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(-34, 23)
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("2_m0o0x")
