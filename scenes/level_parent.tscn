@@ -950,8 +950,11 @@ shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.596078)
 metadata/_edit_lock_ = true
 
+[node name="SkillProjectiles" type="Node2D" parent="."]
+
 [connection signal="launch_projectile" from="Player/Player" to="." method="_on_player_launch_projectile"]
 [connection signal="player_death" from="Player/Player" to="." method="_on_player_player_death"]
+[connection signal="skill_launched" from="Player/Player" to="." method="_on_player_skill_launched"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Wave2SpawnTimer" to="." method="_on_wave_2_spawn_timer_timeout"]
 [connection signal="timeout" from="Wave3SpawnTimer" to="." method="_on_wave_3_spawn_timer_timeout"]

@@ -10,6 +10,8 @@ extends Node2D
 @onready var dialogue_scene: PackedScene = preload("res://ui_scenes/dialogue_manager.tscn")
 @onready var test_ui: PackedScene = preload("res://ui_scenes/weapon_selection_ui.tscn")
 @onready var start_menu = preload("res://ui_scenes/starting_menu.tscn")
+@onready var skill_one = preload("res://projectile_scenes/skill_one.tscn")
+@onready var skill_two = preload("res://projectile_scenes/skill_two.tscn")
 @onready var bgm = $AudioStreamPlayer2D
 @onready var bgm_is_playing := false
 @onready var test_bgm = $AudioStreamPlayer
@@ -34,6 +36,44 @@ var is_wave_three_started: bool = false
 var is_wave_done := false
 var gate := 0
 
+#Skill stuff
+var is_launching := false
+
+
+func launch_skill_one():
+
+	if is_launching:
+		return 
+	
+	is_launching = true
+	var skill_markers = $Player/Player.get_node("SkillMarkers").get_children()
+	for marker in skill_markers:
+		_spawn_one_at_a_time(marker)
+		await get_tree().create_timer(0.5).timeout
+		
+	is_launching = false
+	
+func _spawn_one_at_a_time(marker: Marker2D):
+	var instance = skill_one.instantiate()
+	instance.position = marker.global_position
+	instance.direction = Vector2.RIGHT.rotated(marker.rotation)
+	instance.rotation_degrees = rad_to_deg(marker.rotation) + 90
+	instance.target_node = marker
+	$SkillProjectiles.add_child(instance)
+	
+	if instance.has_method("start"):
+		instance.start(marker)
+
+func _on_player_skill_launched(skill_num: Variant, pos: Variant, dir: Variant) -> void:
+	match skill_num:
+		1:
+			launch_skill_one()
+		2:
+			var skill2 = skill_two.instantiate()
+			skill2.position =  pos + Vector2(0, -10.0)
+			skill2.rotation_degrees = rad_to_deg(dir.angle()) + 90
+			$SkillProjectiles.add_child(skill2)
+
 
 
 func _on_VisibilityNotifier2D_screen_exited():
@@ -50,6 +90,7 @@ func _ready() -> void:
 	play_bgm()
 	var wp_ui = test_ui.instantiate()
 	add_child(wp_ui)
+
 
 ##For refactor
 #func start_wave(wave: int):

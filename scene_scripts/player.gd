@@ -29,13 +29,10 @@ var not_hit := true
 var hit_count := 0
 var health_state = PlayerStateManager.PlayerState.FULLY_HEALED
 
-#timers
+#Timers
 var current_attack_delay := 1.25
 var rage_cooling_timer := 5.0
 var slow_timer := 2.0
-
-
-#Timers 
 var invulnerable_timer := 1.5
 var current_attack_cd = 0.0
 var bleeding_vulnerable: bool = true
@@ -44,11 +41,20 @@ var bleed_tick_interval := 0.5
 var bleed_timer := 0.0
 var bleed_tick_timer := 0.0
 var regen_timer := 10.0
+var skill_one_timer := 0.0
+var skill_two_timer := 4.0
+
+#SkillStates
+var is_skill_launched := false
+var current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
+var can_skill_one := true
+var can_skill_two := false
 
 
 
 #Signals
 signal launch_projectile(pos, dir)
+signal skill_launched(skill_num, pos, dir)
 signal player_death
 
 
@@ -64,6 +70,7 @@ func debug_label():
 
 
 func _ready() -> void:
+
 	stats = PlayerManager.runtime_player_stats
 	current_state = PlayerStateManager.PlayerState.CAN_ATTACK
 
@@ -131,11 +138,14 @@ func _get_input():
 	return input
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("secondary(mouse)"):
+		print('i right clicked')
 
 	_regen(delta)
 	_handle_movement()
 	rage_modifier()
 	handle_attack(delta)
+	handle_skill(delta)
 	_handle_debuff(delta)
 	
 	if is_invulnerable:
@@ -184,6 +194,41 @@ func _handle_movement():
 		move_and_slide()
 	
 	look_at(get_global_mouse_position()) 
+
+func handle_skill(delta):
+
+	var projectile_direction = (get_global_mouse_position() - global_position).normalized()
+	var offset := -50.0
+	var projectile_position = $ProjectileMarker.global_position
+	
+	if current_skill_state == PlayerStateManager.PlayerState.SKILL_ONE_LAUNCHED:
+		skill_one_timer -= delta
+		if skill_one_timer <= 0:
+			can_skill_two = true
+			current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
+			is_skill_launched = false
+
+	if current_skill_state == PlayerStateManager.PlayerState.SKILL_TWO_LAUNCHED:
+		skill_two_timer -= delta
+		if skill_two_timer <= 0:
+			can_skill_one = true
+			current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
+			is_skill_launched = false
+
+	if current_skill_state == PlayerStateManager.PlayerState.CAN_SKILL:
+		if Input.is_action_just_pressed("secondary(mouse)"):
+			if can_skill_one:
+				skill_launched.emit(1, projectile_position, projectile_direction)
+				is_skill_launched = true
+				current_skill_state = PlayerStateManager.PlayerState.SKILL_ONE_LAUNCHED
+				skill_one_timer = 5.0
+				can_skill_one = false
+			elif can_skill_two:
+				skill_launched.emit(2, projectile_position, projectile_direction)
+				current_skill_state = PlayerStateManager.PlayerState.SKILL_TWO_LAUNCHED
+				skill_two_timer = 4.0
+				can_skill_two = false
+				is_skill_launched = true
 
 
 func handle_attack(delta):

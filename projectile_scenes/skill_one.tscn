@@ -12,25 +12,6 @@ script = ExtResource("1_08syo")
 shape = SubResource("CircleShape2D_8sfy7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("2_m0o0x")
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(38, 23)
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("2_m0o0x")
-
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-position = Vector2(23, 54)
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("2_m0o0x")
-
-[node name="Sprite2D4" type="Sprite2D" parent="."]
-position = Vector2(-16, 55)
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("2_m0o0x")
-
-[node name="Sprite2D5" type="Sprite2D" parent="."]
-position = Vector2(-34, 23)
+rotation = -1.5708
 scale = Vector2(0.296875, 0.296875)
 texture = ExtResource("2_m0o0x")

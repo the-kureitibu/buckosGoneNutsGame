@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj0ltns8pwsyf"]
+
+[ext_resource type="Script" uid="uid://dlrkgvhgqvf5" path="res://projectile_scenes_scripts/skill_two.gd" id="1_dlpl5"]
+[ext_resource type="Texture2D" uid="uid://bw8vj6nqo1mgm" path="res://graphics/Enemies/bucko_base.png" id="2_30sff"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sbai5"]
+radius = 19.105
+
+[node name="SkillTwo" type="Area2D" groups=["player_projectiles"]]
+script = ExtResource("1_dlpl5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_30sff")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sbai5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
