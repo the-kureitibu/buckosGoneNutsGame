@@ -17,6 +17,7 @@ var how_to: Array = [
 	{"title": "How To Win", "description": "Finish the game by clearing all 3 Waves and defeating all buckos",},
 	{"title": "How To Pause", "description": "Press ESC to show the menu",},
 	{"title": "Caution!", "description": "Watch out for bugs!",},
+	{"title": "Using Skills", "description": "Use mouse's right click to throw some bucko plushies!",},
 ]
 var current_index := 0
 @export var how_to_title: Label
@@ -141,7 +142,7 @@ func _on_button_left_pressed() -> void:
 
 func _on_button_right_pressed() -> void:
 
-	if current_index >= 6:
+	if current_index >= 7:
 		current_index = 0
 		how_to_title.text = how_to[0].title
 		how_to_descrip.text = how_to[0].description

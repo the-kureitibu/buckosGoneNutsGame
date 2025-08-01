@@ -147,7 +147,7 @@ func move_to_next_scene():
 	get_tree().change_scene_to_file("res://ui_scenes/pre_and_post_dialogue.tscn")
 	queue_free()
 
-func _on_anim_finished(anim_name: String) -> void:
+func _on_anim_finished(_anim_name: String) -> void:
 	can_advance = true
 	$AnimationPlayer.disconnect("animation_finished", Callable(self, "_on_anim_finished"))
 

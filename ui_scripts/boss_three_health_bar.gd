@@ -4,7 +4,6 @@ extends Control
 
 func _ready() -> void:
 	update_max_health()
-	print(EnemyManager.boss_three_health)
 
 func update_max_health():
 	health_bar.max_value = EnemyManager.boss_three_health

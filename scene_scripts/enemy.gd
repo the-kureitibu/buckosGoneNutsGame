@@ -4,10 +4,14 @@ extends CharacterBody2D
 @export var nav_target: Node2D
 @onready var pop_up: PackedScene = preload("res://ui_scenes/pop_up_damage.tscn")
 #@export var stats: EnemyStats
+const MIN_PLAYER_DIST := 200
+const MAX_PLAYER_DIST := 750
+
 
 #Health Stuff
 @onready var current_health = 150.0
 var damaged_state = EnemyStateManager.EnemyStates.IDLE
+var has_died := false
 
 #Movement and Vectors
 var can_knockback: bool = false
@@ -44,11 +48,10 @@ var bleed_tick_timer := 0.0
 signal health_change(health)
 signal death
 
-func _on_VisibilityNotifier2D_screen_exited():
-	print(position)
+
 
 #func _ready() -> void:
-
+	#print(global_position, ' on ready')
 #Debug
 #func nav_debug_label():
 	#var s: String = "is reachable?:%s\n " % nav_agent.is_target_reachable()
@@ -127,7 +130,9 @@ func _physics_process(delta: float) -> void:
 		#await $AnimationPlayer.animation_finished
 		#$AnimationPlayer.play("walk")
 	
-	move_and_slide()
+	if !has_died:
+		move_and_slide()
+		
 	if nav_target:
 		look_at(nav_target.global_position)
 
@@ -137,16 +142,31 @@ func set_agent_target(target_pos: Vector2):
 	nav_agent.target_position = projected
 
 func handle_dash(delta):
+	if has_died:
+		return
+	
 	var dash_direction = (nav_target.global_position - global_position).normalized()
 	velocity = dash_direction * dash_speed
 	dash_timer -= delta
 	if dash_timer <= 0:
 		is_dashing = false
 		velocity = dash_direction * current_speed
-					
+	
 	move_and_slide()
 
 #Debuffs 
+func apply_skill_debuff(_type: String, duration: float, multiplier: float, _added_damage: float):
+	if current_health <= 0:
+		return
+
+	if can_debuff and enemy_state == EnemyStateManager.EnemyDebuffStates.NO_DEBUFF:
+		is_slowed = true
+		enemy_state = EnemyStateManager.EnemyDebuffStates.SLOWED
+		slow_timer = duration
+		current_speed = 60.0 * multiplier
+	
+
+
 func apply_debuff(_type: String, duration: float, multiplier: float, added_damage: float):
 	if current_health <= 0:
 		return
@@ -171,35 +191,38 @@ func apply_debuff(_type: String, duration: float, multiplier: float, added_damag
 			current_speed = movement_stopper
 	
 func handle_debuff(delta):
+	if has_died:
+		return
+	
 	
 	if is_slowed:
-		if current_health != 0 or current_health < 0: 
+		if current_health != 15 or current_health < 15: 
 			$AnimationPlayer.play("slow")
 		slow_timer -= delta 
 		if slow_timer <= 0:
 			$AnimationPlayer.stop()
 
-			if current_health != 0 or current_health < 0: 
+			if current_health != 15 or current_health < 15: 
 				$AnimationPlayer.play("walk")
 			is_slowed = false
 			slow_timer = 0 
 			current_speed = 60.0
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_snared:
-		if current_health != 0 or current_health < 0: 
+		if current_health != 15 or current_health < 15: 
 			$AnimationPlayer.play("snared")
 		snare_timer -= delta 
 		if snare_timer <= 0:
 			$AnimationPlayer.stop()
 			#
-			if current_health != 0 or current_health < 0: 
+			if current_health != 15 or current_health < 15: 
 				$AnimationPlayer.play("walk")
 			is_snared = false
 			snare_timer = 0 
 			current_speed = 60.0
 			enemy_state = EnemyStateManager.EnemyDebuffStates.NO_DEBUFF
 	if is_bleeding:
-		if current_health != 0 or current_health < 0: 
+		if current_health != 15 or current_health < 15: 
 			$AnimationPlayer.play("bleed")
 		bleed_timer -= delta 
 		bleed_tick_timer -= delta
@@ -212,7 +235,7 @@ func handle_debuff(delta):
 		if bleed_timer <= 0:
 			$AnimationPlayer.stop()
 			
-			if current_health != 0 or current_health < 0: 
+			if current_health != 15 or current_health < 15: 
 				$AnimationPlayer.play("walk")
 			is_bleeding = false
 			bleed_timer = 0 
@@ -220,7 +243,6 @@ func handle_debuff(delta):
 
 func apply_damage(dmg, area: Area2D):
 
-	
 	if enemy_state == EnemyStateManager.EnemyDebuffStates.SNARED:
 		return
 	
@@ -240,9 +262,19 @@ func apply_damage(dmg, area: Area2D):
 	
 	
 	if current_health <= 0:
-		#$AnimationPlayer.play("death")
-		#await $AnimationPlayer.animation_finished
-		die()
+		start_death()
+
+
+func start_death():
+	if has_died:
+		return
+	
+	has_died = true
+	if $AnimationPlayer and $AnimationPlayer.has_animation("death"):
+		$AnimationPlayer.play("death")
+		await $AnimationPlayer.animation_finished
+		
+	die()
 
 func die():
 
@@ -272,3 +304,28 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 		dmg = area.damage
 		
 	apply_damage(dmg, area)
+
+func _get_valid_markers():
+	var markers = get_tree().current_scene.get_node("SpawnMarkers").get_children()
+	var valid_markers = []
+	
+	for marker in markers:
+		var dist = marker.global_position.distance_to(nav_target.global_position)
+		if dist > MIN_PLAYER_DIST and dist <= MAX_PLAYER_DIST:
+			valid_markers.append(marker)
+	
+	return valid_markers
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+
+	var valid_spawns = _get_valid_markers()
+	if valid_spawns.is_empty():
+		print("NO VALID MARKERS")
+		return
+	
+	var new_loc = valid_spawns[randi() % valid_spawns.size()]
+	var spawn_dist = 400
+	var forward = Vector2.RIGHT.rotated(nav_target.rotation)
+	
+	 #new_loc.global_position
+	global_position = new_loc.global_position + forward

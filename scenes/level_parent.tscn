@@ -945,9 +945,11 @@ metadata/_edit_lock_ = true
 [node name="PauseMenu" parent="." instance=ExtResource("2_033xp")]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+visible = false
 color = Color(0.15625, 0.203754, 0.181824, 1)
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.596078)
+height = 1.0
 metadata/_edit_lock_ = true
 
 [node name="SkillProjectiles" type="Node2D" parent="."]

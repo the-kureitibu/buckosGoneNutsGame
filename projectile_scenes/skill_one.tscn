@@ -1,17 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpsttrijeugn"]
+[gd_scene load_steps=5 format=3 uid="uid://bpsttrijeugn"]
 
 [ext_resource type="Script" uid="uid://mre5nqge7gvn" path="res://projectile_scenes_scripts/skill_one.gd" id="1_08syo"]
-[ext_resource type="Texture2D" uid="uid://dtehp5musthbb" path="res://graphics/Projectiles/p1.png" id="2_m0o0x"]
+[ext_resource type="Texture2D" uid="uid://c3dows702tt3i" path="res://graphics/Projectiles/bucko_skill1.png" id="2_08syo"]
+[ext_resource type="AudioStream" uid="uid://ccagfhxth1w3d" path="res://graphics/Audio/swosh-whoosh-air-cut.mp3" id="3_m0o0x"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8sfy7"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_08syo"]
+height = 40.0
 
-[node name="SkillOne" type="Area2D"]
+[node name="SkillOne" type="Area2D" node_paths=PackedStringArray("launched_sfx") groups=["player_projectiles"]]
+collision_layer = 4
+collision_mask = 128
 script = ExtResource("1_08syo")
+launched_sfx = NodePath("AudioStreamPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_8sfy7")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_08syo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = -1.5708
-scale = Vector2(0.296875, 0.296875)
-texture = ExtResource("2_m0o0x")
+position = Vector2(0, 2)
+scale = Vector2(0.682617, 0.573242)
+texture = ExtResource("2_08syo")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_m0o0x")
+volume_db = -7.241
+bus = &"SFX"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

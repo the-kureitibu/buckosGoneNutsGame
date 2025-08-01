@@ -27,7 +27,7 @@ enum DialogueStates {
 var dialogue_state = DialogueStates.PROLOGUE
 
 
-func _on_anim_finished(anim_name: String) -> void:
+func _on_anim_finished(_anim_name: String) -> void:
 	can_advance = true
 	$AnimationPlayer.disconnect("animation_finished", Callable(self, "_on_anim_finished"))
 

@@ -50,13 +50,18 @@ var current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
 var can_skill_one := true
 var can_skill_two := false
 
-
-
 #Signals
 signal launch_projectile(pos, dir)
 signal skill_launched(skill_num, pos, dir)
 signal player_death
 
+#SFXs 
+var played_one := false
+var played_two := false 
+@export var ow_sfx: AudioStreamPlayer
+@export var agh_sfx: AudioStreamPlayer
+@export var rage_sfx: AudioStreamPlayer
+@export var skill_sfx: AudioStreamPlayer
 
 var bdmg = 10
 func debug_label():
@@ -108,6 +113,7 @@ func setup_stats():
 	
 func rage_modifier():
 	if PlayerManager.on_rage and !rage_started:
+		rage_sfx.play()
 		rage_started = true
 		#rage_speech()
 		
@@ -138,8 +144,8 @@ func _get_input():
 	return input
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("secondary(mouse)"):
-		print('i right clicked')
+	if PlayerManager.player_died:
+		return
 
 	_regen(delta)
 	_handle_movement()
@@ -196,7 +202,9 @@ func _handle_movement():
 	look_at(get_global_mouse_position()) 
 
 func handle_skill(delta):
-
+	if PlayerManager.player_died:
+		return
+	
 	var projectile_direction = (get_global_mouse_position() - global_position).normalized()
 	var offset := -50.0
 	var projectile_position = $ProjectileMarker.global_position
@@ -217,6 +225,7 @@ func handle_skill(delta):
 
 	if current_skill_state == PlayerStateManager.PlayerState.CAN_SKILL:
 		if Input.is_action_just_pressed("secondary(mouse)"):
+			skill_sfx.play()
 			if can_skill_one:
 				skill_launched.emit(1, projectile_position, projectile_direction)
 				is_skill_launched = true
@@ -233,7 +242,8 @@ func handle_skill(delta):
 
 func handle_attack(delta):
 	# instantiate projectile here 
-	
+	if PlayerManager.player_died:
+		return
 
 	var projectile_direction = (get_global_mouse_position() - global_position).normalized()
 	var projectile_position = $ProjectileMarker.global_position
@@ -265,7 +275,18 @@ func got_hit(area: Area2D):
 	
 	if area.is_in_group('player_projectiles'):
 		return
-		
+	
+	if ow_sfx.is_playing and !played_one:
+		ow_sfx.stop()
+		agh_sfx.play()
+		played_one = true
+		played_two = false
+	elif agh_sfx.is_playing and !played_two:
+		agh_sfx.stop()
+		ow_sfx.play()
+		played_two = true
+		played_one = false
+			
 	health_state = PlayerStateManager.PlayerState.DAMAGED
 	is_invulnerable = true
 	invulnerable_timer = 1.5
@@ -349,6 +370,7 @@ func die():
 	
 	if !$RageCoolingTimer.is_stopped():
 		$RageCoolingTimer.stop()
+	velocity = Vector2.ZERO
 	player_death.emit()
 
 func _regen(delta):

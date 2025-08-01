@@ -41,6 +41,9 @@ func add_chain_tip():
 
 
 func extend_chain():
+	if PlayerManager.player_died:
+		return
+	
 	if segment_count < MAX_SEGMENT_LENGTH:
 		segment_count += 1
 		

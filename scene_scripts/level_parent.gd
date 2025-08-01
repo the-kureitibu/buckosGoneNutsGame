@@ -41,7 +41,9 @@ var is_launching := false
 
 
 func launch_skill_one():
-
+	if PlayerManager.player_died == true:
+		return
+	
 	if is_launching:
 		return 
 	
@@ -90,6 +92,7 @@ func _ready() -> void:
 	play_bgm()
 	var wp_ui = test_ui.instantiate()
 	add_child(wp_ui)
+	$DirectionalLight2D.rotation = deg_to_rad(-90)
 
 
 ##For refactor
@@ -227,6 +230,9 @@ func spawn_mobs():
 	if target:
 		enemy.nav_target = target
 	
+	if enemy.is_connected("death", reduce_active_enemies):
+		enemy.disconnect("death", reduce_active_enemies)
+	
 	enemy.connect("death", reduce_active_enemies)
 	active_enemies += 1
 	spawn_count += 1
@@ -275,15 +281,19 @@ func spawn_boss(index: int):
 
 
 func boss_death_bgm():
+	fade_music(-28.0, 0.25)
 	boss_bgm.stop()
 	test_bgm.play()
+	fade_music(-10.0, 0.25) 
 	
 func reduce_active_enemies():
 
-	active_enemies -= 1
-	GameManager.current_wave_quota -= 1
-	enemy_deaths += 1
-	print(enemy_deaths, ' deaths')
+	active_enemies = max(active_enemies - 1, 0)
+	GameManager.current_wave_quota = max(GameManager.current_wave_quota - 1, 0)
+	enemy_deaths = min(enemy_deaths + 1, GameManager.current_wave_mobs)
+	print("[DEBUG] Enemy died. enemy_deaths:", enemy_deaths, "active_enemies:", active_enemies, "spawn_count:", spawn_count)
+	
+	#print(enemy_deaths, ' deaths')
 	
 	if !boss_one_spawned and GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs / 2:
 		boss_one_spawned = true
@@ -299,7 +309,7 @@ func reduce_active_enemies():
 		call_deferred("spawn_boss", 3)
 		
 func _on_spawn_timer_timeout() -> void:
-	if GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs:
+	if GameManager.current_wave == 1 and enemy_deaths >= GameManager.current_wave_mobs and active_enemies == 0:
 		is_wave_done = true
 		run_wave_dialogue(1,2)
 		on_wave_cleared()
@@ -382,7 +392,7 @@ func start_wave_after_delay(wave: int):
 
 
 func _on_wave_2_spawn_timer_timeout() -> void:
-	if GameManager.current_wave == 2 and enemy_deaths >= GameManager.current_wave_mobs:
+	if GameManager.current_wave == 2 and enemy_deaths >= GameManager.current_wave_mobs and active_enemies == 0:
 		is_wave_done = true
 		run_wave_dialogue(2,2)
 		on_wave_cleared()
@@ -398,7 +408,7 @@ func _on_wave_2_spawn_timer_timeout() -> void:
 
 
 func _on_wave_3_spawn_timer_timeout() -> void:
-	if GameManager.current_wave == 3 and enemy_deaths >= GameManager.current_wave_mobs:
+	if GameManager.current_wave == 3 and enemy_deaths >= GameManager.current_wave_mobs and active_enemies == 0:
 		is_wave_done = true
 		$Wave3SpawnTimer.stop()
 		await TransitionsManager.fade_in()
@@ -417,11 +427,15 @@ func _on_wave_3_spawn_timer_timeout() -> void:
 
 
 func _on_player_player_death() -> void:
+	if PlayerManager.player_died:
+		return
+		
+	PlayerManager.player_died = true
 	GameManager.restart_game = true
 	var text = text_man.instantiate()
 	add_child(text)
 	await text.death_announce()
-	PlayerManager.player_died = true
+	
 	
 	
 	await TransitionsManager.fade_in()

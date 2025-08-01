@@ -199,6 +199,9 @@ func apply_damage(dmg, area: Area2D):
 		die()
 
 func die():
+	if EnemyStateManager.boss_state == EnemyStateManager.EnemyStates.BOSS_DEATH:
+		return
+	
 	EnemyStateManager.boss_state = EnemyStateManager.EnemyStates.BOSS_DEATH
 	death.emit()
 	queue_free()
