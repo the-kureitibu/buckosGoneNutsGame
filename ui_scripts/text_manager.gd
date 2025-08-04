@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var text_label: Label
+@export var text_label_creds: Label
 @export var animation: AnimationPlayer
 
 func wave_announcer(wave: int):
@@ -16,6 +17,7 @@ func wave_announcer(wave: int):
 	# play animation here
 
 func play_and_wait(anim_player: AnimationPlayer, anim_name: String) -> void:
+
 	anim_player.play(anim_name)
 	await anim_player.animation_finished
 
@@ -32,24 +34,23 @@ func death_announce():
 	queue_free()
 
 func ending_announcer():
-	var end_label_text := ""
 	
 	if GameManager.true_end:
-		end_label_text = "True End"
+		text_label.text = "True End"
 	elif GameManager.bad_end:
-		end_label_text = "Bad End"
+		text_label.text = "Bad End"
 	elif GameManager.good_end:
-		end_label_text = "Good End"
+		text_label.text = "Good End"
+	
 	
 
 	await get_tree().process_frame
-	text_label.text = end_label_text
-	await get_tree().create_timer(2.0).timeout
 	play_and_wait(animation, "fade_in")
+	await get_tree().create_timer(2.0).timeout
 	play_and_wait(animation, "fade_out")
 
 	$CanvasLayer/MarginContainer/VBoxContainer/Label.visible = false
-	text_label.text = "Thank you for playing! Don't forget to try out games made by other buckos!"
+	#text_label.text = "Thank you for playing! Don't forget to try out games made by other buckos!"
 	await get_tree().process_frame
 	await credits_announcer()
 	

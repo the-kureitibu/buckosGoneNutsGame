@@ -158,6 +158,7 @@ func _ready() -> void:
 	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
 		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
 	
+	
 	ami.visible = false
 	elder1.visible = false 
 	elder2.visible = false

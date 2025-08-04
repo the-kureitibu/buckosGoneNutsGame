@@ -9,6 +9,8 @@ extends Control
 @export var elder2: Sprite2D
 @export var elder3: Sprite2D
 @export var ami: Sprite2D
+@export var bg_bad_end: TextureRect
+@export var bg_true_end: TextureRect
 
 
 var current_index := 0
@@ -51,7 +53,16 @@ func _set_current_index(index: int):
 		ami.position.x = 70.0
 		$AnimationPlayer.play("ami_annoyed")
 	
-	
+	if GameManager.bad_end:
+		var tw = create_tween()
+		tw.tween_property(bg_bad_end, "modulate:a", 1.0, 1.0)
+		bg_bad_end.visible = true
+	if GameManager.true_end:
+		var tw = create_tween()
+		tw.tween_property(bg_true_end, "modulate:a", 1.0, 1.0)
+		bg_true_end.visible = true
+
+
 	if idx["speaker"] == "Elder1":
 		elder1.visible = true
 		elder2.visible = false
@@ -98,9 +109,11 @@ func _set_current_index(index: int):
 		elder3.visible = true
 		elder1.position.x = 399.0
 		elder2.position.x = 459.0
+		$AnimationPlayer.play("all_elders")
 
 
 func _unhandled_input(event: InputEvent) -> void:
+
 	if not can_advance:
 		return
 	
@@ -115,6 +128,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			var end_text = text.instantiate()
 			add_child(end_text)
 			end_text.ending_announcer()
+
 
 func play_and_wait(anim_player: AnimationPlayer, anim_name: String) -> void:
 	anim_player.play(anim_name)
@@ -135,11 +149,14 @@ func _ready() -> void:
 	if not $AnimationPlayer.is_connected("animation_finished", _on_anim_finished):
 		$AnimationPlayer.connect("animation_finished", _on_anim_finished)
 	
-	
 	ami.visible = false
 	elder1.visible = false 
 	elder2.visible = false
 	elder3.visible = false
+	
+	#GameManager.bad_end = true
+	#GameManager.good_end = true
+	#GameManager.true_end = true
 	
 	if GameManager.bad_end:
 		dialogue = Dialogue.bad_end

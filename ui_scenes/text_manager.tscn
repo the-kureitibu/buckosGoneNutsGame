@@ -90,10 +90,12 @@ _data = {
 &"fade_out": SubResource("Animation_y3p0d")
 }
 
-[node name="TextManager" type="Node2D" node_paths=PackedStringArray("text_label", "animation")]
+[node name="TextManager" type="Node2D" node_paths=PackedStringArray("text_label", "text_label_creds", "animation")]
 process_mode = 1
+z_index = 1
 script = ExtResource("1_r1gjy")
 text_label = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Label")
+text_label_creds = NodePath("CanvasLayer/MarginContainer/VBoxContainer/Label2")
 animation = NodePath("AnimationPlayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -113,18 +115,24 @@ size_flags_vertical = 8
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+z_index = 2
 custom_minimum_size = Vector2(150, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.839216, 0.709804, 0.87451, 1)
+theme_override_colors/font_shadow_color = Color(0.419608, 0.133333, 0.341176, 1)
 theme_override_fonts/font = ExtResource("2_6bevc")
 theme_override_font_sizes/font_size = 25
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 visible = false
+z_index = 2
 custom_minimum_size = Vector2(250, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.839216, 0.709804, 0.87451, 1)
+theme_override_colors/font_shadow_color = Color(0.419608, 0.133333, 0.341176, 1)
 theme_override_fonts/font = ExtResource("2_6bevc")
 theme_override_font_sizes/font_size = 19
 text = " Thank you for playing! Don't forget to try out games made by other buckos!"
@@ -138,6 +146,7 @@ mouse_filter = 2
 
 [node name="Back to Menu" type="Button" parent="CanvasLayer/MarginContainer/VBoxContainer"]
 visible = false
+z_index = 2
 custom_minimum_size = Vector2(159, 20)
 layout_mode = 2
 size_flags_horizontal = 4

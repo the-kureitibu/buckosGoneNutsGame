@@ -1,8 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cxjomca5gm17j"]
+[gd_scene load_steps=21 format=3 uid="uid://cxjomca5gm17j"]
 
 [ext_resource type="Script" uid="uid://c0efg3ndjowoi" path="res://ui_scripts/ending_dialogue.gd" id="1_mm1cr"]
+[ext_resource type="Texture2D" uid="uid://pinywtwdycbj" path="res://graphics/UI/badend.png" id="2_ghctq"]
 [ext_resource type="Texture2D" uid="uid://cvjt7dgyyb8hi" path="res://graphics/Enemies/elders_int.png" id="2_o1qik"]
 [ext_resource type="FontFile" uid="uid://dacmc2qsv21yb" path="res://graphics/Sprout Lands - UI Pack - Basic pack/fonts/ToyBox.ttf" id="2_qrldc"]
+[ext_resource type="Texture2D" uid="uid://cj6qgvumb0mci" path="res://graphics/UI/truend.png" id="2_sgw62"]
 [ext_resource type="Texture2D" uid="uid://ceofo3bml7j6l" path="res://graphics/Enemies/ami_dialogue.png" id="3_ghctq"]
 
 [sub_resource type="Animation" id="Animation_o1qik"]
@@ -309,9 +311,50 @@ tracks/5/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ghctq"]
+resource_name = "all_elders"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/E1:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/E2:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/E3:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ghctq"]
 _data = {
 &"RESET": SubResource("Animation_o1qik"),
+&"all_elders": SubResource("Animation_ghctq"),
 &"ami_angry": SubResource("Animation_45v4k"),
 &"ami_annoyed": SubResource("Animation_n8vfd"),
 &"ami_happy": SubResource("Animation_sgw62"),
@@ -325,7 +368,7 @@ _data = {
 &"hide_canvas": SubResource("Animation_qrldc")
 }
 
-[node name="EndingDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont", "elder1", "elder2", "elder3", "ami")]
+[node name="EndingDialogue" type="Control" node_paths=PackedStringArray("speaker_name", "dialogue_label", "hbox_cont", "elder1", "elder2", "elder3", "ami", "bg_bad_end", "bg_true_end")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
@@ -337,10 +380,31 @@ elder1 = NodePath("CanvasLayer/E1")
 elder2 = NodePath("CanvasLayer/E2")
 elder3 = NodePath("CanvasLayer/E3")
 ami = NodePath("CanvasLayer/Ami")
+bg_bad_end = NodePath("CanvasLayer/BadEnd")
+bg_true_end = NodePath("CanvasLayer/TrueEnd")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-layer = 100
+
+[node name="TrueEnd" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_sgw62")
+
+[node name="BadEnd" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ghctq")
 
 [node name="E1" type="Sprite2D" parent="CanvasLayer"]
 visible = false
@@ -422,6 +486,8 @@ mouse_filter = 2
 custom_minimum_size = Vector2(50, 20)
 layout_mode = 2
 size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.839216, 0.709804, 0.87451, 1)
+theme_override_colors/font_shadow_color = Color(0.419608, 0.133333, 0.341176, 1)
 theme_override_fonts/font = ExtResource("2_qrldc")
 theme_override_font_sizes/font_size = 24
 
