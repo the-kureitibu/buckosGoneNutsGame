@@ -1,0 +1,161 @@
+[gd_scene load_steps=6 format=3 uid="uid://vedupnd28lta"]
+
+[ext_resource type="Script" uid="uid://bjc8j72rhfsay" path="res://projectile_scenes_scripts/skill_three.gd" id="1_emxh5"]
+[ext_resource type="Texture2D" uid="uid://og6t1bhu7abr" path="res://graphics/Projectiles/bucko_skill3.png" id="2_6kuem"]
+
+[sub_resource type="Animation" id="Animation_6kuem"]
+resource_name = "skill_anim"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333, 0.233333, 0.4, 0.833333, 1.1, 1.3, 1.6, 1.83333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.166667, 0.333333, 0.466667, 0.833333, 1.1, 1.33333, 1.63333, 1.83333, 2.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0],
+"method": &"match_poly"
+}, {
+"args": [1],
+"method": &"match_poly"
+}, {
+"args": [2],
+"method": &"match_poly"
+}, {
+"args": [3],
+"method": &"match_poly"
+}, {
+"args": [4],
+"method": &"match_poly"
+}, {
+"args": [5],
+"method": &"match_poly"
+}, {
+"args": [6],
+"method": &"match_poly"
+}, {
+"args": [7],
+"method": &"match_poly"
+}, {
+"args": [0],
+"method": &"match_poly"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.06667, 2.46667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2mqkb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7gjg2"]
+_data = {
+&"RESET": SubResource("Animation_2mqkb"),
+&"skill_anim": SubResource("Animation_6kuem")
+}
+
+[node name="SkillThree" type="Area2D" groups=["player_projectiles"]]
+collision_layer = 4
+collision_mask = 128
+script = ExtResource("1_emxh5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(0.515625, 0.515625)
+texture = ExtResource("2_6kuem")
+hframes = 8
+frame = 7
+region_enabled = true
+region_rect = Rect2(1, 128, 1024, 129)
+
+[node name="SlowingDown" type="Timer" parent="." groups=["player_projectiles"]]
+wait_time = 0.5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-10, -8, -3, -12, 4, -12, 10, -7, 11, -8, 13, -9, 14, -8, 15, -6, 15, -5, 15, -4, 16, -2, 16, 2, 13, 6, 11, 7, -10, 7, -14, 7, -16, 1, -15, -3, -15, -7, -12, -8)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-5, -12, -8, -9, -13, -9, -14, -6, -16, -1, -16, 10, -10, 16, -8, 14, -8, 7, 7, 7, 8, 9, 9, 15, 10, 15, 15, 10, 16, 8, 16, -3, 14, -8, 9, -10, 5, -12)
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-1, -15, -10, -12, -15, -7, -15, 12, -3, 21, 0, 15, 4, 21, 15, 11, 15, -7, 9, -13)
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-2, -11, 2, -11, 2, -13, 5, -14, 5, -10, 6, -10, 12, -13, 13, -11, 16, -12, 16, -10, 17, -8, 17, -6, 13, -4, 13, -2, 15, -2, 16, 1, 14, 4, 18, 5, 18, 7, 12, 7, 12, 8, 16, 11, 16, 12, 16, 13, 13, 13, 9, 11, 7, 10, 8, 14, 5, 14, 3, 7, -3, 7, -5, 14, -8, 13, -7, 9, -9, 9, -12, 13, -16, 13, -15, 10, -12, 8, -18, 7, -17, 4, -14, 4, -17, 1, -14, -3, -17, -7, -17, -10, -16, -13, -13, -12, -11, -13, -6, -9, -6, -15, -3, -14)
+
+[node name="Polygon2D5" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-1, -26, -13, -22, -19, -20, -28, -11, -30, -4, -30, 9, -19, 19, -9, 23, 6, 22, 14, 22, 28, 11, 30, -1, 26, -13, 14, -23)
+
+[node name="Polygon2D6" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-3, -20, -10, -20, -24, -11, -25, -1, -24, 7, -11, 16, 5, 17, 12, 15, 19, 11, 24, 6, 25, -2, 22, -11, 14, -16, 8, -20, 0, -21)
+
+[node name="Polygon2D7" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(0, -17, -12, -14, -21, -6, -21, 1, -19, 6, -11, 12, 2, 14, 9, 12, 16, 9, 19, 3, 20, -3, 19, -8, 11, -14)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7gjg2")
+}
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="SlowingDown" to="." method="_on_slowing_down_timeout"]

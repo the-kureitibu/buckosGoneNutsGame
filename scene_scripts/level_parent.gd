@@ -12,6 +12,7 @@ extends Node2D
 @onready var start_menu = preload("res://ui_scenes/starting_menu.tscn")
 @onready var skill_one = preload("res://projectile_scenes/skill_one.tscn")
 @onready var skill_two = preload("res://projectile_scenes/skill_two.tscn")
+@onready var skill_three = preload("res://projectile_scenes/skill_three.tscn")
 @onready var bgm = $AudioStreamPlayer2D
 @onready var bgm_is_playing := false
 @onready var test_bgm = $AudioStreamPlayer
@@ -75,6 +76,12 @@ func _on_player_skill_launched(skill_num: Variant, pos: Variant, dir: Variant) -
 			skill2.position =  pos + Vector2(0, -10.0)
 			skill2.rotation_degrees = rad_to_deg(dir.angle()) + 90
 			$SkillProjectiles.add_child(skill2)
+		3:
+			var skill3 = skill_three.instantiate()
+			skill3.position = pos
+			skill3.rotation_degrees = rad_to_deg(dir.angle()) + 90
+			skill3.direction = dir
+			$SkillProjectiles.add_child(skill3)
 
 
 

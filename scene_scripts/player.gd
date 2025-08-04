@@ -43,12 +43,14 @@ var bleed_tick_timer := 0.0
 var regen_timer := 10.0
 var skill_one_timer := 0.0
 var skill_two_timer := 4.0
+var skill_three_timer := 5.0
 
 #SkillStates
 var is_skill_launched := false
 var current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
 var can_skill_one := true
 var can_skill_two := false
+var can_skill_three := false
 
 #Signals
 signal launch_projectile(pos, dir)
@@ -219,6 +221,13 @@ func handle_skill(delta):
 	if current_skill_state == PlayerStateManager.PlayerState.SKILL_TWO_LAUNCHED:
 		skill_two_timer -= delta
 		if skill_two_timer <= 0:
+			can_skill_three = true
+			current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
+			is_skill_launched = false
+
+	if current_skill_state == PlayerStateManager.PlayerState.SKILL_THREE_LAUNCHED:
+		skill_three_timer -= delta
+		if skill_two_timer <= 0:
 			can_skill_one = true
 			current_skill_state = PlayerStateManager.PlayerState.CAN_SKILL
 			is_skill_launched = false
@@ -237,6 +246,12 @@ func handle_skill(delta):
 				current_skill_state = PlayerStateManager.PlayerState.SKILL_TWO_LAUNCHED
 				skill_two_timer = 4.0
 				can_skill_two = false
+				is_skill_launched = true
+			elif can_skill_three:
+				skill_launched.emit(3, projectile_position, projectile_direction)
+				current_skill_state = PlayerStateManager.PlayerState.SKILL_THREE_LAUNCHED
+				skill_three_timer = 5.0
+				can_skill_three = false
 				is_skill_launched = true
 
 
