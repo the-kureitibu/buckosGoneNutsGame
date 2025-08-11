@@ -26,6 +26,7 @@ EnemyManager="*res://singletons/enemy_manager.gd"
 GameManager="*res://singletons/game_manager.gd"
 Dialogue="*res://resourced_scripts/dialogue.gd"
 TransitionsManager="*res://ui_scenes/transitions_manager.tscn"
+StatModifier="*res://singletons/stat_modifier.gd"
 
 [display]
 

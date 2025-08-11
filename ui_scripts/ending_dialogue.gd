@@ -11,6 +11,7 @@ extends Control
 @export var ami: Sprite2D
 @export var bg_bad_end: TextureRect
 @export var bg_true_end: TextureRect
+@export var bg_good_end: TextureRect
 
 
 var current_index := 0
@@ -61,6 +62,10 @@ func _set_current_index(index: int):
 		var tw = create_tween()
 		tw.tween_property(bg_true_end, "modulate:a", 1.0, 1.0)
 		bg_true_end.visible = true
+	if GameManager.good_end:
+		var tw = create_tween()
+		tw.tween_property(bg_good_end, "modulate:a", 1.0, 1.0)
+		bg_good_end.visible = true
 
 
 	if idx["speaker"] == "Elder1":

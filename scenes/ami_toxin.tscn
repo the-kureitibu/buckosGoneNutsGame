@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://7v3l0cioicve"]
+
+[ext_resource type="Script" uid="uid://cuxburwow3jsy" path="res://scene_scripts/ami_toxin.gd" id="1_gsw55"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ycrtr"]
+
+[node name="AmiToxin" type="Area2D" groups=["ami_toxin"]]
+script = ExtResource("1_gsw55")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ycrtr")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
